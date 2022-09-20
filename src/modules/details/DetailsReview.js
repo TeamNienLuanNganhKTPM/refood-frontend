@@ -38,11 +38,13 @@ const DetailsReviewStyled = styled.div`
       color: ${(props) => props.theme.textPrimary};
       opacity: 0.5;
       letter-spacing: 1px;
+      height: 30px;
       cursor: pointer;
     }
     li.activeReview {
       transition: all 0.5s linear;
       opacity: 1;
+      border-bottom: 3px solid ${(props) => props.theme.primary};
     }
   }
   .review-desc {

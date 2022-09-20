@@ -3,6 +3,8 @@
 import ProductStar from "modules/products/ProductStar";
 import React from "react";
 import styled from "styled-components";
+import DetailsEvaluate from "./DetailsEvaluate";
+import DetailsMeta from "./DetailsMeta";
 
 const data = [
   {
@@ -66,25 +68,6 @@ const DetailsRateStyled = styled.div`
   .rate-content {
     width: 90%;
   }
-  .rate-meta {
-    margin-bottom: 8px;
-    font-size: 16px;
-    color: ${(props) => props.theme.text};
-    font-weight: 500;
-    letter-spacing: 1px;
-    display: flex;
-    gap: 6px;
-    cursor: pointer;
-  }
-  .rate-date {
-    color: ${(props) => props.theme.textLight};
-  }
-  .rate-desc {
-    font-size: 14px;
-    color: ${(props) => props.theme.text};
-    font-weight: 400;
-    letter-spacing: 1px;
-  }
 `;
 
 const DetailsRate = () => {
@@ -97,14 +80,8 @@ const DetailsRate = () => {
 
             <div className="rate-content">
               <ProductStar className="mb-2 cursor-pointer"></ProductStar>
-              <div className="rate-meta">
-                <strong className="rate-author">{item.author}</strong>
-                <span>-</span>
-                <span className="rate-date">{item.date}</span>
-              </div>
-              <div className="rate-desc">
-                <p>{item.describe}</p>
-              </div>
+              <DetailsMeta data={item}></DetailsMeta>
+              <DetailsEvaluate desc={item}></DetailsEvaluate>
             </div>
           </div>
         ))}

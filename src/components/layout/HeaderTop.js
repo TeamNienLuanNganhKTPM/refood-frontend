@@ -1,7 +1,7 @@
 /** @format */
 
 import { useModal } from "components/modal/modal-context";
-import Account from "modules/account/Account";
+import Account from "modules/auth/Account";
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";

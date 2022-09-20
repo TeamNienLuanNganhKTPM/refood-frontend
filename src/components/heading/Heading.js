@@ -10,12 +10,14 @@ const HeadingStyled = styled.div`
   justify-content: space-between;
   align-items: center;
   margin-bottom: 30px;
+  cursor: default;
   .heading-title {
     font-size: 20px;
     font-weight: 600;
     color: ${(props) => props.theme.text};
     text-transform: uppercase;
     letter-spacing: 1px;
+    border-bottom: 3px solid ${(props) => props.theme.primary};
   }
   .heading-view {
     display: flex;
