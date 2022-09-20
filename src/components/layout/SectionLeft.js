@@ -10,12 +10,15 @@ const SectionLeftStyled = styled.div`
   flex-direction: column;
   row-gap: 50px;
 `;
-const SectionLeft = ({ children }) => {
-  return <SectionLeftStyled>{children}</SectionLeftStyled>;
+const SectionLeft = ({ className = "", children }) => {
+  return (
+    <SectionLeftStyled className={className}>{children}</SectionLeftStyled>
+  );
 };
 
 SectionLeft.propTypes = {
   children: PropTypes.any,
+  className: PropTypes.string,
 };
 
 export default SectionLeft;

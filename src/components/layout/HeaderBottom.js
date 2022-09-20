@@ -38,7 +38,7 @@ const HeaderBottomStyled = styled.div`
   }
 `;
 
-const HeaderBottom = () => {
+const HeaderBottom = ({ className = "" }) => {
   const location = useLocation();
   const [display, setDisplay] = useState(false);
   useEffect(() => {
@@ -48,7 +48,7 @@ const HeaderBottom = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
-    <HeaderBottomStyled>
+    <HeaderBottomStyled className={className}>
       <div className="container">
         <div className="hb-main">
           <div className="hb-dropdown">

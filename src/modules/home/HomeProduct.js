@@ -8,15 +8,6 @@ import React from "react";
 import styled from "styled-components";
 import ProductTrending from "modules/products/ProductTrending";
 
-const HomeProductStyled = styled.section`
-  padding-top: 40px;
-  .product-main {
-    display: flex;
-    margin: 0 auto;
-    max-width: 1200px;
-  }
-`;
-
 const data = [
   {
     id: "1",
@@ -55,11 +46,50 @@ const data = [
   },
 ];
 
+const HomeProductStyled = styled.section`
+  padding-top: 40px;
+  .product-main {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 auto;
+    max-width: 1200px;
+  }
+  /* Desktop and Ipad pro*/
+  @media (min-width: 1024px) and (max-width: 1263px) {
+    .product-left {
+      display: none;
+    }
+    .product-right {
+      width: 100%;
+    }
+  }
+
+  /* Tablets and Ipads */
+  @media (min-width: 768px) and (max-width: 1023px) {
+    .product-left {
+      display: none;
+    }
+    .product-right {
+      width: 100%;
+    }
+  }
+
+  /* Mobiles */
+  @media (min-width: 320px) and (max-width: 767px) {
+    .product-left {
+      display: none;
+    }
+    .product-right {
+      width: 100%;
+    }
+  }
+`;
+
 const HomeProduct = () => {
   return (
     <HomeProductStyled>
       <div className="product-main">
-        <SectionLeft>
+        <SectionLeft className="product-left">
           <img
             src="https://images.unsplash.com/photo-1601585099780-6b176dc702af?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTc5fHxmb29kfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=600&q=60"
             alt=""
@@ -67,7 +97,7 @@ const HomeProduct = () => {
           />
           <ProductTrending data={data}></ProductTrending>
         </SectionLeft>
-        <SectionRight>
+        <SectionRight className="product-right">
           <ProductBestSeller></ProductBestSeller>
           <ProductNew></ProductNew>
         </SectionRight>

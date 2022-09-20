@@ -35,8 +35,15 @@ const HeadingStyled = styled.div`
     color: ${(props) => props.theme.text};
     transition: all;
   }
+  // Mobiles
+  @media (min-width: 320px) and (max-width: 767px) {
+    // Product
+    .heading-view {
+      display: none;
+    }
+  }
 `;
-const Heading = ({ title, view, ...props }) => {
+const Heading = ({ title, view }) => {
   return (
     <HeadingStyled>
       <h4 className="heading-title">{title}</h4>

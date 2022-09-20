@@ -111,15 +111,87 @@ const HeaderStyled = styled.div`
     font-weight: 500;
     border-radius: 100%;
   }
+
+  .menu {
+    display: none;
+    ${(props) => props.theme.text};
+    cursor: pointer;
+  }
+
+  /* Desktop and Ipad pro*/
+  @media (min-width: 1024px) and (max-width: 1263px) {
+    .menu {
+      display: block;
+    }
+    .ht-logo {
+      img {
+        max-width: 160px;
+        max-height: 40px;
+      }
+      span {
+        display: none;
+      }
+    }
+  }
+
+  /* Tablets and Ipads */
+  @media (min-width: 768px) and (max-width: 1023px) {
+    .menu {
+      display: block;
+    }
+    .ht-logo {
+      display: none;
+      img {
+        max-width: 140px;
+        max-height: 20px;
+      }
+    }
+    .ht-search {
+      width: 450px;
+    }
+  }
+
+  @media (min-width: 320px) and (max-width: 767px) {
+    .menu {
+      display: block;
+    }
+    .ht-logo {
+      span {
+        display: none;
+      }
+    }
+    .ht-search {
+      display: none;
+    }
+    .ht-user {
+      display: none;
+    }
+  }
 `;
 
-const HeaderTop = () => {
+const HeaderTop = ({ className = "" }) => {
   const { handleShowModal } = useModal();
   return (
     <>
-      <HeaderStyled>
+      <HeaderStyled className={className}>
         <div className="container">
           <div className="ht-main">
+            <span className="menu">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth="1.5"
+                stroke="currentColor"
+                className="w-8 h-8"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+                />
+              </svg>
+            </span>
             <div className="ht-logo">
               <Link to={"/"}>
                 <img src="/refood-logo.png" alt="" />

@@ -9,8 +9,8 @@ const Header = ({ props }) => {
   return (
     <>
       <ModalProvider {...props}>
-        <HeaderTop></HeaderTop>
-        <HeaderBottom></HeaderBottom>
+        <HeaderTop className="ht"></HeaderTop>
+        <HeaderBottom className="hb"></HeaderBottom>
       </ModalProvider>
     </>
   );
