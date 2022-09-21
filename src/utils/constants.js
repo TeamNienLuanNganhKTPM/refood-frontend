@@ -8,7 +8,7 @@ export const theme = {
   red: "#ea2b0f",
   lightBlue: "#f0faff",
   textGray: "#9b9bb4",
-  line: "#d9d9d9",
+  line: "#d9d9e9",
   borderLight: "#edeef5",
   yellow: "#ffcd00",
   blueBold: "#233a95",
