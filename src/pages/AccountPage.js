@@ -6,6 +6,7 @@ import { useState } from "react";
 import Login from "modules/auth/Login";
 import Register from "modules/auth/Register";
 import Layout from "components/layout/Layout";
+import { useLocation } from "react-router-dom";
 
 const AccountPageStyled = styled.div`
   padding-top: 56px;
@@ -83,6 +84,8 @@ const AccountPage = () => {
     line.style.width = "83px";
   };
 
+  const location = useLocation();
+  console.log("AccountPage ~ location", location);
   return (
     <Layout>
       <AccountPageStyled>

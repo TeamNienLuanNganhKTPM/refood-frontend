@@ -159,6 +159,13 @@
     border-bottom: 1px solid #e2e4ec;
     padding-bottom: 20px;
   }
+  // Section
+  .section-left {
+    display: none;
+  }
+  .section-right {
+    width: 100%;
+  }
   // Banner
   .banner-main .swiper {
     height: 400px;
@@ -178,6 +185,13 @@
   }
   .hb {
     display: none;
+  }
+  // Section
+  .section-left {
+    display: none;
+  }
+  .section-right {
+    width: 100%;
   }
   // Banner
   .banner-main .swiper {
@@ -201,6 +215,14 @@
   .hb {
     display: none;
   }
+  // Section
+  .section-left {
+    display: none;
+  }
+  .section-right {
+    width: 100%;
+  }
+  // Banner
   .banner-main .swiper {
     height: 200px;
   }
@@ -210,7 +232,7 @@
   .flex-layout {
     @apply grid grid-cols-1 gap-3 mb-5;
   }
-  .new-main {
+  .grid-row {
     padding: 0 30px;
   }
   .card-button {

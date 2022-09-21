@@ -1,18 +1,13 @@
 /** @format */
 
 import React from "react";
-import styled from "styled-components";
 import PropTypes from "prop-types";
 
-const SectionLeftStyled = styled.div`
-  width: 300px;
-  display: flex;
-  flex-direction: column;
-  row-gap: 50px;
-`;
 const SectionLeft = ({ className = "", children }) => {
   return (
-    <SectionLeftStyled className={className}>{children}</SectionLeftStyled>
+    <div className={`w-[300px] flex flex-col gap-[50px] ${className}`}>
+      {children}
+    </div>
   );
 };
 

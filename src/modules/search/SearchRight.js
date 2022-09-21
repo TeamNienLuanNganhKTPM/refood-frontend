@@ -1,8 +1,8 @@
 /** @format */
 
-import { Heading } from "components/heading";
+import ProductItem from "modules/products/ProductItem";
 import React from "react";
-import ProductItem from "./ProductItem";
+import styled from "styled-components";
 
 const data = [
   {
@@ -63,18 +63,19 @@ const data = [
   },
 ];
 
-const ProductNew = () => {
+const SearchRightStyled = styled.div``;
+
+const SearchRight = () => {
   return (
-    <div className="mb-10">
-      <Heading title="Sản phẩm mới" view="Xem tất cả"></Heading>
+    <SearchRightStyled>
       <div className="flex-layout grid-row">
         {data.length > 0 &&
           data.map((product) => (
             <ProductItem key={product.id} data={product}></ProductItem>
           ))}
       </div>
-    </div>
+    </SearchRightStyled>
   );
 };
 
-export default ProductNew;
+export default SearchRight;
