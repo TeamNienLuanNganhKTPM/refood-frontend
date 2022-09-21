@@ -1,22 +1,27 @@
 /** @format */
 
 import styled from "styled-components";
-import Register from "./Register";
 import React from "react";
-import ModalAdvanced from "components/modal/ModalAdvanced";
-import Login from "./Login";
 import { useState } from "react";
-import { useModal } from "components/modal/modal-context";
-import { useEffect } from "react";
+import Login from "modules/auth/Login";
+import Register from "modules/auth/Register";
+import Layout from "components/layout/Layout";
 
-const AccountStyled = styled.div`
-  width: 500px;
-  height: 100%;
-  border: 1px solid ${(props) => props.theme.primary};
-  border-radius: 8px;
-  background-color: #fff;
-  padding: 25px 60px;
-  position: relative;
+const AccountPageStyled = styled.div`
+  padding-top: 56px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 60px;
+  .account-main {
+    width: 500px;
+    height: 100%;
+    border: 1px solid ${(props) => props.theme.grayBorder};
+    border-radius: 8px;
+    background-color: #fff;
+    padding: 25px 60px;
+    position: relative;
+  }
   .account-heading {
     width: 230px;
     margin: 0 auto;
@@ -56,11 +61,15 @@ const AccountStyled = styled.div`
       transition: all;
     }
   }
+  /* Mobile */
+  @media (min-width: 320px) and (max-width: 767px) {
+    .account-main {
+      border: none;
+    }
+  }
 `;
-const Account = () => {
-  const { showModal, setShowModal } = useModal();
+const AccountPage = () => {
   const [show, setShow] = useState(true);
-
   const handleLogin = () => {
     var line = document.getElementById("line");
     setShow((show) => !show);
@@ -74,20 +83,10 @@ const Account = () => {
     line.style.width = "83px";
   };
 
-  useEffect(() => {
-    if (showModal === false) {
-      setShow(true);
-    }
-  }, [showModal]);
-
   return (
-    <>
-      <ModalAdvanced
-        visible={showModal}
-        onClose={() => setShowModal(false)}
-        bodyClassName="top-0"
-      >
-        <AccountStyled>
+    <Layout>
+      <AccountPageStyled>
+        <div className="account-main">
           <div className="account-heading">
             <span id="line"></span>
             <h3
@@ -113,10 +112,10 @@ const Account = () => {
           </div>
           <Login show={show}></Login>
           <Register show={show}></Register>
-        </AccountStyled>
-      </ModalAdvanced>
-    </>
+        </div>
+      </AccountPageStyled>
+    </Layout>
   );
 };
 
-export default Account;
+export default AccountPage;

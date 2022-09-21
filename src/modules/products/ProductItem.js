@@ -69,7 +69,7 @@ const ProductItem = ({ data }) => {
               <ProductPrice className="flex-1 mb-3">{price}</ProductPrice>
             </Link>
           </div>
-          <ProductCart></ProductCart>
+          <ProductCart className="card-button"></ProductCart>
         </div>
       </div>
     </ProductItemStyled>

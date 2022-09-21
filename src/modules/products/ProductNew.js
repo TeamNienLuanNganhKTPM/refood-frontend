@@ -67,7 +67,7 @@ const ProductNew = () => {
   return (
     <div className="mb-10">
       <Heading title="Sản phẩm mới" view="Xem tất cả"></Heading>
-      <div className="flex-layout">
+      <div className="flex-layout new-main">
         {data.length > 0 &&
           data.map((product) => (
             <ProductItem key={product.id} data={product}></ProductItem>

@@ -9,7 +9,7 @@ const FieldStyles = styled.div`
   flex-direction: column;
   align-items: flex-start;
   row-gap: 10px;
-  margin-bottom: 10px;
+  margin-bottom: 16px;
   &:last-child {
     margin-bottom: 0;
   }

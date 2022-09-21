@@ -12,6 +12,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { ErrorMessage } from "components/error";
 
 const schema = yup.object({
+  name: yup.string().required("Vui lòng nhập họ và tên"),
   phoneRegister: yup.string().required("Vui lòng nhập số điện thoại"),
   passwordRegister: yup
     .string()
@@ -39,6 +40,16 @@ const Register = ({ show }) => {
     <>
       {show === false && (
         <form onSubmit={handleSubmit(handleSubmitRegister)} autoComplete="off">
+          <Field>
+            <Label htmlFor="name">Họ và tên</Label>
+            <Input
+              type="text"
+              name="name"
+              placeholder="Nhập họ và tên"
+              control={control}
+            ></Input>
+            <ErrorMessage message={errors.name?.message}></ErrorMessage>
+          </Field>
           <Field>
             <Label htmlFor="phoneRegister">Số điện thoại</Label>
             <Input
@@ -71,14 +82,11 @@ const Register = ({ show }) => {
               message={errors.passwordComfirm?.message}
             ></ErrorMessage>
           </Field>
-          <div className="have-account">
-            Đã có tài khoản? <a href="/#">Đăng nhập</a>
-          </div>
           <Button
             type="submit"
             kind="secondary"
-            height="50px"
-            className="w-full max-w-[200px] mx-auto uppercase"
+            height="44px"
+            className="w-full mt-10 max-w-[180px] mx-auto uppercase"
             disabled={isSubmitting}
           >
             Đăng ký

@@ -20,9 +20,11 @@ const ProductCartStyled = styled.div`
   flex-shrink: 0;
 `;
 
-const ProductCart = () => {
+const ProductCart = ({ className = "" }) => {
   return (
-    <ProductCartStyled className="hover:bg-blueBold hover:text-white hover:transition-all">
+    <ProductCartStyled
+      className={`hover:bg-blueBold hover:text-white hover:transition-all ${className}`}
+    >
       Thêm giỏ hàng
     </ProductCartStyled>
   );

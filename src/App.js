@@ -9,6 +9,7 @@ import "swiper/scss/pagination";
 
 const HomePage = lazy(() => import("pages/HomePage"));
 const ProductDetailsPage = lazy(() => import("pages/ProductDetailsPage"));
+const AccountPage = lazy(() => import("pages/AccountPage"));
 
 const App = () => {
   return (
@@ -16,6 +17,10 @@ const App = () => {
       <Suspense>
         <Routes>
           <Route path="/" element={<HomePage></HomePage>}></Route>
+          <Route
+            path="/tai-khoan"
+            element={<AccountPage></AccountPage>}
+          ></Route>
           <Route
             path="/:slug"
             element={<ProductDetailsPage></ProductDetailsPage>}

@@ -205,10 +205,18 @@
     height: 200px;
   }
   .product-list .swiper-slide {
-    width: 300px !important;
+    width: 268px !important;
   }
   .flex-layout {
     @apply grid grid-cols-1 gap-3 mb-5;
+  }
+  .new-main {
+    padding: 0 30px;
+  }
+  .card-button {
+    display: block;
+    margin: 0 auto;
+    max-width: 200px;
   }
 }
 

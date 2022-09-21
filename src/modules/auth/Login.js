@@ -64,8 +64,8 @@ const Login = ({ show }) => {
           <Button
             type="submit"
             kind="secondary"
-            height="50px"
-            className="w-full max-w-[200px] mx-auto uppercase"
+            height="44px"
+            className="w-full max-w-[180px] mx-auto uppercase"
             disabled={isSubmitting}
           >
             Đăng nhập
