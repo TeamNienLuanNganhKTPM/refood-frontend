@@ -34,6 +34,7 @@ const DetailsContentStyled = styled.div`
   .image-big {
     width: 450px;
     height: 450px;
+    border-radius: 6px;
     cursor: pointer;
     img {
       transition: all 3s;
@@ -58,7 +59,7 @@ const DetailsContentStyled = styled.div`
     align-items: center;
     justify-content: flex-start;
     gap: 16px;
-    margin-bottom: 30px;
+    margin: 20px 0;
   }
   .detail-rated {
     display: flex;
@@ -105,9 +106,48 @@ const DetailsContentStyled = styled.div`
     align-items: center;
     gap: 20px;
   }
+  @media (min-width: 768px) and (max-width: 1023px) {
+    .detail-image {
+      margin: 0 auto;
+    }
+  }
+  @media (min-width: 768px) and (max-width: 1023px) {
+    .detail-image {
+      margin: 0 auto;
+    }
+  }
+  @media (min-width: 320px) and (max-width: 767px) {
+    .detail-image {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin: 0 auto;
+    }
+    .image-big {
+      width: 300px;
+      height: 300px;
+    }
+    .thumb-image {
+      img {
+        width: 50px;
+        height: 50px;
+      }
+    }
+    .detail-title {
+      .title {
+        font-size: 26px;
+        margin-bottom: 0;
+      }
+    }
+    .detail-btn {
+      button {
+        font-size: 14px;
+      }
+    }
+  }
 `;
 
-const DetailsContent = () => {
+const DetailsContent = ({ className = "" }) => {
   const [indexImg, setIndexImg] = useState(0);
   const getIndexImg = (index) => {
     setIndexImg(index);
@@ -116,7 +156,7 @@ const DetailsContent = () => {
     <>
       {data.length > 0 &&
         data.map((item) => (
-          <DetailsContentStyled key={item.id}>
+          <DetailsContentStyled key={item.id} className={className}>
             <div className="detail-image">
               <div className="image-big">
                 <ProductImage

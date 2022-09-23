@@ -13,6 +13,12 @@ const CommentStyled = styled.div`
     border-radius: 4px 4px 0 0;
     resize: vertical;
   }
+  @media (min-width: 320px) and (max-width: 767px) {
+    .cmt-btn {
+      font-size: 14px;
+      padding: 10px;
+    }
+  }
 `;
 
 const Comment = ({ className = "" }) => {
@@ -29,7 +35,7 @@ const Comment = ({ className = "" }) => {
         placeholder="Mời bạn để lại bình luận"
       ></Textarea>
       <div className="flex justify-end">
-        <Button className="inline" height="40px">
+        <Button className="inline cmt-btn" height="40px">
           Gửi bình luận
         </Button>
       </div>

@@ -50,6 +50,11 @@ const DetailsReviewStyled = styled.div`
   .review-desc {
     padding: 20px 40px;
   }
+  @media (min-width: 320px) and (max-width: 767px) {
+    .review-desc {
+      padding: 20px 0;
+    }
+  }
 `;
 
 const DetailsReview = () => {

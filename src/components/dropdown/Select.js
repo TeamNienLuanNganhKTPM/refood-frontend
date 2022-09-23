@@ -4,7 +4,7 @@ import React from "react";
 import { useDropdown } from "./dropdown-context";
 import PropTypes from "prop-types";
 
-const Select = ({ placeholder = "", className = "" }) => {
+const Select = ({ placeholder = "", className = "", sizeIcon = "" }) => {
   const { toggle, show } = useDropdown();
   return (
     <div
@@ -16,7 +16,7 @@ const Select = ({ placeholder = "", className = "" }) => {
         {show ? (
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="w-6 h-6"
+            className={`w-6 h-6 ${sizeIcon}`}
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -31,7 +31,7 @@ const Select = ({ placeholder = "", className = "" }) => {
         ) : (
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="w-6 h-6"
+            className={`w-6 h-6 ${sizeIcon}`}
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"

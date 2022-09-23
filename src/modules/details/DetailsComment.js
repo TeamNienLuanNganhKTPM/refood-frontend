@@ -73,6 +73,21 @@ const DetailsCommentStyled = styled.div`
     font-size: 13px;
     cursor: pointer;
   }
+  .cmt-input {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: end;
+  }
+  @media (min-width: 768px) and (max-width: 1023px) {
+    .cmt-input {
+      width: auto;
+    }
+  }
+  @media (min-width: 320px) and (max-width: 767px) {
+    .cmt-input {
+      width: auto;
+    }
+  }
 `;
 
 const DetailsComment = () => {
@@ -83,7 +98,7 @@ const DetailsComment = () => {
   return (
     <DetailsCommentStyled>
       <h3 className="cmt-heading">Bình luận</h3>
-      <Comment className="pt-10 pb-10"></Comment>
+      <Comment className="pt-10 pb-10 cmt-input"></Comment>
       <div className="cmt-content">
         <div className="cmt-info">
           <div className="cmt-avatar">V</div>
@@ -102,7 +117,7 @@ const DetailsComment = () => {
           <span>-</span>
           <span className="cmt-time">1 ngày trước</span>
         </div>
-        {showCmt && <Comment></Comment>}
+        {showCmt && <Comment className="cmt-input"></Comment>}
       </div>
     </DetailsCommentStyled>
   );

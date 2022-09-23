@@ -68,6 +68,11 @@ const DetailsRateStyled = styled.div`
   .rate-content {
     width: 90%;
   }
+  @media (min-width: 320px) and (max-width: 767px) {
+    .rate-content {
+      width: 60%;
+    }
+  }
 `;
 
 const DetailsRate = () => {

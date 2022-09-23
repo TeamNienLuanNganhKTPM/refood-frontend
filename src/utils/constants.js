@@ -14,4 +14,5 @@ export const theme = {
   blueBold: "#233a95",
   grayBorder: "#e4e5ee",
   textLight: "#c2c2d3",
+  grayDark: "#f7f8fd",
 };

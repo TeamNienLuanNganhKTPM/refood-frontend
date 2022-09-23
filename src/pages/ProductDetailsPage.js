@@ -10,6 +10,22 @@ import DetailsComment from "modules/details/DetailsComment";
 const ProductDetailsPageStyled = styled.div`
   background-color: #f7f8fd;
   padding-bottom: 50px;
+  @media (min-width: 768px) and (max-width: 1023px) {
+    .dt-content {
+      flex-wrap: wrap;
+    }
+  }
+  @media (min-width: 768px) and (max-width: 1023px) {
+    .dt-content {
+      flex-wrap: wrap;
+    }
+  }
+  @media (min-width: 320px) and (max-width: 767px) {
+    .dt-content {
+      flex-wrap: wrap;
+      padding: 0;
+    }
+  }
 `;
 const ProductDetailsPage = () => {
   return (
@@ -17,7 +33,7 @@ const ProductDetailsPage = () => {
       <div className="pb-10 bg-[#f7f8fd]"></div>
       <ProductDetailsPageStyled>
         <div className="container">
-          <DetailsContent></DetailsContent>
+          <DetailsContent className="dt-content"></DetailsContent>
           <DetailsReview></DetailsReview>
           <DetailsComment></DetailsComment>
         </div>
