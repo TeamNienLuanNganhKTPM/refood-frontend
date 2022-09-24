@@ -1,6 +1,6 @@
 /** @format */
 
-import Cart from "modules/cart/Cart";
+import CartModal from "modules/cart/CartModal";
 import { React, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
@@ -276,9 +276,9 @@ const HeaderTop = ({ className = "" }) => {
                   <span className="count">0</span>
                 </div>
                 {show ? (
-                  <Cart className="cart-info show-cart"></Cart>
+                  <CartModal className="cart-info show-cart"></CartModal>
                 ) : (
-                  <Cart className="cart-info"></Cart>
+                  <CartModal className="cart-info"></CartModal>
                 )}
               </div>
             </div>

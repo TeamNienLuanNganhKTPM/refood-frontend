@@ -88,7 +88,7 @@ const CartStyled = styled.div`
   }
 `;
 
-const Cart = ({ className = "" }) => {
+const CartModal = ({ className = "" }) => {
   return (
     <CartStyled className={className}>
       <Dropdown>
@@ -131,4 +131,4 @@ const Cart = ({ className = "" }) => {
   );
 };
 
-export default Cart;
+export default CartModal;

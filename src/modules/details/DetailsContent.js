@@ -9,7 +9,7 @@ import ProductImage from "modules/products/ProductImage";
 import DetailsThumb from "./DetailsThumb";
 import { Button } from "components/button";
 import { useState } from "react";
-import DetailsQuantity from "./DetailsQuantity";
+import { Quantity } from "components/quantity";
 
 const data = [
   {
@@ -99,7 +99,18 @@ const DetailsContentStyled = styled.div`
     background-color: ${(props) => props.theme.textGray};
     height: 100%;
   }
-
+  .detail-quantity {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 20px;
+    margin-bottom: 40px;
+    .quantity-name {
+      font-size: 16px;
+      font-weight: 500;
+      color: ${(props) => props.theme.text};
+    }
+  }
   .detail-btn {
     display: flex;
     justify-content: flex-start;
@@ -190,7 +201,10 @@ const DetailsContent = ({ className = "" }) => {
                   {item.price}
                 </ProductPrice>
               </div>
-              <DetailsQuantity></DetailsQuantity>
+              <div className="detail-quantity">
+                <span className="quantity-name">Số lượng:</span>
+                <Quantity></Quantity>
+              </div>
               <div className="detail-btn">
                 <Button
                   className="hover:bg-blueBold hover:text-white hover:transition-all"

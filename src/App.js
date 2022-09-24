@@ -11,6 +11,7 @@ const HomePage = lazy(() => import("pages/HomePage"));
 const ProductDetailsPage = lazy(() => import("pages/ProductDetailsPage"));
 const AccountPage = lazy(() => import("pages/AccountPage"));
 const SearchPage = lazy(() => import("pages/SearchPage"));
+const CartPage = lazy(() => import("pages/CartPage"));
 
 const App = () => {
   return (
@@ -22,11 +23,12 @@ const App = () => {
             path="/tai-khoan"
             element={<AccountPage></AccountPage>}
           ></Route>
-          <Route path="/tim-kiem" element={<SearchPage></SearchPage>}></Route>
+          <Route path="/mon-an" element={<SearchPage></SearchPage>}></Route>
           <Route
             path="/:slug"
             element={<ProductDetailsPage></ProductDetailsPage>}
           ></Route>
+          <Route path="/gio-mon-an" element={<CartPage></CartPage>}></Route>
         </Routes>
       </Suspense>
     </div>

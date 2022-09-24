@@ -11,21 +11,21 @@ const CartItemStyled = styled.div`
   align-items: center;
   justify-content: flex-start;
   gap: 20px;
-  .cl-image {
+  .ct-image {
     width: 56px;
     height: 56px;
     border-radius: 6px;
   }
-  .cl-content {
+  .ct-content {
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
   }
-  .cl-title {
+  .ct-title {
     font-size: 16px;
     color: ${(props) => props.theme.textPrimary};
   }
-  .cl-entry {
+  .ct-entry {
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -33,7 +33,7 @@ const CartItemStyled = styled.div`
     color: ${(props) => props.theme.red};
     font-size: 14px;
   }
-  .cl-price {
+  .ct-price {
     color: ${(props) => props.theme.red};
     font-size: 14px;
   }
@@ -42,19 +42,19 @@ const CartItemStyled = styled.div`
 const CartItem = () => {
   return (
     <CartItemStyled>
-      <div className="cl-image">
+      <div className="ct-image">
         <ProductImage
           url={
             "https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8Zm9vZHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=600&q=60"
           }
         ></ProductImage>
       </div>
-      <div className="cl-content">
-        <ProductTitle className="cl-title">Phở bò siêu ngon</ProductTitle>
-        <div className="cl-entry">
-          <span className="cl-quantity">1</span>
+      <div className="ct-content">
+        <ProductTitle className="ct-title">Phở bò siêu ngon</ProductTitle>
+        <div className="ct-entry">
+          <span className="ct-quantity">1</span>
           <span>x</span>
-          <ProductPrice className="cl-price">100000</ProductPrice>
+          <ProductPrice className="ct-price">100000</ProductPrice>
         </div>
       </div>
     </CartItemStyled>

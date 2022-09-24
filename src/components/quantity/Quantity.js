@@ -4,42 +4,37 @@ import React from "react";
 import { useState } from "react";
 import styled from "styled-components";
 
-const DetailsQuantityStyled = styled.div`
+const QuantityStyled = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-start;
   gap: 20px;
-  margin-bottom: 40px;
   .quantity-number {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 10px;
-    border: 1px solid ${(props) => props.theme.textGray};
-    border-radius: 4px;
     input {
       width: 30px;
       height: 32px;
       text-align: center;
     }
   }
-  .btn-minus {
-    cursor: pointer;
-    padding: 6px 6px;
-    border-bottom-left-radius: inherit;
-    border-top-left-radius: inherit;
-    border-right: 1px solid ${(props) => props.theme.textGray};
-  }
+  .btn-minus,
   .btn-plus {
     cursor: pointer;
-    border-bottom-right-radius: inherit;
-    border-top-right-radius: inherit;
     padding: 6px 6px;
-    border-left: 1px solid ${(props) => props.theme.textGray};
+    background-color: ${(props) => props.theme.borderLight};
+    border-radius: 100%;
+  }
+  .btn-minus:hover,
+  .btn-plus:hover {
+    background-color: ${(props) => props.theme.blueBold};
+    color: #fff;
   }
 `;
 
-const DetailsQuantity = () => {
+const Quantity = () => {
   const [count, setCount] = useState(1);
   const handleIncrement = () => {
     setCount((count) => count + 1);
@@ -48,11 +43,14 @@ const DetailsQuantity = () => {
     if (count > 1) setCount((count) => count - 1);
   };
   return (
-    <DetailsQuantityStyled className="detail-quantity">
-      <span className="text-base font-medium">Số lượng</span>
+    <QuantityStyled>
       <div className="quantity-number">
         <div
-          className={count === 1 ? "btn-minus text-[#9b9bb4]" : "btn-minus"}
+          className={
+            count === 1
+              ? "btn-minus text-[#9b9bb4]"
+              : "btn-minus text-[#202435]"
+          }
           onClick={handleDecrement}
         >
           <svg
@@ -80,7 +78,7 @@ const DetailsQuantity = () => {
           inputMode="numeric"
           onChange={(e) => setCount(Number(e.target.value))}
         />
-        <div className="btn-plus" onClick={handleIncrement}>
+        <div className="btn-plus text-[#202435]" onClick={handleIncrement}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -97,8 +95,8 @@ const DetailsQuantity = () => {
           </svg>
         </div>
       </div>
-    </DetailsQuantityStyled>
+    </QuantityStyled>
   );
 };
 
-export default DetailsQuantity;
+export default Quantity;
