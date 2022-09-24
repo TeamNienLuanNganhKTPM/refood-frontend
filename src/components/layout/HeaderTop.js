@@ -1,6 +1,7 @@
 /** @format */
 
-import React from "react";
+import Cart from "modules/cart/Cart";
+import { React, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
@@ -94,6 +95,11 @@ const HeaderStyled = styled.div`
     border: 1px solid ${(props) => props.theme.red};
     transition: all 0.5s ease-out;
   }
+  .ht-cart:hover .cart-info {
+    transform: translateX(0);
+    transition: all 0.3s linear;
+    pointer-events: auto;
+  }
   .count {
     position: absolute;
     display: flex;
@@ -148,7 +154,7 @@ const HeaderStyled = styled.div`
       width: 450px;
     }
   }
-
+  /* Mobile */
   @media (min-width: 320px) and (max-width: 767px) {
     .menu {
       display: block;
@@ -164,10 +170,22 @@ const HeaderStyled = styled.div`
     .ht-user {
       display: none;
     }
+    .show-cart {
+      transform: translateX(0);
+      transition: all 0.3s linear;
+      pointer-events: none;
+    }
+    .ht-cart:hover .cart-info {
+      pointer-events: none;
+    }
   }
 `;
 
 const HeaderTop = ({ className = "" }) => {
+  const [show, setShow] = useState(false);
+  const handleShowCart = () => {
+    setShow((show) => !show);
+  };
   return (
     <>
       <HeaderStyled className={className}>
@@ -219,25 +237,6 @@ const HeaderTop = ({ className = "" }) => {
               </span>
             </div>
             <div className="ht-buttons">
-              <div className="ht-cart">
-                <span className="cart">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth="1.5"
-                    stroke="currentColor"
-                    className="w-6 h-6"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"
-                    />
-                  </svg>
-                </span>
-                <span className="count">0</span>
-              </div>
               <div className="ht-user">
                 <Link to={"/tai-khoan"}>
                   <svg
@@ -255,6 +254,32 @@ const HeaderTop = ({ className = "" }) => {
                     />
                   </svg>
                 </Link>
+              </div>
+              <div className="ht-cart" onClick={handleShowCart}>
+                <div className="cart">
+                  <span className="cart-icon">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth="1.5"
+                      stroke="currentColor"
+                      className="w-6 h-6"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"
+                      />
+                    </svg>
+                  </span>
+                  <span className="count">0</span>
+                </div>
+                {show ? (
+                  <Cart className="cart-info show-cart"></Cart>
+                ) : (
+                  <Cart className="cart-info"></Cart>
+                )}
               </div>
             </div>
           </div>

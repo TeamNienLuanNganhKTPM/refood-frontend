@@ -66,7 +66,7 @@ const data = [
 const ProductNew = () => {
   return (
     <div className="mb-10">
-      <Heading title="Sản phẩm mới" view="Xem tất cả"></Heading>
+      <Heading title="Món ăn mới" view="Xem tất cả"></Heading>
       <div className="flex-layout grid-row">
         {data.length > 0 &&
           data.map((product) => (

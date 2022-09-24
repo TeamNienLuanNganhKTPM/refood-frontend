@@ -56,7 +56,7 @@ const ProductTrending = ({ data }) => {
   if (!data) return null;
   return (
     <ProductTreding>
-      <h3 className="trend-heading">Sản phẩm hot</h3>
+      <h3 className="trend-heading">Món ăn hot nhất</h3>
       <div className="trend-content">
         {data.length > 0 &&
           data.map((item) => (
