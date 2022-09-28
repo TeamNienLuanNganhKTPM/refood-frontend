@@ -11,18 +11,22 @@ import { BrowserRouter } from "react-router-dom";
 import { createRoot } from "react-dom/client";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Provider } from "react-redux";
+import { store } from "store/configureStore";
 
 const container = document.getElementById("root");
 const root = createRoot(container);
 
 root.render(
-  <ThemeProvider theme={theme}>
-    <GlobalStyles></GlobalStyles>
-    <BrowserRouter>
-      <App />
-      <ToastContainer></ToastContainer>
-    </BrowserRouter>
-  </ThemeProvider>
+  <Provider store={store}>
+    <ThemeProvider theme={theme}>
+      <GlobalStyles></GlobalStyles>
+      <BrowserRouter>
+        <App />
+        <ToastContainer></ToastContainer>
+      </BrowserRouter>
+    </ThemeProvider>
+  </Provider>
 );
 
 // If you want to start measuring performance in your app, pass a function

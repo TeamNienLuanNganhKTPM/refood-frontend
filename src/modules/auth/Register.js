@@ -10,15 +10,19 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { ErrorMessage } from "components/error";
+import { useDispatch, useSelector } from "react-redux";
+import { SIGN_UP_REQUEST } from "store/users/slice";
+import { toast } from "react-toastify";
+import { useEffect } from "react";
 
 const schema = yup.object({
   name: yup.string().required("Vui lòng nhập họ và tên"),
-  phoneRegister: yup.string().required("Vui lòng nhập số điện thoại"),
-  passwordRegister: yup
+  phonenumber: yup.string().required("Vui lòng nhập số điện thoại"),
+  password: yup
     .string()
     .min(8, "Mật khẩu ít nhất 8 kí tự")
     .required("Vui lòng nhập mật khẩu"),
-  passwordComfirm: yup.string().required("Vui lòng nhập lại mật khẩu"),
+  repassword: yup.string().required("Vui lòng nhập lại mật khẩu"),
 });
 
 const Register = ({ show }) => {
@@ -30,10 +34,10 @@ const Register = ({ show }) => {
     mode: "onChange",
     resolver: yupResolver(schema),
   });
-
+  const dispatch = useDispatch();
   const handleSubmitRegister = (values) => {
     if (!isValid) return;
-    console.log("handleSubmitRegister ~ values", values);
+    dispatch(SIGN_UP_REQUEST(values));
   };
 
   return (
@@ -51,36 +55,30 @@ const Register = ({ show }) => {
             <ErrorMessage message={errors.name?.message}></ErrorMessage>
           </Field>
           <Field>
-            <Label htmlFor="phoneRegister">Số điện thoại</Label>
+            <Label htmlFor="phonenumber">Số điện thoại</Label>
             <Input
               type="text"
-              name="phoneRegister"
+              name="phonenumber"
               placeholder="Nhập số điện thoại"
               control={control}
             ></Input>
-            <ErrorMessage
-              message={errors.phoneRegister?.message}
-            ></ErrorMessage>
+            <ErrorMessage message={errors.phonenumber?.message}></ErrorMessage>
           </Field>
           <Field>
-            <Label htmlFor="passwordRegister">Mật khẩu</Label>
+            <Label htmlFor="password">Mật khẩu</Label>
             <InputPasswordToggle
-              name="passwordRegister"
+              name="password"
               control={control}
             ></InputPasswordToggle>
-            <ErrorMessage
-              message={errors.passwordRegister?.message}
-            ></ErrorMessage>
+            <ErrorMessage message={errors.password?.message}></ErrorMessage>
           </Field>
           <Field>
-            <Label htmlFor="passwordComfirm">Xác nhận lại mật khẩu</Label>
+            <Label htmlFor="repassword">Xác nhận lại mật khẩu</Label>
             <InputPasswordToggle
-              name="passwordComfirm"
+              name="repassword"
               control={control}
             ></InputPasswordToggle>
-            <ErrorMessage
-              message={errors.passwordComfirm?.message}
-            ></ErrorMessage>
+            <ErrorMessage message={errors.repassword?.message}></ErrorMessage>
           </Field>
           <Button
             type="submit"
