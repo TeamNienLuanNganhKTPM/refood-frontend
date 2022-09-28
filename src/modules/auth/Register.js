@@ -42,6 +42,8 @@ const Register = ({ show }) => {
     },
   });
   const dispatch = useDispatch();
+
+  // Submit Form Register
   const handleSubmitRegister = (values) => {
     if (!isValid) return;
     try {

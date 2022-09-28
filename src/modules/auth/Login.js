@@ -1,3 +1,9 @@
+/**
+ * /* eslint-disable react-hooks/exhaustive-deps
+ *
+ * @format
+ */
+
 /** @format */
 
 import { Button } from "components/button";
@@ -10,10 +16,15 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { ErrorMessage } from "components/error";
+import { useDispatch, useSelector } from "react-redux";
+import { LOGIN_REQUEST } from "store/users/slice";
+import { useEffect } from "react";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const schema = yup.object({
-  phoneLogin: yup.string().required("Vui lòng nhập số điện thoại"),
-  passwordLogin: yup
+  phonenumber: yup.string().required("Vui lòng nhập số điện thoại"),
+  password: yup
     .string()
     .required("Vui lòng nhập mật khẩu")
     .min(8, "Mật khẩu ít nhất 8 kí tự"),
@@ -27,36 +38,64 @@ const Login = ({ show }) => {
   } = useForm({
     mode: "onChange",
     resolver: yupResolver(schema),
+    defaultValues: {
+      phonenumber: "",
+      password: "",
+    },
   });
 
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  // Submit Form Login
   const handleSubmitLogin = (values) => {
     if (!isValid) return;
-    console.log("handleSubmitLogin ~ values", values);
+    try {
+      dispatch(LOGIN_REQUEST(values));
+    } catch (error) {
+      console.log(error);
+    }
   };
+
+  const user = useSelector((state) => state.user);
+
+  useEffect(() => {
+    if (user?.error === true) {
+      toast.error(user?.message, {
+        pauseOnHover: false,
+        delay: 0,
+      });
+    }
+    if (user?.success === true) {
+      toast.success(user?.message, {
+        pauseOnHover: false,
+        delay: 0,
+      });
+      navigate("/");
+    }
+  }, [navigate, user?.error, user?.message, user?.success]);
 
   return (
     <>
       {show === true && (
         <form onSubmit={handleSubmit(handleSubmitLogin)} autoComplete="off">
           <Field>
-            <Label htmlFor="phoneLogin">Số điện thoại</Label>
+            <Label htmlFor="phonenumber">Số điện thoại</Label>
             <Input
               type="text"
-              name="phoneLogin"
+              name="phonenumber"
               placeholder="Nhập số điện thoại"
               control={control}
             ></Input>
-            <ErrorMessage message={errors.phoneLogin?.message}></ErrorMessage>
+            <ErrorMessage message={errors.phonenumber?.message}></ErrorMessage>
           </Field>
           <Field>
-            <Label htmlFor="passwordLogin">Mật khẩu</Label>
+            <Label htmlFor="password">Mật khẩu</Label>
             <InputPasswordToggle
-              name="passwordLogin"
+              name="password"
               control={control}
             ></InputPasswordToggle>
-            <ErrorMessage
-              message={errors.passwordLogin?.message}
-            ></ErrorMessage>
+            <ErrorMessage message={errors.password?.message}></ErrorMessage>
           </Field>
           <div className="have-account">
             <a href="/#">Quên mật khẩu?</a>

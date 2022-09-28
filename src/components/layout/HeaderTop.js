@@ -1,8 +1,12 @@
 /** @format */
 
 import CartModal from "modules/cart/CartModal";
+import { useEffect } from "react";
 import { React, useState } from "react";
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { LOGOUT_REQUEST } from "store/users/slice";
 import styled from "styled-components";
 
 const HeaderStyled = styled.div`
@@ -183,9 +187,30 @@ const HeaderStyled = styled.div`
 
 const HeaderTop = ({ className = "" }) => {
   const [show, setShow] = useState(false);
+  const token = window.localStorage.getItem("token");
+  const dispatch = useDispatch();
   const handleShowCart = () => {
     setShow((show) => !show);
   };
+  const handleLogOut = () => {
+    try {
+      dispatch(LOGOUT_REQUEST());
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const user = useSelector((state) => state.user);
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (user.isLogout) {
+      toast.success("Đăng xuất thành công", {
+        pauseOnHover: false,
+        delay: 0,
+      });
+    }
+  }, [navigate, user.isLogout, user?.message]);
+
   return (
     <>
       <HeaderStyled className={className}>
@@ -237,24 +262,6 @@ const HeaderTop = ({ className = "" }) => {
               </span>
             </div>
             <div className="ht-buttons">
-              <div className="ht-user">
-                <Link to={"/tai-khoan"}>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth="1.5"
-                    stroke="currentColor"
-                    className="w-6 h-6"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
-                    />
-                  </svg>
-                </Link>
-              </div>
               <div className="ht-cart" onClick={handleShowCart}>
                 <div className="cart">
                   <span className="cart-icon">
@@ -281,6 +288,30 @@ const HeaderTop = ({ className = "" }) => {
                   <CartModal className="cart-info"></CartModal>
                 )}
               </div>
+              {token ? (
+                <div onClick={handleLogOut}>
+                  <span className="text-base text-blueBold">Xin chào Kha</span>
+                </div>
+              ) : (
+                <div className="ht-user">
+                  <Link to={"/tai-khoan"}>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth="1.5"
+                      stroke="currentColor"
+                      className="w-6 h-6"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
+                      />
+                    </svg>
+                  </Link>
+                </div>
+              )}
             </div>
           </div>
         </div>

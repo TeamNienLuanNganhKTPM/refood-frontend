@@ -2,13 +2,15 @@
 
 const { default: axios } = require("axios");
 
-// const token = window.localStorage.getItem("access_token");
+const token = window.localStorage.getItem("token");
+console.log("token", token);
 
 const instance = axios.create({
   baseURL: "http://localhost:8080",
-  // headers: {
-  //   Authorization: token ? `${token}` : "",
-  // },
+  headers: {
+    "Content-Type": "application/json",
+    Authorization: token ? `${token}` : "",
+  },
 });
 
 // Add a request interceptor
