@@ -29,16 +29,49 @@ const Register = ({ show }) => {
   const {
     control,
     handleSubmit,
+    reset,
     formState: { isSubmitting, isValid, errors },
   } = useForm({
     mode: "onChange",
     resolver: yupResolver(schema),
+    defaultValues: {
+      name: "",
+      phonenumber: "",
+      password: "",
+      repassword: "",
+    },
   });
   const dispatch = useDispatch();
   const handleSubmitRegister = (values) => {
     if (!isValid) return;
-    dispatch(SIGN_UP_REQUEST(values));
+    try {
+      dispatch(SIGN_UP_REQUEST(values));
+    } catch (error) {
+      console.log(error);
+    }
   };
+  const user = useSelector((state) => state.user);
+
+  useEffect(() => {
+    if (user?.error === true) {
+      toast.error(user?.message, {
+        pauseOnHover: false,
+        delay: 0,
+      });
+    }
+    if (user?.success === true) {
+      toast.success(user?.message, {
+        pauseOnHover: false,
+        delay: 0,
+      });
+      reset({
+        name: "",
+        phonenumber: "",
+        password: "",
+        repassword: "",
+      });
+    }
+  }, [reset, user?.error, user?.message, user?.success]);
 
   return (
     <>

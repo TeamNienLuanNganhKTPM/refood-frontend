@@ -5,7 +5,6 @@ import React from "react";
 import { useState } from "react";
 import Login from "modules/auth/Login";
 import Register from "modules/auth/Register";
-import Layout from "components/layout/Layout";
 
 const AccountPageStyled = styled.div`
   padding-top: 56px;
@@ -84,37 +83,35 @@ const AccountPage = () => {
   };
 
   return (
-    <Layout>
-      <AccountPageStyled>
-        <div className="account-main">
-          <div className="account-heading">
-            <span id="line"></span>
-            <h3
-              className={
-                show === true
-                  ? "account-toggle pointer-events-none"
-                  : "account-toggle cursor-pointer opacity-60 transition-all"
-              }
-              onClick={handleLogin}
-            >
-              Đăng nhập
-            </h3>
-            <h3
-              className={
-                show === false
-                  ? "account-toggle pointer-events-none"
-                  : "account-toggle cursor-pointer opacity-60 transition-all"
-              }
-              onClick={handleRegister}
-            >
-              Đăng ký
-            </h3>
-          </div>
-          <Login show={show}></Login>
-          <Register show={show}></Register>
+    <AccountPageStyled>
+      <div className="account-main">
+        <div className="account-heading">
+          <span id="line"></span>
+          <h3
+            className={
+              show === true
+                ? "account-toggle pointer-events-none"
+                : "account-toggle cursor-pointer opacity-60 transition-all"
+            }
+            onClick={handleLogin}
+          >
+            Đăng nhập
+          </h3>
+          <h3
+            className={
+              show === false
+                ? "account-toggle pointer-events-none"
+                : "account-toggle cursor-pointer opacity-60 transition-all"
+            }
+            onClick={handleRegister}
+          >
+            Đăng ký
+          </h3>
         </div>
-      </AccountPageStyled>
-    </Layout>
+        <Login show={show}></Login>
+        <Register show={show}></Register>
+      </div>
+    </AccountPageStyled>
   );
 };
 

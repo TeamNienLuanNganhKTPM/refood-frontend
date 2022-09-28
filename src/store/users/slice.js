@@ -5,21 +5,30 @@ import { createSlice } from "@reduxjs/toolkit";
 const userSlice = createSlice({
   name: "user",
   initialState: {
-    inPromise: false,
-    error: {},
+    success: false,
+    message: "",
+    access_token: null,
+    customer_info: {},
+    error: false,
   },
   reducers: {
     SIGN_UP_REQUEST: (state, { payload }) => ({
       ...state,
-      ...payload,
-      inPromise: true,
+      customer_info: payload,
     }),
     SIGN_UP_SUCCESS: (state, { payload }) => ({
       ...state,
-      ...payload,
+      success: true,
+      error: false,
+      message: payload.message,
+      customer_info: payload.customer_info,
     }),
     SIGN_UP_FAILURE: (state, { payload }) => ({
-      error: payload,
+      ...state,
+      success: false,
+      message: payload.message,
+      customer_info: {},
+      error: true,
     }),
   },
 });
