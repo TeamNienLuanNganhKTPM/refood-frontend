@@ -12,8 +12,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { ErrorMessage } from "components/error";
 import { useDispatch, useSelector } from "react-redux";
 import { SIGN_UP_REQUEST } from "store/users/slice";
-import { toast } from "react-toastify";
 import { useEffect } from "react";
+import { toast } from "react-toastify";
 
 const schema = yup.object({
   name: yup.string().required("Vui lòng nhập họ và tên"),
@@ -41,39 +41,31 @@ const Register = ({ show }) => {
       repassword: "",
     },
   });
+
   const dispatch = useDispatch();
+  const { isSignUp, message } = useSelector((state) => state.user);
+  // Check error when submit form register
+  useEffect(() => {
+    if (isSignUp) {
+      toast.error(message);
+    }
+  }, [isSignUp, message]);
 
   // Submit Form Register
   const handleSubmitRegister = (values) => {
     if (!isValid) return;
     try {
       dispatch(SIGN_UP_REQUEST(values));
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  const user = useSelector((state) => state.user);
-
-  useEffect(() => {
-    if (user?.error === true) {
-      toast.error(user?.message, {
-        pauseOnHover: false,
-        delay: 0,
-      });
-    }
-    if (user?.success === true) {
-      toast.success(user?.message, {
-        pauseOnHover: false,
-        delay: 0,
-      });
       reset({
         name: "",
         phonenumber: "",
         password: "",
         repassword: "",
       });
+    } catch (error) {
+      console.log(error);
     }
-  }, [reset, user?.error, user?.message, user?.success]);
+  };
 
   return (
     <>

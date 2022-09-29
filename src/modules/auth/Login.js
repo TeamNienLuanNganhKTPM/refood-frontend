@@ -34,6 +34,7 @@ const Login = ({ show }) => {
   const {
     control,
     handleSubmit,
+    reset,
     formState: { isSubmitting, isValid, errors },
   } = useForm({
     mode: "onChange",
@@ -47,34 +48,31 @@ const Login = ({ show }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const { error, message, success } = useSelector((state) => state.user);
+
+  useEffect(() => {
+    if (error) {
+      toast.error(message);
+    }
+    if (success) {
+      toast.success(message);
+      navigate("/");
+    }
+  }, [error, message, navigate, success]);
+
   // Submit Form Login
   const handleSubmitLogin = (values) => {
     if (!isValid) return;
     try {
       dispatch(LOGIN_REQUEST(values));
+      reset({
+        phonenumber: "",
+        password: "",
+      });
     } catch (error) {
       console.log(error);
     }
   };
-
-  const user = useSelector((state) => state.user);
-
-  useEffect(() => {
-    if (user?.error === true) {
-      toast.error(user?.message, {
-        pauseOnHover: false,
-        delay: 0,
-      });
-    }
-    if (user?.success === true) {
-      toast.success(user?.message, {
-        pauseOnHover: false,
-        delay: 0,
-      });
-      navigate("/");
-    }
-  }, [navigate, user?.error, user?.message, user?.success]);
-
   return (
     <>
       {show === true && (
@@ -115,4 +113,4 @@ const Login = ({ show }) => {
   );
 };
 
-export default Login;
+export default React.memo(Login);

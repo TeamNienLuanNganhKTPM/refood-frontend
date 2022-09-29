@@ -1,34 +1,40 @@
 /** @format */
 
+import { store } from "store/configureStore";
+import { LOGOUT_SUCCESS } from "store/users/slice";
+
 const { default: axios } = require("axios");
 
-const token = window.localStorage.getItem("token");
-console.log("token", token);
-
+const access_token = window.localStorage.getItem("access_token");
 const instance = axios.create({
   baseURL: "http://localhost:8080",
   headers: {
     "Content-Type": "application/json",
-    Authorization: token ? `${token}` : "",
+    Authorization: access_token ? `${access_token}` : "",
   },
 });
 
 // Add a request interceptor
-axios.interceptors.request.use(
-  function (config) {
-    return config;
-  },
-  function (error) {
-    return Promise.reject(error);
+instance.interceptors.request.use((req) => {
+  const { user } = store.getState();
+  if (user.access_token) {
+    req.headers.Authorization = `${user.access_token}`;
   }
-);
+  return req;
+});
 
 // Add a response interceptor
-axios.interceptors.response.use(
-  function (response) {
-    return response;
+instance.interceptors.response.use(
+  (res) => {
+    return res;
   },
-  function (error) {
+  (error) => {
+    console.log(error.response);
+    const status = error.response ? error.response.status : 500;
+    if (status && status === 500) {
+      localStorage.clear();
+      store.dispatch(LOGOUT_SUCCESS());
+    }
     return Promise.reject(error);
   }
 );

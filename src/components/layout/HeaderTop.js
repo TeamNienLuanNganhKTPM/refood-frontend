@@ -1,12 +1,11 @@
 /** @format */
 
 import CartModal from "modules/cart/CartModal";
-import { useEffect } from "react";
 import { React, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
-import { LOGOUT_REQUEST } from "store/users/slice";
+import { store } from "store/configureStore";
+import { LOGOUT_SUCCESS } from "store/users/slice";
 import styled from "styled-components";
 
 const HeaderStyled = styled.div`
@@ -186,30 +185,18 @@ const HeaderStyled = styled.div`
 `;
 
 const HeaderTop = ({ className = "" }) => {
-  const [show, setShow] = useState(false);
-  const token = window.localStorage.getItem("token");
-  const dispatch = useDispatch();
+  const [showCart, setShowCart] = useState(false);
+  const [isLogOut, setIsLogOut] = useState(false);
+  const token = window.localStorage.getItem("access_token");
   const handleShowCart = () => {
-    setShow((show) => !show);
+    setShowCart((showCart) => !showCart);
   };
   const handleLogOut = () => {
-    try {
-      dispatch(LOGOUT_REQUEST());
-    } catch (error) {
-      console.log(error);
-    }
+    setIsLogOut(true);
+    localStorage.clear();
+    store.dispatch(LOGOUT_SUCCESS());
+    toast.success("Đăng xuất thành công", { position: "bottom-right" });
   };
-
-  const user = useSelector((state) => state.user);
-  const navigate = useNavigate();
-  useEffect(() => {
-    if (user.isLogout) {
-      toast.success("Đăng xuất thành công", {
-        pauseOnHover: false,
-        delay: 0,
-      });
-    }
-  }, [navigate, user.isLogout, user?.message]);
 
   return (
     <>
@@ -282,17 +269,13 @@ const HeaderTop = ({ className = "" }) => {
                   </span>
                   <span className="count">0</span>
                 </div>
-                {show ? (
+                {showCart ? (
                   <CartModal className="cart-info show-cart"></CartModal>
                 ) : (
                   <CartModal className="cart-info"></CartModal>
                 )}
               </div>
-              {token ? (
-                <div onClick={handleLogOut}>
-                  <span className="text-base text-blueBold">Xin chào Kha</span>
-                </div>
-              ) : (
+              {token === null || isLogOut ? (
                 <div className="ht-user">
                   <Link to={"/tai-khoan"}>
                     <svg
@@ -310,6 +293,10 @@ const HeaderTop = ({ className = "" }) => {
                       />
                     </svg>
                   </Link>
+                </div>
+              ) : (
+                <div onClick={handleLogOut}>
+                  <span className="text-base text-blueBold">Xin chào Kha</span>
                 </div>
               )}
             </div>

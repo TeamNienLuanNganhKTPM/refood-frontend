@@ -8,12 +8,17 @@ import {
   SIGN_UP_FAILURE,
   SIGN_UP_SUCCESS,
   LOGOUT_SUCCESS,
+  LOGOUT_FAILURE,
+  LOGIN_REQUEST,
 } from "./slice";
 
 function* register({ payload }) {
+  console.log("function*register ~ payload", payload);
+  const { phonenumber, password } = payload;
   try {
     const response = yield call(signUpApi, payload);
     yield put(SIGN_UP_SUCCESS(response.data));
+    yield put(LOGIN_REQUEST({ phonenumber, password }));
   } catch (error) {
     const { data } = error.response;
     yield put(SIGN_UP_FAILURE(data));
@@ -23,10 +28,10 @@ function* register({ payload }) {
 function* login({ payload }) {
   try {
     const response = yield call(loginApi, payload);
-    console.log("function*login ~ response", response);
     if (response.data.success) {
       yield put(LOGIN_SUCCESS(response.data));
-      localStorage.setItem("token", JSON.stringify(response.data.access_token));
+      localStorage.setItem("access_token", response.data.access_token);
+      localStorage.setItem("user", JSON.stringify(response.data.customer_info));
     } else {
       yield put(LOGIN_FAILURE(response.data));
     }
@@ -38,9 +43,10 @@ function* login({ payload }) {
 function* logout() {
   try {
     yield put(LOGOUT_SUCCESS());
-    localStorage.removeItem("token");
+    localStorage.clear();
   } catch (error) {
-    console.log(error);
+    const { data } = error.response;
+    yield put(LOGOUT_FAILURE(data));
   }
 }
 
