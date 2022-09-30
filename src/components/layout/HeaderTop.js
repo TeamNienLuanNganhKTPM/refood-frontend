@@ -1,11 +1,9 @@
 /** @format */
 
+import UserModal from "modules/auth/UserModal";
 import CartModal from "modules/cart/CartModal";
 import { React, useState } from "react";
 import { Link } from "react-router-dom";
-import { toast } from "react-toastify";
-import { store } from "store/configureStore";
-import { LOGOUT_SUCCESS } from "store/users/slice";
 import styled from "styled-components";
 
 const HeaderStyled = styled.div`
@@ -58,11 +56,11 @@ const HeaderStyled = styled.div`
   }
   .ht-buttons {
     display: flex;
-    justify-content: center;
+    justify-content: cemter;
     align-items: center;
     gap: 20px;
   }
-  .ht-user {
+  .ht-icon {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -74,11 +72,19 @@ const HeaderStyled = styled.div`
     color: ${(props) => props.theme.text};
     cursor: pointer;
   }
-  .ht-user:hover {
-    color: ${(props) => props.theme.textPrimary};
-    border: 1px solid ${(props) => props.theme.line};
+  .ht-icon:hover {
+    color: ${(props) => props.theme.primary};
+    border: 1px solid ${(props) => props.theme.primary};
     background-color: ${(props) => props.theme.lightBlue};
     transition: all 0.5s ease-out;
+  }
+  .ht-user {
+    position: relative;
+  }
+  .ht-user:hover .user-info {
+    transform: translateX(0);
+    transition: all 0.3s linear;
+    pointer-events: auto;
   }
   .ht-cart {
     display: flex;
@@ -123,6 +129,18 @@ const HeaderStyled = styled.div`
     display: none;
     ${(props) => props.theme.text};
     cursor: pointer;
+  }
+
+  .user-btn {
+    padding: 9px 20px;
+    background-color: ${(props) => props.theme.primary};
+    border-radius: 999px;
+    color: #fff;
+    font-weight: 500;
+    font-size: 14px;
+  }
+  .user-btn:hover {
+    opacity: 0.8;
   }
 
   /* Desktop and Ipad pro*/
@@ -187,15 +205,10 @@ const HeaderStyled = styled.div`
 const HeaderTop = ({ className = "" }) => {
   const [showCart, setShowCart] = useState(false);
   const [isLogOut, setIsLogOut] = useState(false);
+  console.log("HeaderTop ~ isLogOut", isLogOut);
   const token = window.localStorage.getItem("access_token");
   const handleShowCart = () => {
     setShowCart((showCart) => !showCart);
-  };
-  const handleLogOut = () => {
-    setIsLogOut(true);
-    localStorage.clear();
-    store.dispatch(LOGOUT_SUCCESS());
-    toast.success("Đăng xuất thành công", { position: "bottom-right" });
   };
 
   return (
@@ -249,35 +262,63 @@ const HeaderTop = ({ className = "" }) => {
               </span>
             </div>
             <div className="ht-buttons">
-              <div className="ht-cart" onClick={handleShowCart}>
-                <div className="cart">
-                  <span className="cart-icon">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth="1.5"
-                      stroke="currentColor"
-                      className="w-6 h-6"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"
-                      />
-                    </svg>
-                  </span>
-                  <span className="count">0</span>
-                </div>
-                {showCart ? (
-                  <CartModal className="cart-info show-cart"></CartModal>
-                ) : (
-                  <CartModal className="cart-info"></CartModal>
-                )}
-              </div>
               {token === null || isLogOut ? (
+                <div className="ht-cart" onClick={handleShowCart}>
+                  <div className="cart">
+                    <span className="cart-icon">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth="1.5"
+                        stroke="currentColor"
+                        className="w-6 h-6"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"
+                        />
+                      </svg>
+                    </span>
+                    <span className="count">0</span>
+                  </div>
+                </div>
+              ) : (
+                <div className="ht-cart" onClick={handleShowCart}>
+                  <div className="cart">
+                    <span className="cart-icon">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth="1.5"
+                        stroke="currentColor"
+                        className="w-6 h-6"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"
+                        />
+                      </svg>
+                    </span>
+                    <span className="count">2</span>
+                  </div>
+                  {showCart ? (
+                    <CartModal className="cart-info show-cart"></CartModal>
+                  ) : (
+                    <CartModal className="cart-info"></CartModal>
+                  )}
+                </div>
+              )}
+              {token === null || isLogOut ? (
+                <Link to={"/account"}>
+                  <button className="user-btn">Đăng nhập</button>
+                </Link>
+              ) : (
                 <div className="ht-user">
-                  <Link to={"/tai-khoan"}>
+                  <div className="ht-icon">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
@@ -292,11 +333,11 @@ const HeaderTop = ({ className = "" }) => {
                         d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
                       />
                     </svg>
-                  </Link>
-                </div>
-              ) : (
-                <div onClick={handleLogOut}>
-                  <span className="text-base text-blueBold">Xin chào Kha</span>
+                  </div>
+                  <UserModal
+                    className="user-info"
+                    setIsLogOut={setIsLogOut}
+                  ></UserModal>
                 </div>
               )}
             </div>

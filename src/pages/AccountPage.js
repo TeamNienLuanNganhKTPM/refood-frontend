@@ -7,7 +7,7 @@ import Login from "modules/auth/Login";
 import Register from "modules/auth/Register";
 
 const AccountPageStyled = styled.div`
-  padding-top: 56px;
+  padding-top: 50px;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;

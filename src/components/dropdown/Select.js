@@ -4,15 +4,22 @@ import React from "react";
 import { useDropdown } from "./dropdown-context";
 import PropTypes from "prop-types";
 
-const Select = ({ placeholder = "", className = "", sizeIcon = "" }) => {
+const Select = ({
+  placeholder = "",
+  className = "",
+  sizeIcon = "",
+  iconRight = "",
+  children = "",
+}) => {
   const { toggle, show } = useDropdown();
   return (
     <div
       className={`inline-flex items-center justify-between  px-5 bg-white border border-grayf1 rounded-lg cursor-pointer text-sm text-[#B2B3BD] ${className}`}
       onClick={toggle}
     >
+      {children}
       <span>{placeholder}</span>
-      <span>
+      <span className={iconRight}>
         {show ? (
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -54,6 +61,8 @@ Select.propTypes = {
   className: PropTypes.string,
   toggle: PropTypes.func,
   show: PropTypes.string,
+  iconRight: PropTypes.string,
+  children: PropTypes.object,
 };
 
 export default Select;

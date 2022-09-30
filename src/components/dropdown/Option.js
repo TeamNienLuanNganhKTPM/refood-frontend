@@ -3,17 +3,33 @@
 import React from "react";
 import { useDropdown } from "./dropdown-context";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
-const Option = (props) => {
-  const { onClick, children } = props;
+const Option = ({
+  className = "",
+  onClick = () => {},
+  children = "",
+  to = "",
+}) => {
   const { setShow } = useDropdown();
   const handleClick = () => {
     onClick && onClick();
     setShow(false);
   };
+  if (to) {
+    return (
+      <div
+        className={`flex items-center justify-between px-6 py-2 text-lg transition-all cursor-pointer hover:text-primary hover:bg-bgPrimary ${className}`}
+      >
+        <Link to={to} style={{ display: "block" }}>
+          {children}
+        </Link>
+      </div>
+    );
+  }
   return (
     <div
-      className="flex items-center justify-between px-6 py-2 text-lg transition-all cursor-pointer hover:text-primary hover:bg-bgPrimary"
+      className={`flex items-center justify-between px-6 py-2 text-lg transition-all cursor-pointer hover:text-primary hover:bg-bgPrimary ${className}`}
       onClick={handleClick}
     >
       {children}
@@ -25,6 +41,8 @@ Option.propTypes = {
   onClick: PropTypes.func,
   children: PropTypes.any,
   setShow: PropTypes.bool,
+  className: PropTypes.string,
+  to: PropTypes.string,
 };
 
 export default Option;

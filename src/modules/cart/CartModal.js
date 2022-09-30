@@ -16,7 +16,7 @@ const CartStyled = styled.div`
   background-color: #fff;
   border: 1px solid ${(props) => props.theme.line};
   border-radius: 6px;
-  transform: translateX(150%);
+  transform: translateX(300%);
   transition: all 0.3s linear;
   .cart-lists {
     position: inherit;

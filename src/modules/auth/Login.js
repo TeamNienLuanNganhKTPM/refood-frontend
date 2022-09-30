@@ -113,4 +113,4 @@ const Login = ({ show }) => {
   );
 };
 
-export default React.memo(Login);
+export default Login;
