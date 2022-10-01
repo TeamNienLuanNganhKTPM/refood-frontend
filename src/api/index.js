@@ -6,7 +6,6 @@ import { LOGOUT_SUCCESS } from "store/users/slice";
 const { default: axios } = require("axios");
 
 const token = window.localStorage.getItem("access_token");
-console.log("token", token);
 
 const instance = axios.create({
   baseURL: "http://localhost:8080",

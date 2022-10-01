@@ -6,6 +6,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { Dropdown } from "components/dropdown";
+import { useDropdown } from "components/dropdown/dropdown-context";
 
 const HeaderBottomStyled = styled.div`
   padding: 20px 0;
@@ -39,14 +40,6 @@ const HeaderBottomStyled = styled.div`
 `;
 
 const HeaderBottom = ({ className = "" }) => {
-  const location = useLocation();
-  const [display, setDisplay] = useState(false);
-  useEffect(() => {
-    if (location.pathname === "/") {
-      setDisplay(true);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
   return (
     <HeaderBottomStyled className={className}>
       <div className="container">
@@ -57,7 +50,7 @@ const HeaderBottom = ({ className = "" }) => {
                 placeholder="DANH MỤC"
                 className="dropdown-select"
               ></Dropdown.Select>
-              <Dropdown.List className="dropdown-lists" display={display}>
+              <Dropdown.List className="dropdown-lists">
                 <Dropdown.Option>Món nướng</Dropdown.Option>
                 <Dropdown.Option>Món chiên</Dropdown.Option>
                 <Dropdown.Option>Cơm</Dropdown.Option>

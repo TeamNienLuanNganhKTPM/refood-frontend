@@ -11,6 +11,11 @@ const UserProfile = lazy(() => import("modules/profile/UserProfile"));
 const UserPassword = lazy(() => import("modules/profile/UserPassword"));
 const UserPage = lazy(() => import("pages/UserPage"));
 const UserAddress = lazy(() => import("modules/profile/UserAddress"));
+const UserPurchase = lazy(() => import("modules/profile/UserPurchase"));
+const UserNotifyOrder = lazy(() => import("modules/profile/UserNotifyOrder"));
+const UserPromotion = lazy(() => import("modules/profile/UserPromotion"));
+const UserRating = lazy(() => import("modules/profile/UserRating"));
+const UserVoucher = lazy(() => import("modules/profile/UserVoucher"));
 const SearchPage = lazy(() => import("pages/SearchPage"));
 const ProductDetailsPage = lazy(() => import("pages/ProductDetailsPage"));
 const HomePage = lazy(() => import("pages/HomePage"));
@@ -42,6 +47,26 @@ const App = () => {
             <Route
               path="/user/account/password"
               element={<UserPassword></UserPassword>}
+            ></Route>
+            <Route
+              path="/user/purchase"
+              element={<UserPurchase></UserPurchase>}
+            ></Route>
+            <Route
+              path="/user/notifications/order"
+              element={<UserNotifyOrder></UserNotifyOrder>}
+            ></Route>
+            <Route
+              path="/user/notifications/promotion"
+              element={<UserPromotion></UserPromotion>}
+            ></Route>
+            <Route
+              path="/user/notifications/rating"
+              element={<UserRating></UserRating>}
+            ></Route>
+            <Route
+              path="/user/voucher"
+              element={<UserVoucher></UserVoucher>}
             ></Route>
           </Route>
         </Routes>

@@ -1,20 +1,28 @@
 /** @format */
 
 import React from "react";
-import { useEffect } from "react";
 import { useDropdown } from "./dropdown-context";
 import PropTypes from "prop-types";
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
-const List = ({ children, className, display, props }) => {
+const List = ({ children, className = "", open, props }) => {
   const { show, setShow } = useDropdown();
+  const location = useLocation();
   useEffect(() => {
-    if (display) setShow(true);
-  }, [display, setShow]);
+    if (location.pathname === "/") {
+      setShow(true);
+    }
+    if (open === true) {
+      setShow(true);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   return (
     <>
       {show && (
         <div
-          className={`absolute left-0 w-full bg-white shadow-sm top-full ${className}`}
+          className={`absolute z-50 left-0 w-full bg-white shadow-sm top-full ${className}`}
         >
           {children}
         </div>
@@ -29,6 +37,7 @@ List.propTypes = {
   display: PropTypes.bool,
   show: PropTypes.bool,
   setShow: PropTypes.bool,
+  open: PropTypes.bool,
 };
 
 export default List;

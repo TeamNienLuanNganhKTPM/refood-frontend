@@ -1,14 +1,15 @@
 /** @format */
 
+import { DropdownProvider } from "components/dropdown/dropdown-context";
 import Layout from "components/layout/Layout";
 import SectionLeft from "components/layout/SectionLeft";
 import SectionRight from "components/layout/SectionRight";
-import UserNavbar from "modules/profile/UserNavBar";
+import UserSideBar from "modules/profile/UserSideBar";
 import React from "react";
 import { Outlet } from "react-router-dom";
 import styled from "styled-components";
 
-const ProfilePageStyled = styled.div`
+const UserPageStyled = styled.div`
   padding-top: 40px;
   .user-main {
     display: flex;
@@ -21,16 +22,18 @@ const ProfilePageStyled = styled.div`
 const UserPage = () => {
   return (
     <Layout>
-      <ProfilePageStyled>
-        <div className="user-main">
-          <SectionLeft className="section-left">
-            <UserNavbar></UserNavbar>
-          </SectionLeft>
-          <SectionRight className="section-right">
-            <Outlet></Outlet>
-          </SectionRight>
-        </div>
-      </ProfilePageStyled>
+      <DropdownProvider>
+        <UserPageStyled>
+          <div className="user-main">
+            <SectionLeft className="section-left">
+              <UserSideBar></UserSideBar>
+            </SectionLeft>
+            <SectionRight className="section-right">
+              <Outlet></Outlet>
+            </SectionRight>
+          </div>
+        </UserPageStyled>
+      </DropdownProvider>
     </Layout>
   );
 };

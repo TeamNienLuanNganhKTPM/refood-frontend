@@ -1,6 +1,6 @@
 /** @format */
 
-import { ModalProvider } from "components/modal/modal-context";
+import { DropdownProvider } from "components/dropdown/dropdown-context";
 import React from "react";
 import HeaderBottom from "./HeaderBottom";
 import HeaderTop from "./HeaderTop";
@@ -8,10 +8,10 @@ import HeaderTop from "./HeaderTop";
 const Header = ({ props }) => {
   return (
     <>
-      <ModalProvider {...props}>
+      <DropdownProvider>
         <HeaderTop className="ht"></HeaderTop>
         <HeaderBottom className="hb"></HeaderBottom>
-      </ModalProvider>
+      </DropdownProvider>
     </>
   );
 };

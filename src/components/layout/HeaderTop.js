@@ -205,7 +205,6 @@ const HeaderStyled = styled.div`
 const HeaderTop = ({ className = "" }) => {
   const [showCart, setShowCart] = useState(false);
   const [isLogOut, setIsLogOut] = useState(false);
-  console.log("HeaderTop ~ isLogOut", isLogOut);
   const token = window.localStorage.getItem("access_token");
   const handleShowCart = () => {
     setShowCart((showCart) => !showCart);
