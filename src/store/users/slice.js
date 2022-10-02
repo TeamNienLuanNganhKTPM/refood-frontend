@@ -12,12 +12,14 @@ const userSlice = createSlice({
     error: false,
     isSignUp: false,
     isUpdate: false,
+    isPass: false,
   },
   reducers: {
     SIGN_UP_REQUEST: (state) => ({
       ...state,
       success: false,
       isSignUp: false,
+      error: false,
     }),
     SIGN_UP_SUCCESS: (state, { payload }) => ({
       ...state,
@@ -25,6 +27,7 @@ const userSlice = createSlice({
       isSignUp: false,
       message: payload.message,
       customer_info: payload.customer_info,
+      error: false,
     }),
     SIGN_UP_FAILURE: (state, { payload }) => ({
       ...state,
@@ -32,6 +35,7 @@ const userSlice = createSlice({
       message: payload.message,
       customer_info: {},
       isSignUp: true,
+      error: true,
     }),
     LOGIN_REQUEST: (state) => ({
       ...state,
@@ -56,6 +60,8 @@ const userSlice = createSlice({
     }),
     LOGOUT_REQUEST: (state) => ({
       ...state,
+      error: false,
+      success: false,
     }),
     LOGOUT_SUCCESS: (state) => ({
       ...state,
@@ -80,6 +86,7 @@ const userSlice = createSlice({
       ...state,
       customer_info: payload.customer_info,
       success: payload.success,
+      error: false,
     }),
     GET_USER_FAILURE: (state, { payload }) => ({
       ...state,
@@ -104,6 +111,23 @@ const userSlice = createSlice({
       message: payload.message,
       error: true,
     }),
+    UPDATE_USER_PASS_REQUEST: (state) => ({
+      ...state,
+      isPass: false,
+      error: false,
+    }),
+    UPDATE_USER_PASS_SUCCESS: (state, { payload }) => ({
+      ...state,
+      isPass: payload.success,
+      message: payload.message,
+      error: false,
+    }),
+    UPDATE_USER_PASS_FAILURE: (state, { payload }) => ({
+      ...state,
+      isPass: payload.success,
+      message: payload.message,
+      error: true,
+    }),
   },
 });
 
@@ -123,6 +147,9 @@ export const {
   UPDATE_USER_REQUEST,
   UPDATE_USER_SUCCESS,
   UPDATE_USER_FAILURE,
+  UPDATE_USER_PASS_REQUEST,
+  UPDATE_USER_PASS_SUCCESS,
+  UPDATE_USER_PASS_FAILURE,
 } = userSlice.actions;
 
 export default userSlice.reducer;

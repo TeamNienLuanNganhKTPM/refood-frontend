@@ -10,50 +10,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { GET_USER_REQUEST, UPDATE_USER_REQUEST } from "store/users/slice";
 import styled from "styled-components";
+import Swal from "sweetalert2";
+import UserHeading from "./UserHeading";
 
 const UserProfileStyled = styled.div`
   padding: 0 15px;
-  .profile-heading {
-    display: flex;
-    flex-direction: column;
-    padding-bottom: 10px;
-    border-bottom: 1px solid ${(props) => props.theme.lineGray};
-  }
-  .profile-title {
-    color: ${(props) => props.theme.textPrimary};
-    font-size: 24px;
-    font-weight: 500;
-    text-transform: capitalize;
-  }
-  .profile-desc {
-    color: ${(props) => props.theme.text};
-    font-size: 14px;
-  }
-  .profile-content {
-    margin-top: 40px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 20px;
-  }
-  .profile-item {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 30px;
-  }
-  .profile-name {
-    width: 20%;
-    text-align: end;
-  }
-  .profile-input {
-    width: 462px;
-  }
-  .profile-btn {
-    padding-top: 15px;
-    display: flex;
-    justify-content: center;
-  }
 `;
 
 const UserProfile = () => {
@@ -70,7 +31,7 @@ const UserProfile = () => {
       phonenumber: "",
     },
   });
-  const { success, isUpdate, customer_info, message } = useSelector(
+  const { success, error, isUpdate, customer_info, message } = useSelector(
     (state) => state.user
   );
   const { CustomerName, CustomerPhone, CustomerEmail } = customer_info;
@@ -84,7 +45,7 @@ const UserProfile = () => {
     fetchData();
   }, [dispatch]);
 
-  // Update data user
+  // Get data user
   useEffect(() => {
     if (success) {
       reset({
@@ -108,61 +69,66 @@ const UserProfile = () => {
 
   useEffect(() => {
     if (isUpdate) {
-      toast.success(message, {
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: message,
+        showConfirmButton: false,
+        timer: 2000,
+      });
+    }
+    if (error) {
+      toast.error(message, {
         position: "bottom-right",
       });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isUpdate, message]);
+  }, [isUpdate, message, error]);
 
   return (
     <UserProfileStyled>
-      <div className="profile-heading">
-        <h3 className="profile-title">Hồ sơ của tôi</h3>
-        <span className="profile-desc">
-          Quản lý thông tin hồ sơ để bảo mật tài khoản
-        </span>
-      </div>
+      <UserHeading title="Hồ sơ của tôi">
+        Quản lý thông tin hồ sơ để bảo mật tài khoản
+      </UserHeading>
       <form
         onSubmit={handleSubmit(handleUpdateUser)}
         autoComplete="off"
-        className="profile-content"
+        className="user-content"
       >
-        <div className="profile-item">
-          <Label className="profile-name" htmlFor="name">
+        <div className="user-item">
+          <Label className="user-name" htmlFor="name">
             Họ và tên
           </Label>
           <Input
             type="text"
             name="name"
             control={control}
-            className="profile-input"
+            className="user-input"
           ></Input>
         </div>
-        <div className="profile-item">
-          <Label className="profile-name" htmlFor="phonenumber">
+        <div className="user-item">
+          <Label className="user-name" htmlFor="phonenumber">
             Số điện thoại
           </Label>
           <Input
             type="text"
             name="phonenumber"
             control={control}
-            className="profile-input"
+            className="user-input"
           ></Input>
         </div>
-        <div className="profile-item">
-          <Label className="profile-name" htmlFor="email">
+        <div className="user-item">
+          <Label className="user-name" htmlFor="email">
             Email
           </Label>
           <Input
-            type="text"
+            type="email"
             name="email"
             control={control}
-            className="profile-input"
+            className="user-input"
             placeholder="Cập nhật email"
           ></Input>
         </div>
-        <div className="profile-btn">
+        <div className="user-btn">
           <Button
             type="submit"
             className="w-[200px]"
@@ -178,4 +144,4 @@ const UserProfile = () => {
   );
 };
 
-export default UserProfile;
+export default React.memo(UserProfile);

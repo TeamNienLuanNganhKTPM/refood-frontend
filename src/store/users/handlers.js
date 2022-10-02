@@ -1,6 +1,12 @@
 /** @format */
 
-import { signUpApi, loginApi, getUserApi, updateUserInfoApi } from "api/user";
+import {
+  signUpApi,
+  loginApi,
+  getUserApi,
+  updateUserInfoApi,
+  updateUserPassApi,
+} from "api/user";
 import { call, put } from "redux-saga/effects";
 import {
   LOGIN_FAILURE,
@@ -14,6 +20,8 @@ import {
   GET_USER_FAILURE,
   UPDATE_USER_FAILURE,
   UPDATE_USER_SUCCESS,
+  UPDATE_USER_PASS_FAILURE,
+  UPDATE_USER_PASS_SUCCESS,
 } from "./slice";
 
 function* register({ payload }) {
@@ -24,8 +32,7 @@ function* register({ payload }) {
     yield put(SIGN_UP_SUCCESS(response.data));
     yield put(LOGIN_REQUEST({ phonenumber, password }));
   } catch (error) {
-    const { data } = error.response;
-    yield put(SIGN_UP_FAILURE(data));
+    yield put(SIGN_UP_FAILURE(error.response.data));
   }
 }
 
@@ -40,8 +47,7 @@ function* login({ payload }) {
       yield put(LOGIN_FAILURE(response.data));
     }
   } catch (error) {
-    const { data } = error.response;
-    yield put(LOGIN_FAILURE(data));
+    yield put(LOGIN_FAILURE(error.response.data));
   }
 }
 function* logout() {
@@ -49,8 +55,7 @@ function* logout() {
     yield put(LOGOUT_SUCCESS());
     localStorage.clear();
   } catch (error) {
-    const { data } = error.response;
-    yield put(LOGOUT_FAILURE(data));
+    yield put(LOGOUT_FAILURE(error.response.data));
   }
 }
 
@@ -63,8 +68,7 @@ function* getUserInfo() {
       yield put(GET_USER_FAILURE(response.data));
     }
   } catch (error) {
-    const { data } = error.response;
-    yield put(GET_USER_FAILURE(data));
+    yield put(GET_USER_FAILURE(error.response.data));
   }
 }
 
@@ -77,9 +81,28 @@ function* updateUserInfo({ payload }) {
       yield put(UPDATE_USER_FAILURE(response.data));
     }
   } catch (error) {
-    const { data } = error.response;
-    yield put(UPDATE_USER_FAILURE(data));
+    yield put(UPDATE_USER_FAILURE(error.response.data));
   }
 }
 
-export { register, login, logout, getUserInfo, updateUserInfo };
+function* updateUserPassword({ payload }) {
+  try {
+    const response = yield call(updateUserPassApi, payload);
+    if (response?.status === 200) {
+      yield put(UPDATE_USER_PASS_SUCCESS(response.data));
+    } else {
+      yield put(UPDATE_USER_PASS_FAILURE(response.data));
+    }
+  } catch (error) {
+    yield put(UPDATE_USER_PASS_FAILURE(error.response.data));
+  }
+}
+
+export {
+  register,
+  login,
+  logout,
+  getUserInfo,
+  updateUserInfo,
+  updateUserPassword,
+};

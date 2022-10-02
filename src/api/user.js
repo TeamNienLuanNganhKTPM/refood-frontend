@@ -13,3 +13,6 @@ export const getUserApi = () =>
 
 export const updateUserInfoApi = (user) =>
   instance.request({ method: "PUT", data: user, url: "/auth/update/info" });
+
+export const updateUserPassApi = (user) =>
+  instance.request({ method: "PUT", data: user, url: "/auth/update/password" });

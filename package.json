@@ -27,6 +27,7 @@
     "sass": "^1.54.8",
     "slugify": "^1.6.5",
     "styled-components": "^5.3.5",
+    "sweetalert2": "^11.4.37",
     "swiper": "^8.3.2",
     "uuid": "^9.0.0",
     "web-vitals": "^2.1.4",

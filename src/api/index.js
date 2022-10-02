@@ -22,7 +22,6 @@ const instance = axios.create({
 instance.interceptors.request.use(
   (req) => {
     const { user } = store.getState();
-    console.log(user);
     if (user.access_token) {
       req.headers.Authorization = user.access_token;
     }
