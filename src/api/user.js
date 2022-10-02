@@ -7,3 +7,9 @@ export const signUpApi = (user) =>
 
 export const loginApi = (user) =>
   instance.request({ method: "POST", data: user, url: "/auth/login" });
+
+export const getUserApi = () =>
+  instance.request({ method: "GET", url: "/auth/info" });
+
+export const updateUserInfoApi = (user) =>
+  instance.request({ method: "PUT", data: user, url: "/auth/update/info" });

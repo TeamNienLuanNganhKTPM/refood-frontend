@@ -11,13 +11,13 @@ const userSlice = createSlice({
     customer_info: {},
     error: false,
     isSignUp: false,
+    isUpdate: false,
   },
   reducers: {
-    SIGN_UP_REQUEST: (state, { payload }) => ({
+    SIGN_UP_REQUEST: (state) => ({
       ...state,
       success: false,
       isSignUp: false,
-      customer_info: payload,
     }),
     SIGN_UP_SUCCESS: (state, { payload }) => ({
       ...state,
@@ -33,11 +33,10 @@ const userSlice = createSlice({
       customer_info: {},
       isSignUp: true,
     }),
-    LOGIN_REQUEST: (state, { payload }) => ({
+    LOGIN_REQUEST: (state) => ({
       ...state,
       success: false,
       error: false,
-      customer_info: payload,
     }),
     LOGIN_SUCCESS: (state, { payload }) => ({
       ...state,
@@ -71,6 +70,40 @@ const userSlice = createSlice({
       message: payload.message,
       error: true,
     }),
+    GET_USER_REQUEST: (state) => ({
+      ...state,
+      error: false,
+      isUpdate: false,
+      success: false,
+    }),
+    GET_USER_SUCCESS: (state, { payload }) => ({
+      ...state,
+      customer_info: payload.customer_info,
+      success: payload.success,
+    }),
+    GET_USER_FAILURE: (state, { payload }) => ({
+      ...state,
+      message: payload.message,
+      success: payload.success,
+      error: true,
+    }),
+    UPDATE_USER_REQUEST: (state) => ({
+      ...state,
+      isUpdate: false,
+      error: false,
+    }),
+    UPDATE_USER_SUCCESS: (state, { payload }) => ({
+      ...state,
+      isUpdate: payload.success,
+      message: payload.message,
+      error: false,
+    }),
+    UPDATE_USER_FAILURE: (state, { payload }) => ({
+      ...state,
+      isUpdate: false,
+      message: payload.message,
+      error: true,
+    }),
   },
 });
 
@@ -84,6 +117,12 @@ export const {
   LOGOUT_REQUEST,
   LOGOUT_SUCCESS,
   LOGOUT_FAILURE,
+  GET_USER_REQUEST,
+  GET_USER_SUCCESS,
+  GET_USER_FAILURE,
+  UPDATE_USER_REQUEST,
+  UPDATE_USER_SUCCESS,
+  UPDATE_USER_FAILURE,
 } = userSlice.actions;
 
 export default userSlice.reducer;

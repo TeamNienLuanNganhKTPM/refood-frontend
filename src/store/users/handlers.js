@@ -1,6 +1,6 @@
 /** @format */
 
-import { signUpApi, loginApi } from "api/user";
+import { signUpApi, loginApi, getUserApi, updateUserInfoApi } from "api/user";
 import { call, put } from "redux-saga/effects";
 import {
   LOGIN_FAILURE,
@@ -10,6 +10,10 @@ import {
   LOGOUT_SUCCESS,
   LOGOUT_FAILURE,
   LOGIN_REQUEST,
+  GET_USER_SUCCESS,
+  GET_USER_FAILURE,
+  UPDATE_USER_FAILURE,
+  UPDATE_USER_SUCCESS,
 } from "./slice";
 
 function* register({ payload }) {
@@ -50,4 +54,32 @@ function* logout() {
   }
 }
 
-export { register, login, logout };
+function* getUserInfo() {
+  try {
+    const response = yield call(getUserApi);
+    if (response?.status === 200) {
+      yield put(GET_USER_SUCCESS(response.data));
+    } else {
+      yield put(GET_USER_FAILURE(response.data));
+    }
+  } catch (error) {
+    const { data } = error.response;
+    yield put(GET_USER_FAILURE(data));
+  }
+}
+
+function* updateUserInfo({ payload }) {
+  try {
+    const response = yield call(updateUserInfoApi, payload);
+    if (response?.status === 200) {
+      yield put(UPDATE_USER_SUCCESS(response.data));
+    } else {
+      yield put(UPDATE_USER_FAILURE(response.data));
+    }
+  } catch (error) {
+    const { data } = error.response;
+    yield put(UPDATE_USER_FAILURE(data));
+  }
+}
+
+export { register, login, logout, getUserInfo, updateUserInfo };

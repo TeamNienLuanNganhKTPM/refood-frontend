@@ -57,6 +57,7 @@ const Login = ({ show }) => {
     if (success) {
       toast.success(message);
       navigate("/");
+      window.location.reload();
     }
   }, [error, message, navigate, success]);
 

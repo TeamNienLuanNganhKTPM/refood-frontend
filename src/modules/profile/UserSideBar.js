@@ -205,11 +205,21 @@ const UserSideBarStyled = styled.div`
   .sb-child:hover {
     color: ${(props) => props.theme.red};
   }
-  .sb-icon {
-    color: ${(props) => props.theme.blueBold};
+  .sb-item:first-child {
+    .sb-icon {
+      color: ${(props) => props.theme.blueBold};
+    }
   }
-  .sb-icon {
-    color: ${(props) => props.theme.red};
+  .sb-item:last-child {
+    .sb-icon {
+      color: #f6ad00;
+    }
+  }
+  .sb-item:nth-child(2),
+  .sb-item:nth-child(3) {
+    .sb-icon {
+      color: ${(props) => props.theme.red};
+    }
   }
 `;
 

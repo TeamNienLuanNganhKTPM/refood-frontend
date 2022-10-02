@@ -11,9 +11,9 @@ const LabelStyles = styled.label`
   cursor: pointer;
 `;
 
-const Label = ({ htmlFor = "", children, ...props }) => {
+const Label = ({ htmlFor = "", children, className = "", ...props }) => {
   return (
-    <LabelStyles htmlFor={htmlFor} {...props}>
+    <LabelStyles htmlFor={htmlFor} {...props} className={className}>
       {children}
     </LabelStyles>
   );
@@ -21,6 +21,7 @@ const Label = ({ htmlFor = "", children, ...props }) => {
 
 Label.propTypes = {
   htmlFor: PropTypes.string,
+  className: PropTypes.string,
   children: PropTypes.any,
 };
 

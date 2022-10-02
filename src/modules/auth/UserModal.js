@@ -1,7 +1,7 @@
 /** @format */
 
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { store } from "store/configureStore";
 import { LOGOUT_SUCCESS } from "store/users/slice";
@@ -46,11 +46,13 @@ const UserModalStyled = styled.div`
 `;
 
 const UserModal = ({ className = "", setIsLogOut }) => {
+  const navigate = useNavigate();
   const handleLogOut = () => {
     setIsLogOut(true);
     localStorage.clear();
     store.dispatch(LOGOUT_SUCCESS());
     toast.success("Đăng xuất thành công", { position: "bottom-right" });
+    navigate("/");
   };
   return (
     <UserModalStyled className={className}>
