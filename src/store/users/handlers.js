@@ -1,12 +1,6 @@
 /** @format */
 
-import {
-  signUpApi,
-  loginApi,
-  getUserApi,
-  updateUserInfoApi,
-  updateUserPassApi,
-} from "api/user";
+import { signUpApi, loginApi } from "api/user";
 import { call, put } from "redux-saga/effects";
 import {
   LOGIN_FAILURE,
@@ -16,12 +10,6 @@ import {
   LOGOUT_SUCCESS,
   LOGOUT_FAILURE,
   LOGIN_REQUEST,
-  GET_USER_SUCCESS,
-  GET_USER_FAILURE,
-  UPDATE_USER_FAILURE,
-  UPDATE_USER_SUCCESS,
-  UPDATE_USER_PASS_FAILURE,
-  UPDATE_USER_PASS_SUCCESS,
 } from "./slice";
 
 function* register({ payload }) {
@@ -59,50 +47,4 @@ function* logout() {
   }
 }
 
-function* getUserInfo() {
-  try {
-    const response = yield call(getUserApi);
-    if (response?.status === 200) {
-      yield put(GET_USER_SUCCESS(response.data));
-    } else {
-      yield put(GET_USER_FAILURE(response.data));
-    }
-  } catch (error) {
-    yield put(GET_USER_FAILURE(error.response.data));
-  }
-}
-
-function* updateUserInfo({ payload }) {
-  try {
-    const response = yield call(updateUserInfoApi, payload);
-    if (response?.status === 200) {
-      yield put(UPDATE_USER_SUCCESS(response.data));
-    } else {
-      yield put(UPDATE_USER_FAILURE(response.data));
-    }
-  } catch (error) {
-    yield put(UPDATE_USER_FAILURE(error.response.data));
-  }
-}
-
-function* updateUserPassword({ payload }) {
-  try {
-    const response = yield call(updateUserPassApi, payload);
-    if (response?.status === 200) {
-      yield put(UPDATE_USER_PASS_SUCCESS(response.data));
-    } else {
-      yield put(UPDATE_USER_PASS_FAILURE(response.data));
-    }
-  } catch (error) {
-    yield put(UPDATE_USER_PASS_FAILURE(error.response.data));
-  }
-}
-
-export {
-  register,
-  login,
-  logout,
-  getUserInfo,
-  updateUserInfo,
-  updateUserPassword,
-};
+export { register, login, logout };

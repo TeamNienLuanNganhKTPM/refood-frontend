@@ -1,14 +1,13 @@
 /** @format */
 
+import { getUserApi, updateUserInfoApi } from "api/user";
 import { Button } from "components/button";
 import { Input } from "components/input";
 import { Label } from "components/label";
 import React from "react";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import { GET_USER_REQUEST, UPDATE_USER_REQUEST } from "store/users/slice";
 import styled from "styled-components";
 import Swal from "sweetalert2";
 import UserHeading from "./UserHeading";
@@ -31,58 +30,57 @@ const UserProfile = () => {
       phonenumber: "",
     },
   });
-  const { success, error, isUpdate, customer_info, message } = useSelector(
-    (state) => state.user
-  );
-  const { CustomerName, CustomerPhone, CustomerEmail } = customer_info;
-  const dispatch = useDispatch();
 
   // Get data user from database
   useEffect(() => {
-    async function fetchData() {
-      dispatch(GET_USER_REQUEST());
+    async function fetchUserData() {
+      try {
+        const response = await getUserApi();
+        const { CustomerEmail, CustomerName, CustomerPhone } =
+          response?.data?.customer_info;
+        if (response.status === 200) {
+          reset({
+            name: CustomerName,
+            email: CustomerEmail || "Cập nhật email",
+            phonenumber: CustomerPhone,
+          });
+        } else {
+          console.log("Fetch data user error");
+        }
+      } catch (error) {
+        console.log(error);
+      }
     }
-    fetchData();
-  }, [dispatch]);
+    fetchUserData();
+  }, [reset]);
 
-  // Get data user
-  useEffect(() => {
-    if (success) {
-      reset({
-        name: CustomerName,
-        email: CustomerEmail || "",
-        phonenumber: CustomerPhone,
-      });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [reset, success]);
-
-  // Update data user
-  const handleUpdateUser = (values) => {
+  // Handle update info user
+  const handleUpdateUser = async (values) => {
     if (!isValid) return;
     try {
-      dispatch(UPDATE_USER_REQUEST(values));
+      const response = await updateUserInfoApi(values);
+      if (response.status === 200) {
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: response.data.message,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      } else {
+        toast.error(response.data.message, {
+          position: "bottom-right",
+          autoClose: 1000,
+        });
+      }
     } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    if (isUpdate) {
-      Swal.fire({
-        position: "center",
-        icon: "success",
-        title: message,
-        showConfirmButton: false,
-        timer: 2000,
-      });
-    }
-    if (error) {
+      const { message } = error.response.data;
       toast.error(message, {
         position: "bottom-right",
+        autoClose: 1000,
       });
     }
-  }, [isUpdate, message, error]);
+  };
 
   return (
     <UserProfileStyled>

@@ -1,15 +1,13 @@
 /** @format */
 
+import { updateUserPassApi } from "api/user";
 import { Button } from "components/button";
 import { Input } from "components/input";
 import { Label } from "components/label";
 import React from "react";
-import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
-import { UPDATE_USER_PASS_REQUEST } from "store/users/slice";
 import styled from "styled-components";
 import Swal from "sweetalert2";
 import UserHeading from "./UserHeading";
@@ -27,35 +25,36 @@ const UserPassword = () => {
   } = useForm({
     mode: "onChange",
   });
-  const dispatch = useDispatch();
-  const handleUpdatePassword = (values) => {
+
+  // Hnadle change password
+  const handleUpdatePassword = async (values) => {
     if (!isValid) return;
     try {
-      dispatch(UPDATE_USER_PASS_REQUEST(values));
+      const response = await updateUserPassApi(values);
+      if (response.status === 200) {
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: response.data.message,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        reset({
+          oldpassword: "",
+          newpassword: "",
+          repassword: "",
+        });
+      } else {
+        toast.error(response.data.message, {
+          position: "bottom-right",
+          autoClose: 1000,
+        });
+      }
     } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const { isPass, message, error } = useSelector((state) => state.user);
-  useEffect(() => {
-    if (isPass) {
-      Swal.fire({
-        position: "center",
-        icon: "success",
-        title: message,
-        showConfirmButton: false,
-        timer: 1500,
-      });
-      reset({
-        oldpassword: "",
-        newpassword: "",
-        repassword: "",
-      });
-    }
-    if (error) {
+      const { message } = error.response.data;
       toast.error(message, {
         position: "bottom-right",
+        autoClose: 1000,
       });
       reset({
         oldpassword: "",
@@ -63,7 +62,7 @@ const UserPassword = () => {
         repassword: "",
       });
     }
-  }, [isPass, message, error, reset]);
+  };
 
   return (
     <UserPasswordStyled>
