@@ -7,6 +7,9 @@ import ProductBestSeller from "modules/products/ProductBestSeller";
 import React from "react";
 import styled from "styled-components";
 import ProductTrending from "modules/products/ProductTrending";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { GET_ALL_FOOD_REQUEST } from "store/food/slice";
 
 const data = [
   {
@@ -57,6 +60,16 @@ const HomeProductStyled = styled.section`
 `;
 
 const HomeProduct = () => {
+  // Get all food from database
+  const dispatch = useDispatch();
+  useEffect(() => {
+    function fetchData() {
+      dispatch(GET_ALL_FOOD_REQUEST());
+    }
+    fetchData();
+  }, [dispatch]);
+  const { foods } = useSelector((state) => state.food);
+  if (!foods) return null;
   return (
     <HomeProductStyled>
       <div className="product-main">
