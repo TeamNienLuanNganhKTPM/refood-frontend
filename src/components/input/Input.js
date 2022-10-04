@@ -13,7 +13,7 @@ const InputStyles = styled.div`
     /* padding: ${(props) =>
       props.hasIcon ? "20px 60px 20px 20px" : "20px"}; */
     padding: 9px;
-    background-color: ${(props) => props.theme.borderLight};
+    background-color: ${(props) => props.bgInput || props.theme.borderLight};
     border-radius: 6px;
     font-weight: 500;
     transition: all 0.2s linear;
@@ -44,7 +44,7 @@ const Input = ({ name = "", type = "text", children, control, ...props }) => {
     defaultValue: "",
   });
   return (
-    <InputStyles hasIcon={children ? true : false}>
+    <InputStyles hasIcon={children ? true : false} {...props}>
       <input id={name} type={type} {...field} {...props} />
       {children ? <div className="input-icon">{children}</div> : null}
     </InputStyles>

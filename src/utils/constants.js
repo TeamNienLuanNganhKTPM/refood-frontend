@@ -15,4 +15,10 @@ export const theme = {
   grayBorder: "#e4e5ee",
   textLight: "#c2c2d3",
   grayDark: "#f7f8fd",
+  textPlaceHoder: "#9ca3af",
+};
+
+export const addressStatus = {
+  DEFAULT: 0,
+  NOT_DEFAULT: 1,
 };

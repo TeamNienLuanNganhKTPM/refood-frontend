@@ -14,7 +14,7 @@ const Select = ({
   const { toggle, show } = useDropdown();
   return (
     <div
-      className={`inline-flex items-center justify-between  px-5 bg-white border border-grayf1 rounded-lg cursor-pointer text-sm text-[#B2B3BD] ${className}`}
+      className={`inline-flex items-center justify-between  px-5 bg-white border border-grayf1 rounded-lg cursor-pointer text-sm text-[#9ca3af] ${className}`}
       onClick={toggle}
     >
       {children}

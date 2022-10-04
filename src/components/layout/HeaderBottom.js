@@ -2,11 +2,8 @@
 
 import styled from "styled-components";
 import React from "react";
-import { useState } from "react";
-import { useEffect } from "react";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { Dropdown } from "components/dropdown";
-import { useDropdown } from "components/dropdown/dropdown-context";
 
 const HeaderBottomStyled = styled.div`
   padding: 20px 0;
