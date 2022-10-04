@@ -12,6 +12,7 @@ import styled from "styled-components";
 
 const UserCreateAddressStyled = styled.div`
   width: 500px;
+  overflow-y: hidden;
   .ca-top {
     display: flex;
     justify-content: space-between;
@@ -36,6 +37,12 @@ const UserCreateAddressStyled = styled.div`
     align-items: center;
     gap: 10px;
   }
+  .ca-drop {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+  }
   .ca-dropdown {
     display: flex;
     align-items: center;
@@ -47,7 +54,100 @@ const UserCreateAddressStyled = styled.div`
     height: 44px;
     border: 1px solid ${(props) => props.theme.line};
   }
+  .ca-lists {
+    height: 250px;
+    overflow-y: scroll;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  }
+  .ca-option {
+    font-size: 16px;
+  }
+
+  .ca-lists::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  /* Track */
+  .ca-lists::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px ${(props) => props.theme.textLight};
+    border-radius: 10px;
+  }
+
+  /* Handle */
+  .ca-lists::-webkit-scrollbar-thumb {
+    background: ${(props) => props.theme.blueBold};
+  }
 `;
+
+const listDistrict = [
+  {
+    id: "1",
+    name: "Ninh Kiều",
+  },
+  {
+    id: "2",
+    name: "Bình Thủy",
+  },
+  {
+    id: "3",
+    name: "Cờ Đỏ",
+  },
+  {
+    id: "4",
+    name: "Phong Điền",
+  },
+  {
+    id: "5",
+    name: "Thới Lai",
+  },
+  {
+    id: "6",
+    name: "Vĩnh Thạnh",
+  },
+  {
+    id: "7",
+    name: "Ô Môn",
+  },
+  {
+    id: "8",
+    name: "Thới Nốt",
+  },
+];
+
+const listWard = [
+  {
+    id: "1",
+    name: "Ninh Kiều",
+  },
+  {
+    id: "2",
+    name: "Bình Thủy",
+  },
+  {
+    id: "3",
+    name: "Cờ Đỏ",
+  },
+  {
+    id: "4",
+    name: "Phong Điền",
+  },
+  {
+    id: "5",
+    name: "Thới Lai",
+  },
+  {
+    id: "6",
+    name: "Vĩnh Thạnh",
+  },
+  {
+    id: "7",
+    name: "Ô Môn",
+  },
+  {
+    id: "8",
+    name: "Thới Nốt",
+  },
+];
 
 const UserCreateAddress = ({ closeModal }) => {
   const { control, reset } = useForm({
@@ -90,29 +190,46 @@ const UserCreateAddress = ({ closeModal }) => {
             type="text"
             name="name"
             control={control}
-            bgInput="#fff"
-            className="border border-line"
+            kind="secondary"
           ></Input>
           <Input
             type="text"
             name="phonenumber"
             control={control}
-            bgInput="#fff"
-            className="border border-line"
-          >
-            {" "}
-          </Input>
+            kind="secondary"
+          ></Input>
         </div>
-        <Dropdown className="ca-dropdown">
-          <Dropdown.Select
-            placeholder="Quận/Huyện"
-            className="ca-select"
-          ></Dropdown.Select>
-          <Dropdown.Select
-            placeholder="Phường/Xã"
-            className="ca-select"
-          ></Dropdown.Select>
-        </Dropdown>
+        <div className="ca-drop">
+          <Dropdown className="ca-dropdown">
+            <Dropdown.Select
+              placeholder="Quận/Huyện"
+              className="ca-select"
+            ></Dropdown.Select>
+
+            <Dropdown.List className="ca-lists">
+              {listDistrict.length > 0 &&
+                listDistrict.map((district) => (
+                  <Dropdown.Option key={district.id} className="ca-option">
+                    {district.name}
+                  </Dropdown.Option>
+                ))}
+            </Dropdown.List>
+          </Dropdown>
+          <Dropdown className="ca-dropdown">
+            <Dropdown.Select
+              placeholder="Phường/Xã"
+              className="ca-select"
+            ></Dropdown.Select>
+            <Dropdown.List className="ca-lists">
+              {listWard.length > 0 &&
+                listWard.map((ward) => (
+                  <Dropdown.Option key={ward.id} className="ca-option">
+                    {ward.name}
+                  </Dropdown.Option>
+                ))}
+            </Dropdown.List>
+          </Dropdown>
+        </div>
         <Textarea
           type="text"
           name="apartmentnumber"

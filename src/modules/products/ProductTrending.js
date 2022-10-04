@@ -1,7 +1,11 @@
 /** @format */
 
 import React from "react";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { GET_ALL_FOOD_REQUEST } from "store/food/slice";
 import styled from "styled-components";
+import priceVN from "utils/priceVN";
 import ProductImage from "./ProductImage";
 import ProductPrice from "./ProductPrice";
 import ProductTitle from "./ProductTitle";
@@ -52,27 +56,48 @@ const ProductTreding = styled.div`
   }
 `;
 
-const ProductTrending = ({ data }) => {
-  if (!data) return null;
+const ProductTrending = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    function fetchData() {
+      dispatch(GET_ALL_FOOD_REQUEST());
+    }
+    fetchData();
+  }, [dispatch]);
+  const { foods } = useSelector((state) => state.food);
+  if (!foods) return null;
   return (
     <ProductTreding>
       <h3 className="trend-heading">Món ăn hot nhất</h3>
       <div className="trend-content">
-        {data.length > 0 &&
-          data.map((item) => (
-            <div className="trend-lists" key={item.id}>
-              <ProductImage
-                url={item.url}
-                className="trend-image"
-              ></ProductImage>
-              <div className="trend-info">
-                <ProductTitle className="trend-title">
-                  {item.title}
-                </ProductTitle>
-                <ProductPrice className="text-base">{item.price}</ProductPrice>
+        {foods.length > 0 &&
+          foods.map((food) => {
+            const { FoodName, FoodPrices, FoodImages } = food;
+            return (
+              <div className="trend-lists" key={FoodName}>
+                <ProductImage
+                  url={FoodImages[0].FoodImageUrl}
+                  className="trend-image"
+                ></ProductImage>
+                <div className="trend-info">
+                  <ProductTitle className="trend-title">
+                    {FoodName}
+                  </ProductTitle>
+                  {FoodPrices.length <= 1 ? (
+                    <ProductPrice className="text-base">
+                      {priceVN(FoodPrices[0].FoodPrice)}
+                    </ProductPrice>
+                  ) : (
+                    <ProductPrice className="text-base">
+                      {priceVN(FoodPrices[0].FoodPrice) +
+                        "~" +
+                        priceVN(FoodPrices[FoodPrices.length - 1].FoodPrice)}
+                    </ProductPrice>
+                  )}
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
       </div>
     </ProductTreding>
   );

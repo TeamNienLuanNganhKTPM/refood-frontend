@@ -11,14 +11,9 @@ const ProductPriceStyled = styled.div`
 `;
 
 const ProductPrice = ({ children, className = "", ...props }) => {
-  const priceVN = new Intl.NumberFormat("vi-VN", {
-    style: "currency",
-    currency: "VND",
-  }).format(children);
-
   return (
     <ProductPriceStyled className={className} {...props}>
-      {priceVN}
+      {children}
     </ProductPriceStyled>
   );
 };

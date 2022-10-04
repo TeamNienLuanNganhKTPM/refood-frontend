@@ -11,44 +11,6 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { GET_ALL_FOOD_REQUEST } from "store/food/slice";
 
-const data = [
-  {
-    id: "1",
-    url: "https://images.unsplash.com/photo-1505576633757-0ac1084af824?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxjb2xsZWN0aW9uLXBhZ2V8MjR8MTQyNDM0MHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=600&q=60",
-    title: "Gà nước lá chanh",
-    star: 4,
-    price: 200000,
-  },
-  {
-    id: "2",
-    url: "https://images.unsplash.com/photo-1505576633757-0ac1084af824?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxjb2xsZWN0aW9uLXBhZ2V8MjR8MTQyNDM0MHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=600&q=60",
-    title: "Buffet Lẩu Thượng Hạng",
-    star: 4,
-    price: 656000,
-  },
-  {
-    id: "3",
-    url: "https://images.unsplash.com/photo-1560055932-595dab110124?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxjb2xsZWN0aW9uLXBhZ2V8Mzl8MTQyNDM0MHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=600&q=60",
-    title: "Gà nước lá chanh",
-    star: 4,
-    price: 100000,
-  },
-  {
-    id: "4",
-    url: "https://images.unsplash.com/photo-1604085804781-04a7d1adba36?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxjb2xsZWN0aW9uLXBhZ2V8NDN8MTQyNDM0MHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=600&q=60",
-    title: "Gà nước lá chanh",
-    star: 4,
-    price: 100000,
-  },
-  {
-    id: "5",
-    url: "https://images.unsplash.com/photo-1553621043-f607bfbf6640?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxjb2xsZWN0aW9uLXBhZ2V8MTU5fDE0MjQzNDB8fGVufDB8fHx8&auto=format&fit=crop&w=600&q=60",
-    title: "Gà nước lá chanh",
-    star: 4,
-    price: 100000,
-  },
-];
-
 const HomeProductStyled = styled.section`
   padding-top: 40px;
   .product-main {
@@ -79,7 +41,7 @@ const HomeProduct = () => {
             alt=""
             className="rounded-lg"
           />
-          <ProductTrending data={data}></ProductTrending>
+          <ProductTrending></ProductTrending>
         </SectionLeft>
         <SectionRight className="section-right">
           <ProductBestSeller></ProductBestSeller>

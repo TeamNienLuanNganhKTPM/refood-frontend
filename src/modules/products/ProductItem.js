@@ -10,6 +10,7 @@ import ProductTitle from "./ProductTitle";
 import PropTypes from "prop-types";
 import slugify from "slugify";
 import { Link } from "react-router-dom";
+import priceVN from "utils/priceVN";
 
 const ProductItemStyled = styled.div`
   height: 100%;
@@ -54,19 +55,36 @@ const ProductItemStyled = styled.div`
 `;
 
 const ProductItem = ({ data }) => {
-  const { url, title, price } = data;
-  const slug = slugify(title, { lower: true });
+  const { FoodName, FoodPrices, FoodImages, FoodReviewAvg } = data;
+  const slug = slugify(FoodName, { lower: true });
   if (!data) return null;
   return (
     <ProductItemStyled className="cards">
       <div className="card-main">
-        <ProductImage url={url} to={slug} className="card-image"></ProductImage>
+        <ProductImage
+          url={FoodImages[0].FoodImageUrl}
+          to={slug}
+          className="card-image"
+        ></ProductImage>
         <div className="card-content">
           <div className="card-top">
-            <ProductTitle to={slug}>{title}</ProductTitle>
+            <ProductTitle to={slug}>{FoodName}</ProductTitle>
             <Link to={`/${slug}`} className="card-info">
-              <ProductStar className="flex-shrink-0 mb-3"></ProductStar>
-              <ProductPrice className="flex-1 mb-3">{price}</ProductPrice>
+              <ProductStar
+                className="flex-shrink-0 mb-3"
+                starNumber={FoodReviewAvg}
+              ></ProductStar>
+              {FoodPrices.length <= 1 ? (
+                <ProductPrice className="flex-1 mb-3">
+                  {priceVN(FoodPrices[0].FoodPrice)}
+                </ProductPrice>
+              ) : (
+                <ProductPrice className="flex-1 mb-3">
+                  {priceVN(FoodPrices[0].FoodPrice) +
+                    "~" +
+                    priceVN(FoodPrices[FoodPrices.length - 1].FoodPrice)}
+                </ProductPrice>
+              )}
             </Link>
           </div>
           <ProductCart className="card-button"></ProductCart>
