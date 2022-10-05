@@ -11,10 +11,9 @@ const List = ({ children, className = "", open, props }) => {
   const location = useLocation();
   useEffect(() => {
     if (location.pathname === "/") {
-      setShow(true);
-    }
-    if (open === true) {
-      setShow(true);
+      setShow(open);
+    } else {
+      setShow(false);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

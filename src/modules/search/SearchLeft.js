@@ -3,6 +3,7 @@
 import React from "react";
 import SearchItem from "./SearchItem";
 import styled from "styled-components";
+import { priceStatus } from "utils/constants";
 
 // Data
 const category = [
@@ -33,21 +34,25 @@ const price = [
     id: "1",
     name: "price-100",
     title: "Dưới 100.000đ",
+    values: priceStatus.UNDER100K,
   },
   {
     id: "2",
     name: "price-500",
     title: "Từ 100.000đ đến 500.000đ",
+    values: priceStatus.F100KT500K,
   },
   {
     id: "3",
     name: "price-1000",
     title: "Từ 500.000đ đến 1.000.000đ",
+    values: priceStatus.F500KT1000K,
   },
   {
     id: "4",
     name: "price-more-1000",
     title: "Trên 1.000.000đ",
+    values: priceStatus.ON1000K,
   },
 ];
 

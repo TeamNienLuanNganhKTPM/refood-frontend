@@ -26,6 +26,7 @@ const ModalComponent = ({ children, modalIsOpen, closeModal = () => {} }) => {
         onRequestClose={closeModal}
         style={customStyles}
         overlayClassName="overlay"
+        bodyOpenClassName="overflow"
       >
         {children}
       </Modal>

@@ -24,9 +24,8 @@ function* getAllFood() {
 }
 
 function* searchFood({ payload }) {
-  const { name, values } = payload;
   try {
-    const response = yield call(findFoodApi, name, values);
+    const response = yield call(findFoodApi, payload);
     const { foodByName, foodByPrices, foodByRation, foodByReview, foodByType } =
       response.data;
     const foods = foodByName.concat(

@@ -22,3 +22,31 @@ export const addressStatus = {
   NOT_DEFAULT: 0,
   DEFAULT: 1,
 };
+
+export const priceStatus = {
+  UNDER100K: "0-100000",
+  F100KT500K: "100000-500000",
+  F500KT1000K: "500000-1000000",
+  ON1000K: "1000000-10000000",
+};
+
+export const typeStatus = {
+  KHAIVI: "khai-vi",
+  DATTIEC: "dat-tiec",
+};
+
+export const rationStatus = {
+  PERSON1: 1,
+  PERSON2: 2,
+  PERSON3: 3,
+  PERSON4: 4,
+  PERSON5: 5,
+};
+
+export const reviewStatus = {
+  VIEW1: 1,
+  VIEW2: 2,
+  VIEW3: 3,
+  VIEW4: 4,
+  VIEW5: 5,
+};

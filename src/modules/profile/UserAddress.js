@@ -2,6 +2,7 @@
 
 import { getAllAddressApi } from "api/user";
 import ModalComponent from "components/modal/ModalComponent";
+import useModal from "hooks/useModal";
 import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
@@ -110,7 +111,7 @@ const UserAddressStyled = styled.div`
 
 const UserAddress = () => {
   const [addresses, setAddresses] = useState([]);
-  const [modalIsOpen, setIsOpen] = useState(false);
+  const { modalIsOpen, openModal, closeModal } = useModal();
   // Get all address from database
   useEffect(() => {
     async function getAllAddress() {
@@ -126,13 +127,6 @@ const UserAddress = () => {
     getAllAddress();
   }, []);
 
-  function openModal() {
-    setIsOpen(true);
-  }
-
-  function closeModal() {
-    setIsOpen(false);
-  }
   return (
     <UserAddressStyled>
       <div className="address-heading">

@@ -47,7 +47,7 @@ const HeaderBottom = ({ className = "" }) => {
                 placeholder="DANH MỤC"
                 className="dropdown-select"
               ></Dropdown.Select>
-              <Dropdown.List className="dropdown-lists">
+              <Dropdown.List className="dropdown-lists" open={true}>
                 <Dropdown.Option>Món nướng</Dropdown.Option>
                 <Dropdown.Option>Món chiên</Dropdown.Option>
                 <Dropdown.Option>Cơm</Dropdown.Option>
