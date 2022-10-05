@@ -28,6 +28,8 @@ const InputStyles = styled.div`
         background-color: #fff;
         border: 1px solid ${(props) => props.theme.line};
         border-radius: 8px;
+        color: ${(props) => props.theme.text};
+        font-weight: 400;
       `};
   }
   input:focus {
@@ -45,7 +47,12 @@ const InputStyles = styled.div`
     right: 20px;
     top: 50%;
     transform: translateY(-50%);
+    color: ${(props) => props.theme.textPrimary};
     cursor: pointer;
+  }
+  .input-icon:hover {
+    color: ${(props) => props.theme.primary};
+    transition: all 0.3s linear;
   }
 `;
 const Input = ({

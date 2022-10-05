@@ -19,6 +19,6 @@ export const theme = {
 };
 
 export const addressStatus = {
-  DEFAULT: 0,
-  NOT_DEFAULT: 1,
+  NOT_DEFAULT: 0,
+  DEFAULT: 1,
 };

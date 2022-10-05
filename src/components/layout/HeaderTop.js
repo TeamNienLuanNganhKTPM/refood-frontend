@@ -2,6 +2,7 @@
 
 import UserModal from "modules/auth/UserModal";
 import CartModal from "modules/cart/CartModal";
+import SearchInput from "modules/search/SearchInput";
 import { React, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
@@ -27,32 +28,6 @@ const HeaderStyled = styled.div`
       margin-top: 2px;
       opacity: 0.5;
     }
-  }
-  .ht-search {
-    padding: 15px 25px;
-    border-radius: 8px;
-    width: 100%;
-    max-width: 550px;
-    display: flex;
-    align-items: center;
-    position: relative;
-    background-color: #f3f4f7;
-  }
-  .search-input {
-    flex: 1;
-    padding-right: 45px;
-    font-weight: 400;
-    color: ${(props) => props.theme.text};
-    background-color: #f3f4f7;
-  }
-  .search-icon {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    right: 25px;
-    font-weight: 500;
-    color: ${(props) => props.theme.textPrimary};
-    cursor: pointer;
   }
   .ht-buttons {
     display: flex;
@@ -237,29 +212,7 @@ const HeaderTop = ({ className = "" }) => {
               </Link>
               <span>Chỉ cần bạn thích - có ngay món ngon</span>
             </div>
-            <div className="ht-search">
-              <input
-                type="text"
-                className="search-input"
-                placeholder="Tìm món ăn..."
-              />
-              <span className="search-icon">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth="1.5"
-                  stroke="currentColor"
-                  className="w-6 h-6"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
-                  />
-                </svg>
-              </span>
-            </div>
+            <SearchInput className="ht-search"></SearchInput>
             <div className="ht-buttons">
               {token === null || isLogOut ? (
                 <div className="ht-cart" onClick={handleShowCart}>
