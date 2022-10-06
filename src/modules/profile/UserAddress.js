@@ -1,14 +1,17 @@
 /** @format */
 
-import { getAllAddressApi } from "api/user";
+import { deleteAddressApi, getAllAddressApi } from "api/user";
 import ModalComponent from "components/modal/ModalComponent";
 import useModal from "hooks/useModal";
+import useNotification from "hooks/useNotification";
 import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
 import styled from "styled-components";
+import Swal from "sweetalert2";
 import { addressStatus } from "utils/constants";
 import UserCreateAddress from "./UserCreateAddress";
+import UserUpdateAddress from "./UserUpdateAddress";
 
 const UserAddressStyled = styled.div`
   .address-heading {
@@ -111,7 +114,10 @@ const UserAddressStyled = styled.div`
 
 const UserAddress = () => {
   const [addresses, setAddresses] = useState([]);
+  const [addressId, setAddressId] = useState("");
   const { modalIsOpen, openModal, closeModal } = useModal();
+  const { notifySuccess, notifyError } = useNotification();
+
   // Get all address from database
   useEffect(() => {
     async function getAllAddress() {
@@ -126,6 +132,34 @@ const UserAddress = () => {
     }
     getAllAddress();
   }, []);
+
+  // Delete Address
+  const handleDeleteAddress = async (addressId) => {
+    try {
+      Swal.fire({
+        title: "Bạn muốn xóa địa chỉ?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Xóa",
+        confirmButtonColor: "#2bbef9",
+        cancelButtonText: "Hủy",
+        cancelButtonColor: "#ea2b0f",
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          const response = await deleteAddressApi(addressId);
+          if (response.status === 200) {
+            notifySuccess(response.data.message);
+            setTimeout(() => {
+              window.location.reload();
+            }, 2500);
+          }
+        }
+      });
+    } catch (error) {
+      const { message } = error.response.data;
+      notifyError(message);
+    }
+  };
 
   return (
     <UserAddressStyled>
@@ -153,15 +187,37 @@ const UserAddress = () => {
               </div>
               <div className="address-update">
                 {address.isDefaultAddress === addressStatus.NOT_DEFAULT && (
-                  <span className="hover:text-redPrimary">Xóa</span>
+                  <span
+                    className="hover:text-redPrimary"
+                    onClick={() => handleDeleteAddress(address.AddressId)}
+                  >
+                    Xóa
+                  </span>
                 )}
-                <span className="hover:text-redPrimary">Cập nhật</span>
+                <span
+                  className="hover:text-redPrimary"
+                  onClick={() => {
+                    openModal();
+                    setAddressId(address.AddressId);
+                  }}
+                >
+                  Cập nhật
+                </span>
+                <ModalComponent
+                  modalIsOpen={modalIsOpen}
+                  closeModal={closeModal}
+                >
+                  <UserUpdateAddress
+                    closeModal={closeModal}
+                    addressId={addressId}
+                  ></UserUpdateAddress>
+                </ModalComponent>
               </div>
             </div>
             <div className="address-desc">
               <div className="address-direction">
                 <span className="address-text">
-                  {address.AddressApartmentNumber}, {address.AddressStreetName}
+                  {address.AddressNumAndStreetName}
                 </span>
                 <span className="address-text">
                   {address.AddressWard}, {address.AddressDistrict}, Cần Thơ

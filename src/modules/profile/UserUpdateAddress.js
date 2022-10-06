@@ -5,7 +5,12 @@ import { React, useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Textarea } from "components/textarea";
 import { Input } from "components/input";
-import { addAddressApi, getDistrictApi, getWardApi } from "api/user";
+import {
+  getAddressDetailApi,
+  getDistrictApi,
+  getWardApi,
+  updateAddressApi,
+} from "api/user";
 import { Dropdown } from "components/dropdown";
 import { Checkbox } from "components/checkbox";
 import { Button } from "components/button";
@@ -99,7 +104,7 @@ const schema = yup.object({
   district: yup.string().required("Vui lòng chọn quận huyện"),
 });
 
-const UserCreateAddress = ({ closeModal }) => {
+const UserUpdateAddress = ({ closeModal, addressId }) => {
   const [listDistrict, setListDistrict] = useState([]);
   const [listWard, setListWard] = useState([]);
   const [selectDistrictName, setSelectDistrictName] = useState("");
@@ -116,19 +121,43 @@ const UserCreateAddress = ({ closeModal }) => {
     mode: "onChange",
     resolver: yupResolver(schema),
     defaultValues: {
+      name: "",
+      phonenumber: "",
+      apartmentnumberstreet: "",
+      ward: "",
+      district: "",
       isdefault: false,
     },
   });
-
-  const user = localStorage.getItem("user");
-  const { CustomerName, CustomerPhone } = JSON.parse(user);
   const { notifySuccess, notifyError } = useNotification();
+
+  // Get address detail
   useEffect(() => {
-    reset({
-      name: CustomerName,
-      phonenumber: CustomerPhone,
-    });
-  }, [CustomerName, CustomerPhone, reset]);
+    async function getAddressDetail() {
+      try {
+        const response = await getAddressDetailApi(addressId);
+        const { address_info } = response.data;
+        if (response.status === 200) {
+          setSelectDistrictName(address_info.AddressDistrict);
+          setSelectWardName(address_info.AddressWard);
+          setIsCheck(Boolean(address_info.isDefaultAddress));
+          reset({
+            addressid: address_info.AddressId,
+            name: address_info.AddressRecieverName,
+            phonenumber: address_info.AddressRecieverPhone,
+            apartmentnumberstreet: address_info.AddressNumAndStreetName,
+            ward: address_info.AddressWard,
+            district: address_info.AddressDistrict,
+            isdefault: Boolean(address_info.isDefaultAddress),
+          });
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    getAddressDetail();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // Get address district
   useEffect(() => {
@@ -170,10 +199,10 @@ const UserCreateAddress = ({ closeModal }) => {
   };
 
   // Submit create address
-  const handleSubmitAddress = async (values) => {
+  const handleSubmitUpdateAddress = async (values) => {
     if (!isValid) return null;
     try {
-      const response = await addAddressApi(values);
+      const response = await updateAddressApi(values);
       if (response.status === 200) {
         notifySuccess(response.data.message);
       }
@@ -189,7 +218,7 @@ const UserCreateAddress = ({ closeModal }) => {
   return (
     <UserCreateAddressStyled>
       <div className="ca-top">
-        <h3 className="ca-heading">Địa chỉ mới</h3>
+        <h3 className="ca-heading">Cập nhật địa chỉ</h3>
         <div className="cursor-pointer text-text" onClick={closeModal}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -207,7 +236,10 @@ const UserCreateAddress = ({ closeModal }) => {
           </svg>
         </div>
       </div>
-      <form className="ca-form" onSubmit={handleSubmit(handleSubmitAddress)}>
+      <form
+        className="ca-form"
+        onSubmit={handleSubmit(handleSubmitUpdateAddress)}
+      >
         <div className="ca-info">
           <div className="w-full">
             <Input
@@ -314,7 +346,7 @@ const UserCreateAddress = ({ closeModal }) => {
             height="44px"
             className="w-full max-w-[150px]"
           >
-            Hoàn thành
+            Cập nhật
           </Button>
         </div>
       </form>
@@ -322,4 +354,4 @@ const UserCreateAddress = ({ closeModal }) => {
   );
 };
 
-export default UserCreateAddress;
+export default UserUpdateAddress;
