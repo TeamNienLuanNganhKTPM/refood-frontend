@@ -37,7 +37,7 @@ const UserPageStyled = styled.div`
     gap: 30px;
   }
   .user-name {
-    width: 30%;
+    width: 20%;
     text-align: end;
   }
   .user-input {

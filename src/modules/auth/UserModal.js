@@ -4,7 +4,7 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { store } from "store/configureStore";
-import { LOGOUT_SUCCESS } from "store/users/slice";
+import { LOGOUT_SUCCESS } from "store/user/slice";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 

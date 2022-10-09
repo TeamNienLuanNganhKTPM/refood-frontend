@@ -25,6 +25,9 @@ const CartStyled = styled.div`
     overflow-y: auto;
     border-bottom: 1px solid ${(props) => props.theme.borderLight};
     padding: 10px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
   }
   .cart-lists::-webkit-scrollbar {
     width: 4px;
@@ -91,42 +94,24 @@ const CartStyled = styled.div`
 const CartModal = ({ className = "" }) => {
   return (
     <CartStyled className={className}>
-      <Dropdown>
-        <Dropdown.List display={true} className="cart-lists">
-          <Dropdown.Option>
-            <CartItem></CartItem>
-          </Dropdown.Option>
-          <Dropdown.Option>
-            <CartItem></CartItem>
-          </Dropdown.Option>
-          <Dropdown.Option>
-            <CartItem></CartItem>
-          </Dropdown.Option>
-          <Dropdown.Option>
-            <CartItem></CartItem>
-          </Dropdown.Option>
-          <Dropdown.Option>
-            <CartItem></CartItem>
-          </Dropdown.Option>
-          <Dropdown.Option>
-            <CartItem></CartItem>
-          </Dropdown.Option>
-        </Dropdown.List>
-        <div className="cart-content">
-          <div className="cart-total">
-            <span className="total-name">Tổng:</span>
-            <ProductPrice className="total-price">1000000</ProductPrice>
-          </div>
-          <div className="cart-btn">
-            <Button className="btn-details" height="44px" kind="none">
-              <span className="details-name">Xem chi tiết</span>
-            </Button>
-            <Button className="btn-pay" height="44px" kind="none">
-              <span className="pay-name">Thanh toán</span>
-            </Button>
-          </div>
+      <div className="cart-content">
+        <div className="cart-lists">
+          <CartItem></CartItem>
+          <CartItem></CartItem>
         </div>
-      </Dropdown>
+        <div className="cart-total">
+          <span className="total-name">Tổng:</span>
+          <ProductPrice className="total-price">1000000</ProductPrice>
+        </div>
+        <div className="cart-btn">
+          <Button className="btn-details" height="44px" kind="none">
+            <span className="details-name">Xem chi tiết</span>
+          </Button>
+          <Button className="btn-pay" height="44px" kind="none">
+            <span className="pay-name">Thanh toán</span>
+          </Button>
+        </div>
+      </div>
     </CartStyled>
   );
 };

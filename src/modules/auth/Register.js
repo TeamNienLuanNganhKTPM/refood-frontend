@@ -11,7 +11,7 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { ErrorMessage } from "components/error";
 import { useDispatch, useSelector } from "react-redux";
-import { SIGN_UP_REQUEST } from "store/users/slice";
+import { SIGN_UP_REQUEST } from "store/user/slice";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
 

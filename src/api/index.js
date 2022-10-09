@@ -1,7 +1,7 @@
 /** @format */
 
 import { store } from "store/configureStore";
-import { LOGOUT_SUCCESS } from "store/users/slice";
+import { LOGOUT_SUCCESS } from "store/user/slice";
 
 const { default: axios } = require("axios");
 
