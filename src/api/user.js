@@ -2,7 +2,7 @@
 
 import instance from "api";
 
-export const signUpApi = (user) =>
+export const registerApi = (user) =>
   instance.request({ method: "POST", data: user, url: "/auth/register" });
 
 export const loginApi = (user) =>

@@ -3,10 +3,11 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { store } from "store/configureStore";
-import { LOGOUT_SUCCESS } from "store/user/slice";
 import styled from "styled-components";
 import PropTypes from "prop-types";
+import { useDispatch, useSelector } from "react-redux";
+import { authLogOut } from "store/auth/slice";
+import { useEffect } from "react";
 
 const UserModalStyled = styled.div`
   position: absolute;
@@ -45,15 +46,19 @@ const UserModalStyled = styled.div`
   }
 `;
 
-const UserModal = ({ className = "", setIsLogOut }) => {
-  const navigate = useNavigate();
+const UserModal = ({ className = "" }) => {
+  const dispatch = useDispatch();
   const handleLogOut = () => {
-    setIsLogOut(true);
-    localStorage.clear();
-    store.dispatch(LOGOUT_SUCCESS());
-    toast.success("Đăng xuất thành công", { position: "bottom-right" });
-    navigate("/");
+    dispatch(authLogOut());
   };
+  const { user } = useSelector((state) => state.auth);
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (user === "undefined") {
+      navigate("/");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user]);
   return (
     <UserModalStyled className={className}>
       <ul>
@@ -77,7 +82,6 @@ const UserModal = ({ className = "", setIsLogOut }) => {
 
 UserModal.propTypes = {
   className: PropTypes.string,
-  setIsLogOut: PropTypes.any,
 };
 
 export default UserModal;

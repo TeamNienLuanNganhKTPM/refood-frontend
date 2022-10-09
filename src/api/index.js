@@ -1,11 +1,10 @@
 /** @format */
 
 import { store } from "store/configureStore";
-import { LOGOUT_SUCCESS } from "store/user/slice";
 
 const { default: axios } = require("axios");
 
-const token = window.localStorage.getItem("access_token");
+const token = window.localStorage.getItem("accessToken");
 const user = window.localStorage.getItem("user");
 const CustomerId = JSON.parse(user)?.CustomerId;
 
@@ -21,9 +20,10 @@ const instance = axios.create({
 // Add a request interceptor
 instance.interceptors.request.use(
   (req) => {
-    const { user } = store.getState();
-    if (user.access_token) {
-      req.headers.Authorization = user.access_token;
+    const { accessToken, user } = store.getState();
+    if (accessToken) {
+      req.headers.Authorization = accessToken;
+      req.headers.CustomerId = user.CustomerId;
     }
     return req;
   },
@@ -37,11 +37,10 @@ instance.interceptors.response.use(
     return res;
   },
   (error) => {
-    console.log(error.response);
     const status = error.response ? error.response.status : 500;
     if (status && status === 500) {
       localStorage.clear();
-      store.dispatch(LOGOUT_SUCCESS());
+      // store.dispatch(LOGOUT_SUCCESS());
     }
     return Promise.reject(error);
   }

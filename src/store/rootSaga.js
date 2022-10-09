@@ -2,8 +2,8 @@
 
 import { all, fork } from "redux-saga/effects";
 import foodWatcher from "./food/saga";
-import userWatcher from "./user/saga";
+import authWatcher from "./auth/saga";
 
 export default function* rootSaga() {
-  yield all([fork(userWatcher), fork(foodWatcher)]);
+  yield all([fork(authWatcher), fork(foodWatcher)]);
 }

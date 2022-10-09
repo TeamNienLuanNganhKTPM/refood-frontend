@@ -17,10 +17,9 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { ErrorMessage } from "components/error";
 import { useDispatch, useSelector } from "react-redux";
-import { LOGIN_REQUEST } from "store/user/slice";
-import { useEffect } from "react";
-import { toast } from "react-toastify";
+import { authLogin } from "store/auth/slice";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 const schema = yup.object({
   phonenumber: yup.string().required("Vui lòng nhập số điện thoại"),
@@ -46,34 +45,26 @@ const Login = ({ show }) => {
   });
 
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-
-  const { error, message, success } = useSelector((state) => state.user);
-
-  useEffect(() => {
-    if (error) {
-      toast.error(message);
-    }
-    if (success) {
-      toast.success(message);
-      navigate("/");
-      window.location.reload();
-    }
-  }, [error, message, navigate, success]);
 
   // Submit Form Login
   const handleSubmitLogin = (values) => {
     if (!isValid) return;
     try {
-      dispatch(LOGIN_REQUEST(values));
-      reset({
-        phonenumber: "",
-        password: "",
-      });
+      dispatch(authLogin(values));
+      reset({});
     } catch (error) {
       console.log(error);
     }
   };
+  const { user } = useSelector((state) => state.auth);
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (user && user.CustomerId) {
+      navigate("/");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user]);
+
   return (
     <>
       {show === true && (

@@ -10,10 +10,8 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { ErrorMessage } from "components/error";
-import { useDispatch, useSelector } from "react-redux";
-import { SIGN_UP_REQUEST } from "store/user/slice";
-import { useEffect } from "react";
-import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { authRegister } from "store/auth/slice";
 
 const schema = yup.object({
   name: yup.string().required("Vui lòng nhập họ và tên"),
@@ -43,25 +41,14 @@ const Register = ({ show }) => {
   });
 
   const dispatch = useDispatch();
-  const { isSignUp, message } = useSelector((state) => state.user);
   // Check error when submit form register
-  useEffect(() => {
-    if (isSignUp) {
-      toast.error(message);
-    }
-  }, [isSignUp, message]);
 
   // Submit Form Register
   const handleSubmitRegister = (values) => {
     if (!isValid) return;
     try {
-      dispatch(SIGN_UP_REQUEST(values));
-      reset({
-        name: "",
-        phonenumber: "",
-        password: "",
-        repassword: "",
-      });
+      dispatch(authRegister(values));
+      reset({});
     } catch (error) {
       console.log(error);
     }

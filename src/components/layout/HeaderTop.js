@@ -4,6 +4,7 @@ import UserModal from "modules/auth/UserModal";
 import CartModal from "modules/cart/CartModal";
 import SearchInput from "modules/search/SearchInput";
 import { React, useState } from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
@@ -179,11 +180,10 @@ const HeaderStyled = styled.div`
 
 const HeaderTop = ({ className = "" }) => {
   const [showCart, setShowCart] = useState(false);
-  const [isLogOut, setIsLogOut] = useState(false);
-  const token = window.localStorage.getItem("access_token");
   const handleShowCart = () => {
     setShowCart((showCart) => !showCart);
   };
+  const { user } = useSelector((state) => state.auth);
 
   return (
     <>
@@ -214,7 +214,7 @@ const HeaderTop = ({ className = "" }) => {
             </div>
             <SearchInput className="ht-search"></SearchInput>
             <div className="ht-buttons">
-              {token === null || isLogOut ? (
+              {!user ? (
                 <div className="ht-cart" onClick={handleShowCart}>
                   <div className="cart">
                     <span className="cart-icon">
@@ -264,11 +264,7 @@ const HeaderTop = ({ className = "" }) => {
                   )}
                 </div>
               )}
-              {token === null || isLogOut ? (
-                <Link to={"/account"}>
-                  <button className="user-btn">Đăng nhập</button>
-                </Link>
-              ) : (
+              {user ? (
                 <div className="ht-user">
                   <div className="ht-icon">
                     <svg
@@ -286,11 +282,12 @@ const HeaderTop = ({ className = "" }) => {
                       />
                     </svg>
                   </div>
-                  <UserModal
-                    className="user-info"
-                    setIsLogOut={setIsLogOut}
-                  ></UserModal>
+                  <UserModal className="user-info"></UserModal>
                 </div>
+              ) : (
+                <Link to={"/account"}>
+                  <button className="user-btn">Đăng nhập</button>
+                </Link>
               )}
             </div>
           </div>
