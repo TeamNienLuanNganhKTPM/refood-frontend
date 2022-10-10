@@ -10,7 +10,6 @@ const foodSlice = createSlice({
   reducers: {
     getAllFood: (state, { payload }) => ({
       ...state,
-      ...payload,
     }),
     updateAllFood: (state, { payload }) => ({
       ...state,
@@ -18,15 +17,21 @@ const foodSlice = createSlice({
     }),
     searchFood: (state, { payload }) => ({
       ...state,
-      ...payload,
       foods: [],
     }),
     getFoodDetails: (state, { payload }) => ({
       ...state,
-      ...payload,
     }),
     updateFoodDetails: (state, { payload }) => ({
+      ...state,
       foodDetails: payload,
+    }),
+    getCommentDetails: (state, { payload }) => ({
+      ...state,
+    }),
+    updateCommentDetails: (state, { payload }) => ({
+      ...state,
+      comments: payload,
     }),
   },
 });
@@ -37,6 +42,8 @@ export const {
   searchFood,
   getFoodDetails,
   updateFoodDetails,
+  getCommentDetails,
+  updateCommentDetails,
 } = foodSlice.actions;
 
 export default foodSlice.reducer;

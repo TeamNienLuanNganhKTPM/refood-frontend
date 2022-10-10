@@ -16,6 +16,7 @@ import { useEffect } from "react";
 import { getFoodDetailApi } from "api/food";
 import { useDispatch, useSelector } from "react-redux";
 import { getFoodDetails } from "store/food/slice";
+import ProductRation from "modules/products/ProductRation";
 
 // const data = [
 //   {
@@ -105,12 +106,24 @@ const DetailsContentStyled = styled.div`
     background-color: ${(props) => props.theme.textGray};
     height: 100%;
   }
+  .detail-ration {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 20px;
+    gap: 20px;
+    .ration-name {
+      font-size: 16px;
+      font-weight: 500;
+      color: ${(props) => props.theme.text};
+    }
+  }
   .detail-quantity {
     display: flex;
     align-items: center;
     justify-content: flex-start;
     gap: 20px;
-    margin-bottom: 40px;
+    margin-bottom: 30px;
     .quantity-name {
       font-size: 16px;
       font-weight: 500;
@@ -161,6 +174,9 @@ const DetailsContentStyled = styled.div`
         font-size: 14px;
       }
     }
+    .ration-name {
+      width: 40%;
+    }
   }
 `;
 
@@ -210,8 +226,12 @@ const DetailsContent = ({ className = "" }) => {
             </div>
             <div className="detail-info">
               <div className="detail-rated">
-                <span className="detail-count">5</span>
-                <ProductStar></ProductStar>
+                <span className="detail-count">
+                  {foodDetails?.FoodReviewAvg}
+                </span>
+                <ProductStar
+                  starNumber={foodDetails?.FoodReviewAvg}
+                ></ProductStar>
               </div>
               <span className="detail-line"></span>
               <div className="detail-review">
@@ -229,19 +249,30 @@ const DetailsContent = ({ className = "" }) => {
                   )}
               </ProductPrice>
             </div>
+            <div className="detail-ration">
+              <span className="ration-name">Khẩu phần:</span>
+              <ProductRation
+                data={foodDetails?.FoodPrices}
+                className="ration"
+              ></ProductRation>
+            </div>
             <div className="detail-quantity">
               <span className="quantity-name">Số lượng:</span>
               <Quantity></Quantity>
             </div>
             <div className="detail-btn">
               <Button
-                className="hover:bg-blueBold hover:text-white hover:transition-all"
+                className=" hover:border-primary hover:bg-primary hover:text-white hover:transition-all"
                 height="48px"
                 kind="not-bg"
               >
                 Thêm vào giỏ
               </Button>
-              <Button className="bg-transparent" height="48px" kind="secondary">
+              <Button
+                className="transition-all bg-transparent hover:opacity-80"
+                height="48px"
+                kind="primary"
+              >
                 Mua ngay
               </Button>
             </div>

@@ -29,7 +29,7 @@ const QuantityStyled = styled.div`
   }
   .btn-minus:hover,
   .btn-plus:hover {
-    background-color: ${(props) => props.theme.blueBold};
+    background-color: ${(props) => props.theme.primary};
     color: #fff;
   }
 `;

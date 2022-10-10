@@ -22,3 +22,10 @@ export const getFoodDetailApi = (param) => {
     url: `/food/get-food-details/${param}`,
   });
 };
+
+export const getFoodCommentApi = (id) => {
+  return instance.request({
+    method: "GET",
+    url: `/food/get-food-comments/${id}`,
+  });
+};

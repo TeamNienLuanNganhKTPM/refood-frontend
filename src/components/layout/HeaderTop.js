@@ -164,7 +164,8 @@ const HeaderStyled = styled.div`
     .ht-search {
       display: none;
     }
-    .ht-user {
+    .ht-user,
+    .user-btn {
       display: none;
     }
     .show-cart {

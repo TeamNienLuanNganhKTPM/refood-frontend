@@ -16,6 +16,7 @@ export const theme = {
   textLight: "#c2c2d3",
   grayDark: "#f7f8fd",
   textPlaceHoder: "#9ca3af",
+  lightRed: "#fff1ee",
 };
 
 export const addressStatus = {

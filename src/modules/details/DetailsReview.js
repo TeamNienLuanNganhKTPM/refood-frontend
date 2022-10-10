@@ -60,6 +60,7 @@ const DetailsReviewStyled = styled.div`
 const DetailsReview = () => {
   const reviewRef = useRef(null);
   const [show, setShow] = useState(true);
+
   useEffect(() => {
     let reviewSelector = document.getElementsByClassName("review-tab");
     const review = reviewSelector[0].children[0];

@@ -37,8 +37,8 @@ const ButtonStyles = styled.button`
   ${(props) =>
     props.kind === "not-bg" &&
     css`
-      color: ${(props) => props.theme.textPrimary};
-      border: 1px solid ${(props) => props.theme.textPrimary};
+      color: ${(props) => props.theme.primary};
+      border: 1px solid ${(props) => props.theme.primary};
       background-color: ${(props) => props.theme.lightBlue};
     `};
   &:disabled {
