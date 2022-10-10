@@ -7,7 +7,6 @@ import DetailsContent from "modules/details/DetailsContent";
 import DetailsReview from "modules/details/DetailsReview";
 import DetailsComment from "modules/details/DetailsComment";
 import ProductSimilar from "modules/products/ProductSimilar";
-import { useParams } from "react-router-dom";
 
 const ProductDetailsPageStyled = styled.div`
   background-color: #f7f8fd;
@@ -36,8 +35,6 @@ const ProductDetailsPageStyled = styled.div`
   }
 `;
 const ProductDetailsPage = () => {
-  const params = useParams();
-  console.log("ProductDetailsPage ~ params", params);
   return (
     <Layout>
       <div className="pb-10 bg-[#f7f8fd]"></div>

@@ -36,7 +36,7 @@ const DetailsThumbStyled = styled.div`
   }
 `;
 
-const DetailsThumb = ({ image, className = "", getIndexImg }) => {
+const DetailsThumb = ({ image, className = "", getImage }) => {
   const imageRef = useRef(null);
   useEffect(() => {
     let imgSelector = document.getElementsByClassName("thumb-image");
@@ -47,8 +47,8 @@ const DetailsThumb = ({ image, className = "", getIndexImg }) => {
     };
   }, []);
 
-  const handleClickImage = (index) => {
-    getIndexImg(index);
+  const handleClickImage = (url, index) => {
+    getImage(url);
     const images = imageRef.current.children;
     const ImgActive = document.querySelectorAll(".active");
     for (let i = 0; i < ImgActive.length; i++) {
@@ -64,9 +64,9 @@ const DetailsThumb = ({ image, className = "", getIndexImg }) => {
           image.map((img, index) => {
             return (
               <ProductImage
-                url={img}
+                url={img.FoodImageUrl}
                 key={index}
-                onClick={() => handleClickImage(index)}
+                onClick={() => handleClickImage(img.FoodImageUrl, index)}
               ></ProductImage>
             );
           })}

@@ -55,8 +55,8 @@ const ProductItemStyled = styled.div`
 `;
 
 const ProductItem = ({ data }) => {
-  const { FoodName, FoodPrices, FoodImages, FoodReviewAvg } = data;
-  const slug = slugify(FoodName, { lower: true });
+  const { FoodName, FoodSlug, FoodPrices, FoodImages, FoodReviewAvg } = data;
+  const slug = slugify(FoodSlug, { lower: true });
   if (!data) return null;
   return (
     <ProductItemStyled className="cards">

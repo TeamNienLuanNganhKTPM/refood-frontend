@@ -1,8 +1,8 @@
 /** @format */
 
-const { getAllFoodApi, findFoodApi } = require("api/food");
+const { getAllFoodApi, findFoodApi, getFoodDetailApi } = require("api/food");
 const { call, put } = require("redux-saga/effects");
-const { updateAllFood } = require("./slice");
+const { updateAllFood, updateFoodDetails } = require("./slice");
 
 function* handleGetAllFoods() {
   try {
@@ -43,4 +43,21 @@ function* handleSearchFoodToKey({ payload }) {
   }
 }
 
-export { handleGetAllFoods, handleSearchNameFood, handleSearchFoodToKey };
+function* getFoodDetail({ payload }) {
+  try {
+    const response = yield call(getFoodDetailApi, payload);
+    if (response.status === 200) {
+      yield put(updateFoodDetails(response.data.food_info));
+    }
+  } catch (error) {
+    const { message } = error.response.data;
+    console.log(message);
+  }
+}
+
+export {
+  handleGetAllFoods,
+  handleSearchNameFood,
+  handleSearchFoodToKey,
+  getFoodDetail,
+};

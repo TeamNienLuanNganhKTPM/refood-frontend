@@ -10,20 +10,26 @@ import DetailsThumb from "./DetailsThumb";
 import { Button } from "components/button";
 import { useState } from "react";
 import { Quantity } from "components/quantity";
+import priceVN from "utils/priceVN";
+import { useParams } from "react-router-dom";
+import { useEffect } from "react";
+import { getFoodDetailApi } from "api/food";
+import { useDispatch, useSelector } from "react-redux";
+import { getFoodDetails } from "store/food/slice";
 
-const data = [
-  {
-    id: "1",
-    url: [
-      "https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1yZWxhdGVkfDExfHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=600&q=60",
-      "https://images.unsplash.com/photo-1571091718767-18b5b1457add?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1yZWxhdGVkfDF8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=600&q=60",
-      "https://images.unsplash.com/photo-1600688640154-9619e002df30?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1yZWxhdGVkfDZ8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=600&q=60",
-    ],
-    title: "Hamberger siêu ngon",
-    star: 4,
-    price: 80000,
-  },
-];
+// const data = [
+//   {
+//     id: "1",
+//     url: [
+//       "https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1yZWxhdGVkfDExfHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=600&q=60",
+//       "https://images.unsplash.com/photo-1571091718767-18b5b1457add?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1yZWxhdGVkfDF8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=600&q=60",
+//       "https://images.unsplash.com/photo-1600688640154-9619e002df30?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1yZWxhdGVkfDZ8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=600&q=60",
+//     ],
+//     title: "Hamberger siêu ngon",
+//     star: 4,
+//     price: 80000,
+//   },
+// ];
 
 const DetailsContentStyled = styled.div`
   background-color: #fff;
@@ -159,71 +165,89 @@ const DetailsContentStyled = styled.div`
 `;
 
 const DetailsContent = ({ className = "" }) => {
-  const [indexImg, setIndexImg] = useState(0);
-  const getIndexImg = (index) => {
-    setIndexImg(index);
+  const params = useParams();
+  const { slug } = params;
+  const dispatch = useDispatch();
+  useEffect(() => {
+    async function getFoodDetail() {
+      try {
+        dispatch(getFoodDetails(slug));
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    getFoodDetail();
+  }, [dispatch, slug]);
+
+  const { foodDetails } = useSelector((state) => state.food);
+  const [image, setImage] = useState("");
+  const getImage = (url) => {
+    setImage(url);
   };
+
   return (
     <>
-      {data.length > 0 &&
-        data.map((item) => (
-          <DetailsContentStyled key={item.id} className={className}>
-            <div className="detail-image">
-              <div className="image-big">
-                <ProductImage
-                  url={item.url[indexImg]}
-                  className="h-full"
-                ></ProductImage>
-              </div>
-              <DetailsThumb
-                image={item.url}
-                className="thumb-image"
-                getIndexImg={getIndexImg}
-              ></DetailsThumb>
+      {foodDetails && (
+        <DetailsContentStyled className={className}>
+          <div className="detail-image">
+            <div className="image-big">
+              <ProductImage
+                className="h-full"
+                url={image || foodDetails?.FoodThumb}
+              ></ProductImage>
             </div>
-            <div className="detail-content">
-              <div className="detail-title">
-                <ProductTitle className="title">{item.title}</ProductTitle>
+            <DetailsThumb
+              image={foodDetails?.FoodImages}
+              className="thumb-image"
+              getImage={getImage}
+            ></DetailsThumb>
+          </div>
+          <div className="detail-content">
+            <div className="detail-title">
+              <ProductTitle className="title">
+                {foodDetails?.FoodName}
+              </ProductTitle>
+            </div>
+            <div className="detail-info">
+              <div className="detail-rated">
+                <span className="detail-count">5</span>
+                <ProductStar></ProductStar>
               </div>
-              <div className="detail-info">
-                <div className="detail-rated">
-                  <span className="detail-count">5</span>
-                  <ProductStar></ProductStar>
-                </div>
-                <span className="detail-line"></span>
-                <div className="detail-review">
-                  <div className="detail-count">50</div>
-                  <div className="detail-evaluate">Đánh giá</div>
-                </div>
-              </div>
-              <div className="detail-price">
-                <ProductPrice sizeText="32px" className="mb-5">
-                  {item.price}
-                </ProductPrice>
-              </div>
-              <div className="detail-quantity">
-                <span className="quantity-name">Số lượng:</span>
-                <Quantity></Quantity>
-              </div>
-              <div className="detail-btn">
-                <Button
-                  className="hover:bg-blueBold hover:text-white hover:transition-all"
-                  height="48px"
-                  kind="not-bg"
-                >
-                  Thêm vào giỏ
-                </Button>
-                <Button
-                  className="bg-transparent"
-                  height="48px"
-                  kind="secondary"
-                >
-                  Mua ngay
-                </Button>
+              <span className="detail-line"></span>
+              <div className="detail-review">
+                <div className="detail-count">50</div>
+                <div className="detail-evaluate">Đánh giá</div>
               </div>
             </div>
-          </DetailsContentStyled>
-        ))}
+            <div className="detail-price">
+              <ProductPrice sizeText="32px" className="mb-5">
+                {priceVN(foodDetails?.FoodPrices[0].FoodPrice) +
+                  "~" +
+                  priceVN(
+                    foodDetails?.FoodPrices[foodDetails?.FoodPrices.length - 1]
+                      .FoodPrice
+                  )}
+              </ProductPrice>
+            </div>
+            <div className="detail-quantity">
+              <span className="quantity-name">Số lượng:</span>
+              <Quantity></Quantity>
+            </div>
+            <div className="detail-btn">
+              <Button
+                className="hover:bg-blueBold hover:text-white hover:transition-all"
+                height="48px"
+                kind="not-bg"
+              >
+                Thêm vào giỏ
+              </Button>
+              <Button className="bg-transparent" height="48px" kind="secondary">
+                Mua ngay
+              </Button>
+            </div>
+          </div>
+        </DetailsContentStyled>
+      )}
     </>
   );
 };

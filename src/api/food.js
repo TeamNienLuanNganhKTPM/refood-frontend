@@ -15,3 +15,10 @@ export const findFoodApi = (param) => {
     url: `/food/find-foods?${paramSearch}`,
   });
 };
+
+export const getFoodDetailApi = (param) => {
+  return instance.request({
+    method: "GET",
+    url: `/food/get-food-details/${param}`,
+  });
+};
