@@ -2,28 +2,28 @@
 
 const { getAllFoodApi, findFoodApi } = require("api/food");
 const { call, put } = require("redux-saga/effects");
-const {
-  GET_ALL_FOOD_FAILURE,
-  GET_ALL_FOOD_SUCCESS,
-  SEARCH_FOOD_FAILURE,
-  SEARCH_FOOD_SUCCESS,
-} = require("./slice");
+const { updateAllFood } = require("./slice");
 
-function* getAllFood() {
+function* handleGetAllFoods() {
   try {
     const response = yield call(getAllFoodApi);
     if (response.status === 200) {
-      yield put(GET_ALL_FOOD_SUCCESS(response.data.foods));
-    } else {
-      yield put(GET_ALL_FOOD_FAILURE(response.data.message));
+      yield put(updateAllFood(response.data.foods));
     }
   } catch (error) {
-    const { message } = error.response.data;
-    yield put(GET_ALL_FOOD_FAILURE(message));
+    console.log(error);
   }
 }
 
-function* searchFood({ payload }) {
+function* handleSearchNameFood({ payload }) {
+  const response = yield call(findFoodApi, payload);
+  const { foodByName } = response.data;
+  if (response.status === 200) {
+    yield put(updateAllFood(foodByName));
+  }
+}
+
+function* handleSearchFoodToKey({ payload }) {
   try {
     const response = yield call(findFoodApi, payload);
     const { foodByName, foodByPrices, foodByRation, foodByReview, foodByType } =
@@ -35,14 +35,12 @@ function* searchFood({ payload }) {
       foodByType
     );
     if (response.status === 200) {
-      yield put(SEARCH_FOOD_SUCCESS(foods));
-    } else {
-      yield put(SEARCH_FOOD_FAILURE(response.data.message));
+      yield put(updateAllFood(foods));
     }
   } catch (error) {
     const { message } = error.response.data;
-    yield put(SEARCH_FOOD_FAILURE(message));
+    console.log(message);
   }
 }
 
-export { getAllFood, searchFood };
+export { handleGetAllFoods, handleSearchNameFood, handleSearchFoodToKey };

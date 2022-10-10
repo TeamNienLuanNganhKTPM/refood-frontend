@@ -8,7 +8,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { SEARCH_FOOD_REQUEST } from "store/food/slice";
+import { searchFood, SEARCH_FOOD_REQUEST } from "store/food/slice";
 import styled from "styled-components";
 import {
   priceStatus,
@@ -196,7 +196,7 @@ const SearchDetailModal = ({ closeModal }) => {
       ...Object.entries(values),
     ]).toString();
     try {
-      dispatch(SEARCH_FOOD_REQUEST(values));
+      dispatch(searchFood(values));
       navigate(`/food/find-foods?${paramSearch}`);
     } catch (error) {
       console.log(error);

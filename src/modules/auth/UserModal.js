@@ -2,10 +2,9 @@
 
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
 import styled from "styled-components";
 import PropTypes from "prop-types";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { authLogOut } from "store/auth/slice";
 import { useEffect } from "react";
 
@@ -48,17 +47,12 @@ const UserModalStyled = styled.div`
 
 const UserModal = ({ className = "" }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const handleLogOut = () => {
     dispatch(authLogOut());
+    navigate("/");
   };
-  const { user } = useSelector((state) => state.auth);
-  const navigate = useNavigate();
-  useEffect(() => {
-    if (user === "undefined") {
-      navigate("/");
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user]);
+
   return (
     <UserModalStyled className={className}>
       <ul>

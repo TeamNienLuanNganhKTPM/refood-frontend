@@ -1,10 +1,15 @@
 /** @format */
 
-import { takeEvery } from "redux-saga/effects";
-import { getAllFood, searchFood } from "./handlers";
-import { GET_ALL_FOOD_REQUEST, SEARCH_FOOD_REQUEST } from "./slice";
+import { takeLatest } from "redux-saga/effects";
+import {
+  handleGetAllFoods,
+  handleSearchFoodToKey,
+  handleSearchNameFood,
+} from "./handlers";
+import { getAllFood, searchFood } from "./slice";
 
 export default function* foodWatcher() {
-  yield takeEvery(GET_ALL_FOOD_REQUEST.type, getAllFood);
-  yield takeEvery(SEARCH_FOOD_REQUEST.type, searchFood);
+  yield takeLatest(getAllFood.type, handleGetAllFoods);
+  yield takeLatest(searchFood.type, handleSearchNameFood);
+  yield takeLatest(searchFood.type, handleSearchFoodToKey);
 }

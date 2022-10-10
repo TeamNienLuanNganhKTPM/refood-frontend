@@ -4,14 +4,14 @@ import { Heading } from "components/heading";
 import React from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { GET_ALL_FOOD_REQUEST } from "store/food/slice";
+import { getAllFood } from "store/food/slice";
 import ProductItem from "./ProductItem";
 
 const ProductNew = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     function fetchData() {
-      dispatch(GET_ALL_FOOD_REQUEST());
+      dispatch(getAllFood());
     }
     fetchData();
   }, [dispatch]);

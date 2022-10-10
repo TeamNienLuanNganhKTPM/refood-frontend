@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { SEARCH_FOOD_REQUEST } from "store/food/slice";
+import { searchFood } from "store/food/slice";
 import useModal from "hooks/useModal";
 import ModalComponent from "components/modal/ModalComponent";
 import SearchDetailModal from "./SearchDetailModal";
@@ -53,7 +53,7 @@ const SearchInput = ({ className = "" }) => {
   const dispatch = useDispatch();
   const handleClickSearch = () => {
     try {
-      dispatch(SEARCH_FOOD_REQUEST({ name: values }));
+      dispatch(searchFood({ name: values }));
       navigate(`/food/find-foods?name=${values}`);
     } catch (error) {
       console.log(error);

@@ -9,7 +9,7 @@ import styled from "styled-components";
 import ProductTrending from "modules/products/ProductTrending";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { GET_ALL_FOOD_REQUEST } from "store/food/slice";
+import { getAllFood } from "store/food/slice";
 
 const HomeProductStyled = styled.section`
   padding-top: 40px;
@@ -26,7 +26,7 @@ const HomeProduct = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     function fetchData() {
-      dispatch(GET_ALL_FOOD_REQUEST());
+      dispatch(getAllFood());
     }
     fetchData();
   }, [dispatch]);

@@ -183,8 +183,8 @@ const HeaderTop = ({ className = "" }) => {
   const handleShowCart = () => {
     setShowCart((showCart) => !showCart);
   };
+  const token = window.localStorage.getItem("accessToken");
   const { user } = useSelector((state) => state.auth);
-
   return (
     <>
       <HeaderStyled className={className}>
@@ -214,7 +214,7 @@ const HeaderTop = ({ className = "" }) => {
             </div>
             <SearchInput className="ht-search"></SearchInput>
             <div className="ht-buttons">
-              {!user ? (
+              {!token || !user ? (
                 <div className="ht-cart" onClick={handleShowCart}>
                   <div className="cart">
                     <span className="cart-icon">
@@ -264,7 +264,7 @@ const HeaderTop = ({ className = "" }) => {
                   )}
                 </div>
               )}
-              {user ? (
+              {token || user ? (
                 <div className="ht-user">
                   <div className="ht-icon">
                     <svg

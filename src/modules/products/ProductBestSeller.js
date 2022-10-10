@@ -3,14 +3,14 @@
 import { Heading } from "components/heading";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { GET_ALL_FOOD_REQUEST } from "store/food/slice";
+import { getAllFood } from "store/food/slice";
 import ProductList from "./ProductList";
 
 const ProductBestSeller = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     function fetchData() {
-      dispatch(GET_ALL_FOOD_REQUEST());
+      dispatch(getAllFood());
     }
     fetchData();
   }, [dispatch]);
