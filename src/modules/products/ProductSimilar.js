@@ -1,10 +1,10 @@
 /** @format */
 
-import { Heading } from "components/heading";
 import React from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllFood } from "store/food/slice";
+import ProductHeading from "./ProductHeading";
 import ProductList from "./ProductList";
 
 const ProductSimilar = () => {
@@ -19,7 +19,10 @@ const ProductSimilar = () => {
   if (!foods) return null;
   return (
     <div>
-      <Heading title="Món ăn liên quan" view="Xem tất cả"></Heading>
+      <ProductHeading
+        title="Món ăn liên quan"
+        view="Xem tất cả"
+      ></ProductHeading>
       <ProductList data={foods}></ProductList>
     </div>
   );

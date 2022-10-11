@@ -1,7 +1,7 @@
 /** @format */
 
 import React from "react";
-import SearchItem from "./SearchItem";
+import SearchItem from "../search/SearchItem";
 import styled from "styled-components";
 import { priceStatus } from "utils/constants";
 
@@ -85,7 +85,7 @@ const SearchLeftStyled = styled.div`
   row-gap: 30px;
 `;
 
-const SearchLeft = () => {
+const ProductLeft = () => {
   return (
     <SearchLeftStyled>
       <SearchItem title="Theo danh mục" data={category}></SearchItem>
@@ -95,4 +95,4 @@ const SearchLeft = () => {
   );
 };
 
-export default SearchLeft;
+export default ProductLeft;

@@ -1,11 +1,14 @@
 /** @format */
 
-import { Button } from "components/button";
 import React from "react";
-import styled from "styled-components";
 import PropTypes from "prop-types";
+import { useDispatch } from "react-redux";
+import { getAllFood } from "store/food/slice";
+import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
+import { Button } from "components/button";
 
-const HeadingStyled = styled.div`
+const ProductHeadingStyled = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -43,11 +46,12 @@ const HeadingStyled = styled.div`
     }
   }
 `;
-const Heading = ({ title, view }) => {
+
+const ProductHeading = ({ title = "", view = "", onClick = () => {} }) => {
   return (
-    <HeadingStyled>
+    <ProductHeadingStyled>
       <h4 className="heading-title">{title}</h4>
-      <Button className="heading-view" kind="none">
+      <Button className="heading-view" kind="none" onClick={onClick}>
         <span>{view}</span>
         <span>
           <svg
@@ -66,13 +70,14 @@ const Heading = ({ title, view }) => {
           </svg>
         </span>
       </Button>
-    </HeadingStyled>
+    </ProductHeadingStyled>
   );
 };
 
-Heading.propTypes = {
-  title: PropTypes.string.isRequired,
+ProductHeading.propTypes = {
+  title: PropTypes.string,
   view: PropTypes.string,
+  onClick: PropTypes.func,
 };
 
-export default Heading;
+export default ProductHeading;

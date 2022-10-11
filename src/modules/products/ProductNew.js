@@ -1,10 +1,11 @@
 /** @format */
 
-import { Heading } from "components/heading";
 import React from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { getAllFood } from "store/food/slice";
+import ProductHeading from "./ProductHeading";
 import ProductItem from "./ProductItem";
 
 const ProductNew = () => {
@@ -15,11 +16,22 @@ const ProductNew = () => {
     }
     fetchData();
   }, [dispatch]);
+
+  const navigate = useNavigate();
+  const handleAllFoodNew = () => {
+    dispatch(getAllFood());
+    navigate("/food");
+  };
+
   const { foods } = useSelector((state) => state.food);
   if (!foods) return null;
   return (
     <div className="mb-10">
-      <Heading title="Món ăn mới" view="Xem tất cả"></Heading>
+      <ProductHeading
+        title="Món ăn mới"
+        view="Xem tất cả"
+        onClick={handleAllFoodNew}
+      ></ProductHeading>
       <div className="flex-layout grid-row">
         {foods.length > 0 &&
           foods.map((food) => (
