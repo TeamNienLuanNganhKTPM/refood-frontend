@@ -1,6 +1,6 @@
 /** @format */
 
-import { getUserApi, loginApi, registerApi } from "api/user";
+import { loginApi, registerApi } from "api/user";
 import { toast } from "react-toastify";
 import { call, put } from "redux-saga/effects";
 import Swal from "sweetalert2";

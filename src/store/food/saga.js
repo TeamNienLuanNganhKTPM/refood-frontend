@@ -7,8 +7,10 @@ import {
   handleSearchFoodToKey,
   handleSearchNameFood,
   handleGetCommentDetails,
+  handleAddCommentDetails,
 } from "./handlers";
 import {
+  addCommentDetails,
   getAllFood,
   getCommentDetails,
   getFoodDetails,
@@ -21,4 +23,5 @@ export default function* foodWatcher() {
   yield takeLatest(searchFood.type, handleSearchFoodToKey);
   yield takeLatest(getFoodDetails.type, handleGetFoodDetail);
   yield takeLatest(getCommentDetails.type, handleGetCommentDetails);
+  yield takeLatest(addCommentDetails.type, handleAddCommentDetails);
 }

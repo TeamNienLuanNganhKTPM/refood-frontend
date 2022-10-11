@@ -29,3 +29,11 @@ export const getFoodCommentApi = (id) => {
     url: `/food/get-food-comments/${id}`,
   });
 };
+
+export const addFoodCommentApi = (comment) => {
+  return instance.request({
+    method: "POST",
+    data: comment,
+    url: `/food/add-comment`,
+  });
+};

@@ -1,10 +1,13 @@
 /** @format */
 
+import Swal from "sweetalert2";
+
 const {
   getAllFoodApi,
   findFoodApi,
   getFoodDetailApi,
   getFoodCommentApi,
+  addFoodCommentApi,
 } = require("api/food");
 const { call, put } = require("redux-saga/effects");
 const {
@@ -65,11 +68,28 @@ function* handleGetFoodDetail({ payload }) {
 }
 
 function* handleGetCommentDetails({ payload }) {
-  console.log("function*handleGetCommentDetails ~ payload", payload);
   try {
     const response = yield call(getFoodCommentApi, payload);
     if (response.status === 200) {
       yield put(updateCommentDetails(response.data.comments));
+    }
+  } catch (error) {
+    const { message } = error.response.data;
+    console.log(message);
+  }
+}
+
+function* handleAddCommentDetails({ payload }) {
+  try {
+    const response = yield call(addFoodCommentApi, payload);
+    if (response.status === 200) {
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        text: response.data.message,
+        showConfirmButton: false,
+        timer: 2000,
+      });
     }
   } catch (error) {
     const { message } = error.response.data;
@@ -83,4 +103,5 @@ export {
   handleSearchFoodToKey,
   handleGetFoodDetail,
   handleGetCommentDetails,
+  handleAddCommentDetails,
 };
