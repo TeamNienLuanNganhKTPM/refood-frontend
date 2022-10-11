@@ -41,7 +41,6 @@ const Comment = ({ className = "" }) => {
   const user = window.localStorage.getItem("user");
   const CustomerId = JSON.parse(user)?.CustomerId;
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   useEffect(() => {
     setValue("foodid", foodDetails?.FoodId);
@@ -82,6 +81,7 @@ const Comment = ({ className = "" }) => {
         });
         if (phonenumber && password) {
           dispatch(authLogin({ phonenumber: phonenumber, password: password }));
+          dispatch(getCommentDetails(foodDetails?.FoodId));
         }
       }
     }

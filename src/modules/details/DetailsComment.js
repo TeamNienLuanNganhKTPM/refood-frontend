@@ -5,8 +5,9 @@ import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getCommentDetails } from "store/food/slice";
+import { deleteComment, getCommentDetails } from "store/food/slice";
 import styled from "styled-components";
+import Swal from "sweetalert2";
 import formatToDate from "utils/formatDate";
 
 const DetailsCommentStyled = styled.div`
@@ -70,6 +71,13 @@ const DetailsCommentStyled = styled.div`
     color: ${(props) => props.theme.primary};
     font-size: 13px;
     padding: 5px 0;
+    cursor: pointer;
+  }
+  .cmt-delete {
+    color: ${(props) => props.theme.text};
+    font-size: 13px;
+    padding: 5px 0;
+    margin-left: 5px;
     cursor: pointer;
   }
   .cmt-time {
@@ -154,10 +162,13 @@ const DetailsCommentStyled = styled.div`
 const DetailsComment = () => {
   const [showCmt, setShowCmt] = useState(false);
   const { foodDetails, comments } = useSelector((state) => state.food);
+  const user = window.localStorage.getItem("user");
+  const CustomerId = JSON.parse(user)?.CustomerId;
   const dispatch = useDispatch();
   const handleClickCmt = () => {
     setShowCmt(true);
   };
+
   useEffect(() => {
     async function fetchCommentDetails() {
       try {
@@ -168,6 +179,24 @@ const DetailsComment = () => {
     }
     fetchCommentDetails();
   }, [dispatch, foodDetails?.FoodId]);
+
+  const handleDeleteCmt = (CommentId) => {
+    console.log("handleDeleteCmt ~ CommentId", CommentId);
+    Swal.fire({
+      title: "Bạn muốn xóa bình luận?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: '#2bbef9"',
+      confirmButtonText: "Xóa",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(
+          deleteComment({ commentid: CommentId, foodid: foodDetails?.FoodId })
+        );
+        dispatch(getCommentDetails(foodDetails?.FoodId));
+      }
+    });
+  };
   return (
     <DetailsCommentStyled>
       <h3 className="cmt-heading">Bình luận</h3>
@@ -187,6 +216,14 @@ const DetailsComment = () => {
                 <span className="cmt-rely" onClick={handleClickCmt}>
                   Trả lời
                 </span>
+                {CustomerId === cmt.CommentOwnerId && (
+                  <span
+                    className="cmt-delete"
+                    onClick={() => handleDeleteCmt(cmt.CommentId)}
+                  >
+                    Xóa
+                  </span>
+                )}
                 <span>-</span>
                 <span className="cmt-time">{formatDate}</span>
               </div>

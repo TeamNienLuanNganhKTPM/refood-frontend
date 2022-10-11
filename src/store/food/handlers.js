@@ -8,6 +8,7 @@ const {
   getFoodDetailApi,
   getFoodCommentApi,
   addFoodCommentApi,
+  deleteFoodCommentApi,
 } = require("api/food");
 const { call, put } = require("redux-saga/effects");
 const {
@@ -97,6 +98,22 @@ function* handleAddCommentDetails({ payload }) {
   }
 }
 
+function* handleDeleteComment({ payload }) {
+  try {
+    const response = yield call(deleteFoodCommentApi, payload);
+    Swal.fire({
+      position: "center",
+      icon: "success",
+      text: response.data.message,
+      showConfirmButton: false,
+      timer: 2000,
+    });
+  } catch (error) {
+    const { message } = error.response.data;
+    console.log(message);
+  }
+}
+
 export {
   handleGetAllFoods,
   handleSearchNameFood,
@@ -104,4 +121,5 @@ export {
   handleGetFoodDetail,
   handleGetCommentDetails,
   handleAddCommentDetails,
+  handleDeleteComment,
 };

@@ -37,3 +37,11 @@ export const addFoodCommentApi = (comment) => {
     url: `/food/add-comment`,
   });
 };
+
+export const deleteFoodCommentApi = (comment) => {
+  return instance.request({
+    method: "DELETE",
+    data: comment,
+    url: `/food/delete-comment`,
+  });
+};
