@@ -19,6 +19,7 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Field } from "components/field";
 import { ErrorMessage } from "components/error";
+import { useSelector } from "react-redux";
 
 const UserCreateAddressStyled = styled.div`
   width: 500px;
@@ -104,7 +105,7 @@ const schema = yup.object({
   district: yup.string().required("Vui lòng chọn quận huyện"),
 });
 
-const UserUpdateAddress = ({ closeModal, addressId }) => {
+const UserUpdateAddress = ({ closeModal }) => {
   const [listDistrict, setListDistrict] = useState([]);
   const [listWard, setListWard] = useState([]);
   const [selectDistrictName, setSelectDistrictName] = useState("");
@@ -130,34 +131,27 @@ const UserUpdateAddress = ({ closeModal, addressId }) => {
     },
   });
   const { notifySuccess, notifyError } = useNotification();
-
+  const { addressInfo } = useSelector((state) => state.auth);
   // Get address detail
   useEffect(() => {
-    async function getAddressDetail() {
-      try {
-        const response = await getAddressDetailApi(addressId);
-        const { address_info } = response.data;
-        if (response.status === 200) {
-          setSelectDistrictName(address_info.AddressDistrict);
-          setSelectWardName(address_info.AddressWard);
-          setIsCheck(Boolean(address_info.isDefaultAddress));
-          reset({
-            addressid: address_info.AddressId,
-            name: address_info.AddressRecieverName,
-            phonenumber: address_info.AddressRecieverPhone,
-            apartmentnumberstreet: address_info.AddressNumAndStreetName,
-            ward: address_info.AddressWard,
-            district: address_info.AddressDistrict,
-            isdefault: Boolean(address_info.isDefaultAddress),
-          });
-        }
-      } catch (error) {
-        console.log(error);
+    function getAddressDetail() {
+      if (addressInfo) {
+        setSelectDistrictName(addressInfo?.AddressDistrict);
+        setSelectWardName(addressInfo?.AddressWard);
+        setIsCheck(Boolean(addressInfo?.isDefaultAddress));
+        reset({
+          addressid: addressInfo?.AddressId,
+          name: addressInfo?.AddressRecieverName,
+          phonenumber: addressInfo?.AddressRecieverPhone,
+          apartmentnumberstreet: addressInfo?.AddressNumAndStreetName,
+          ward: addressInfo?.AddressWard,
+          district: addressInfo?.AddressDistrict,
+          isdefault: Boolean(addressInfo?.isDefaultAddress),
+        });
       }
     }
     getAddressDetail();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [addressInfo, reset]);
 
   // Get address district
   useEffect(() => {

@@ -14,6 +14,7 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Field } from "components/field";
 import { ErrorMessage } from "components/error";
+import useChecked from "hooks/useChecked";
 
 const UserCreateAddressStyled = styled.div`
   width: 500px;
@@ -104,8 +105,7 @@ const UserCreateAddress = ({ closeModal }) => {
   const [listWard, setListWard] = useState([]);
   const [selectDistrictName, setSelectDistrictName] = useState("");
   const [selectWardName, setSelectWardName] = useState("");
-  const [isCheck, setIsCheck] = useState(false);
-
+  const { isChecked, handleChecked } = useChecked();
   const {
     control,
     reset,
@@ -163,10 +163,6 @@ const UserCreateAddress = ({ closeModal }) => {
   const handleOptionWard = (wardName) => {
     setSelectWardName(wardName);
     setValue("ward", wardName);
-  };
-
-  const handleCheckBox = () => {
-    setIsCheck((isCheck) => !isCheck);
   };
 
   // Submit create address
@@ -292,9 +288,9 @@ const UserCreateAddress = ({ closeModal }) => {
         <Checkbox
           control={control}
           name="isdefault"
-          checked={isCheck}
-          value={isCheck}
-          onClick={handleCheckBox}
+          checked={isChecked}
+          value={isChecked}
+          onClick={handleChecked}
         >
           Đặt làm mặc định
         </Checkbox>

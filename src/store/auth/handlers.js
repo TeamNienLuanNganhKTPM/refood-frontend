@@ -1,10 +1,10 @@
 /** @format */
 
-import { loginApi, registerApi } from "api/user";
+import { getAddressDetailApi, loginApi, registerApi } from "api/user";
 import { toast } from "react-toastify";
 import { call, put } from "redux-saga/effects";
 import Swal from "sweetalert2";
-import { authUpdateUser } from "./slice";
+import { authUpdateAddressInfo, authUpdateUser } from "./slice";
 
 function* handleAuthRegister(action) {
   const { payload } = action;
@@ -66,4 +66,16 @@ function* logOut() {
   });
 }
 
-export { handleAuthRegister, handleAuthLogin, logOut };
+function* handleGetAddressDetail({ payload }) {
+  try {
+    const response = yield call(getAddressDetailApi, payload);
+    if (response.status === 200) {
+      yield put(authUpdateAddressInfo(response.data.address_info));
+    }
+  } catch (error) {
+    const { message } = error.response.data;
+    console.log(message);
+  }
+}
+
+export { handleAuthRegister, handleAuthLogin, logOut, handleGetAddressDetail };

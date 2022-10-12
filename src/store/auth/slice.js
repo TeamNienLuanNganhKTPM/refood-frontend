@@ -23,10 +23,23 @@ const authSlice = createSlice({
       accessToken: payload.access_token,
     }),
     authLogOut: (state, action) => ({}),
+    authGetAddressDetail: (state, { payload }) => ({
+      ...state,
+    }),
+    authUpdateAddressInfo: (state, { payload }) => ({
+      ...state,
+      addressInfo: payload,
+    }),
   },
 });
 
-export const { authLogin, authRegister, authUpdateUser, authLogOut } =
-  authSlice.actions;
+export const {
+  authLogin,
+  authRegister,
+  authUpdateUser,
+  authLogOut,
+  authGetAddressDetail,
+  authUpdateAddressInfo,
+} = authSlice.actions;
 
 export default authSlice.reducer;
