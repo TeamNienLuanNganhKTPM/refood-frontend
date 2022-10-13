@@ -3,9 +3,11 @@
 import UserModal from "modules/auth/UserModal";
 import CartModal from "modules/cart/CartModal";
 import SearchInput from "modules/search/SearchInput";
+import { useEffect } from "react";
 import { React, useState } from "react";
-import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useLocation } from "react-router-dom";
+import { getCartDetail } from "store/food/slice";
 import styled from "styled-components";
 
 const HeaderStyled = styled.div`
@@ -119,6 +121,12 @@ const HeaderStyled = styled.div`
     opacity: 0.8;
   }
 
+  .show-cart {
+    transform: translateX(0);
+    transition: all 0.3s linear;
+    pointer-events: none;
+  }
+
   /* Desktop and Ipad pro*/
   @media (min-width: 1024px) and (max-width: 1263px) {
     .menu {
@@ -168,11 +176,6 @@ const HeaderStyled = styled.div`
     .user-btn {
       display: none;
     }
-    .show-cart {
-      transform: translateX(0);
-      transition: all 0.3s linear;
-      pointer-events: none;
-    }
     .ht-cart:hover .cart-info {
       pointer-events: none;
     }
@@ -181,11 +184,21 @@ const HeaderStyled = styled.div`
 
 const HeaderTop = ({ className = "" }) => {
   const [showCart, setShowCart] = useState(false);
+  const location = useLocation();
   const handleShowCart = () => {
     setShowCart((showCart) => !showCart);
   };
   const token = window.localStorage.getItem("accessToken");
   const { user } = useSelector((state) => state.auth);
+  const { cart } = useSelector((state) => state.food);
+
+  // Modal cart display none when path current /cart
+  useEffect(() => {
+    if (location.pathname === "/cart") {
+      const cart = document.querySelector(".cart-info");
+      cart.style.display = "none";
+    }
+  }, [location.pathname]);
   return (
     <>
       <HeaderStyled className={className}>
@@ -234,7 +247,7 @@ const HeaderTop = ({ className = "" }) => {
                         />
                       </svg>
                     </span>
-                    <span className="count">2</span>
+                    <span className="count">{cart?.length}</span>
                   </div>
                   {showCart ? (
                     <CartModal className="cart-info show-cart"></CartModal>

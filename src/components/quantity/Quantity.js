@@ -1,8 +1,10 @@
 /** @format */
 
 import React from "react";
+import { useEffect } from "react";
 import { useState } from "react";
 import styled from "styled-components";
+import PropTypes from "prop-types";
 
 const QuantityStyled = styled.div`
   display: flex;
@@ -34,14 +36,26 @@ const QuantityStyled = styled.div`
   }
 `;
 
-const Quantity = () => {
+const Quantity = ({ name = "", handleSetGetCount, currentCount = 1 }) => {
   const [count, setCount] = useState(1);
   const handleIncrement = () => {
     setCount((count) => count + 1);
   };
   const handleDecrement = () => {
-    if (count > 1) setCount((count) => count - 1);
+    if (count > 1) {
+      setCount((count) => count - 1);
+    }
   };
+
+  useEffect(() => {
+    handleSetGetCount(count);
+  }, [count]);
+
+  useEffect(() => {
+    if (currentCount > 1) {
+      setCount(currentCount);
+    }
+  }, [currentCount]);
   return (
     <QuantityStyled>
       <div className="quantity-number">
@@ -70,6 +84,8 @@ const Quantity = () => {
         </div>
         <input
           type="text"
+          name={name}
+          id={name}
           className="input-quantity"
           step={1}
           value={count}
@@ -97,6 +113,12 @@ const Quantity = () => {
       </div>
     </QuantityStyled>
   );
+};
+
+Quantity.propTypes = {
+  name: PropTypes.string,
+  handleSetGetCount: PropTypes.func,
+  currentCount: PropTypes.number,
 };
 
 export default Quantity;

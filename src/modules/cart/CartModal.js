@@ -4,7 +4,13 @@ import { Button } from "components/button";
 import { Dropdown } from "components/dropdown";
 import ProductPrice from "modules/products/ProductPrice";
 import React from "react";
+import { useState } from "react";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { getCartDetail } from "store/food/slice";
 import styled from "styled-components";
+import priceVN from "utils/priceVN";
 import CartItem from "./CartItem";
 
 const CartStyled = styled.div`
@@ -21,7 +27,7 @@ const CartStyled = styled.div`
   .cart-lists {
     position: inherit;
     width: 300px;
-    max-height: 260px;
+    max-height: 200px;
     overflow-y: auto;
     border-bottom: 1px solid ${(props) => props.theme.borderLight};
     padding: 10px 0;
@@ -54,9 +60,11 @@ const CartStyled = styled.div`
     align-items: center;
     justify-content: space-between;
   }
-  .total-name,
-  .total-price {
+  .total-name {
     color: ${(props) => props.theme.text};
+  }
+  .total-price {
+    color: ${(props) => props.theme.red};
   }
   .cart-btn {
     display: flex;
@@ -92,19 +100,54 @@ const CartStyled = styled.div`
 `;
 
 const CartModal = ({ className = "" }) => {
+  const [total, setTotal] = useState(0);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { cart } = useSelector((state) => state.food);
+
+  // Get list cart
+  useEffect(() => {
+    function getCart() {
+      dispatch(getCartDetail());
+    }
+    getCart();
+  }, [dispatch]);
+
+  useEffect(() => {
+    function totalCart() {
+      if (cart?.length > 0) {
+        let result = 0;
+        cart.forEach((item) => {
+          result += item.FoodPrice * item.FoodDishCount;
+        });
+        setTotal(result);
+      }
+    }
+    totalCart();
+  }, [cart]);
+
   return (
     <CartStyled className={className}>
       <div className="cart-content">
         <div className="cart-lists">
-          <CartItem></CartItem>
-          <CartItem></CartItem>
+          {cart?.length > 0 &&
+            cart.map((item) => (
+              <CartItem key={item.FoodDetailID} data={item}></CartItem>
+            ))}
         </div>
         <div className="cart-total">
           <span className="total-name">Tổng:</span>
-          <ProductPrice className="total-price">1000000</ProductPrice>
+          <ProductPrice className="total-price">{priceVN(total)}</ProductPrice>
         </div>
         <div className="cart-btn">
-          <Button className="btn-details" height="44px" kind="none">
+          <Button
+            className="btn-details"
+            height="44px"
+            kind="none"
+            onClick={() => {
+              navigate("/cart");
+            }}
+          >
             <span className="details-name">Xem chi tiết</span>
           </Button>
           <Button className="btn-pay" height="44px" kind="none">

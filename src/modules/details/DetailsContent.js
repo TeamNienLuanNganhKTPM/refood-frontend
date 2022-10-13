@@ -13,24 +13,10 @@ import { Quantity } from "components/quantity";
 import priceVN from "utils/priceVN";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
-import { getFoodDetailApi } from "api/food";
 import { useDispatch, useSelector } from "react-redux";
-import { getFoodDetails } from "store/food/slice";
+import { addCart, getFoodDetails } from "store/food/slice";
 import ProductRation from "modules/products/ProductRation";
-
-// const data = [
-//   {
-//     id: "1",
-//     url: [
-//       "https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1yZWxhdGVkfDExfHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=600&q=60",
-//       "https://images.unsplash.com/photo-1571091718767-18b5b1457add?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1yZWxhdGVkfDF8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=600&q=60",
-//       "https://images.unsplash.com/photo-1600688640154-9619e002df30?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1yZWxhdGVkfDZ8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=600&q=60",
-//     ],
-//     title: "Hamberger siêu ngon",
-//     star: 4,
-//     price: 80000,
-//   },
-// ];
+import useGetCount from "hooks/useGetCount";
 
 const DetailsContentStyled = styled.div`
   background-color: #fff;
@@ -181,9 +167,13 @@ const DetailsContentStyled = styled.div`
 `;
 
 const DetailsContent = ({ className = "" }) => {
+  const [ration, setRation] = useState("");
   const params = useParams();
   const { slug } = params;
   const dispatch = useDispatch();
+
+  const { getCount, handleSetGetCount } = useGetCount();
+
   useEffect(() => {
     async function getFoodDetail() {
       try {
@@ -199,6 +189,19 @@ const DetailsContent = ({ className = "" }) => {
   const [image, setImage] = useState("");
   const getImage = (url) => {
     setImage(url);
+  };
+
+  const handleSelectRation = (foodID) => {
+    setRation(foodID);
+  };
+  // Add cart
+  const handleAddCart = () => {
+    dispatch(
+      addCart({
+        mactma: ration,
+        count: getCount,
+      })
+    );
   };
 
   return (
@@ -254,17 +257,22 @@ const DetailsContent = ({ className = "" }) => {
               <ProductRation
                 data={foodDetails?.FoodPrices}
                 className="ration"
+                handleSelectRation={handleSelectRation}
               ></ProductRation>
             </div>
             <div className="detail-quantity">
               <span className="quantity-name">Số lượng:</span>
-              <Quantity></Quantity>
+              <Quantity
+                name="count"
+                handleSetGetCount={handleSetGetCount}
+              ></Quantity>
             </div>
             <div className="detail-btn">
               <Button
                 className=" hover:border-primary hover:bg-primary hover:text-white hover:transition-all"
                 height="48px"
                 kind="not-bg"
+                onClick={handleAddCart}
               >
                 Thêm vào giỏ
               </Button>

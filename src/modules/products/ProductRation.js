@@ -41,7 +41,7 @@ const ProductRationStyled = styled.div`
   }
 `;
 
-const ProductRation = ({ data, className = "" }) => {
+const ProductRation = ({ data, className = "", handleSelectRation }) => {
   const refRation = useRef(null);
 
   useEffect(() => {
@@ -53,7 +53,12 @@ const ProductRation = ({ data, className = "" }) => {
     };
   }, []);
 
-  const handleClickRation = (index) => {
+  useEffect(() => {
+    handleSelectRation(data[0].FoodDetailID);
+  }, []);
+
+  const handleClickRation = (index, foodID) => {
+    handleSelectRation(foodID);
     const ration = refRation.current.children;
     const rationActive = document.querySelectorAll(".ration-active");
     for (let i = 0; i < rationActive.length; i++) {
@@ -68,7 +73,7 @@ const ProductRation = ({ data, className = "" }) => {
           <div
             className="ration-item"
             key={ration.FoodRation}
-            onClick={() => handleClickRation(index)}
+            onClick={() => handleClickRation(index, ration.FoodDetailID)}
           >
             {ration.FoodRation} người
           </div>

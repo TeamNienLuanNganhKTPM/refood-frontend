@@ -41,6 +41,20 @@ const foodSlice = createSlice({
       ...state,
       ...payload,
     }),
+    addCart: (state) => ({
+      ...state,
+    }),
+    getCartDetail: (state) => ({
+      ...state,
+    }),
+    updateCart: (state, { payload }) => ({
+      ...state,
+      cart: payload,
+    }),
+    deleteCart: (state, { payload }) => ({
+      ...state,
+      ...payload,
+    }),
   },
 });
 
@@ -54,6 +68,10 @@ export const {
   updateCommentDetails,
   addCommentDetails,
   deleteComment,
+  addCart,
+  updateCart,
+  getCartDetail,
+  deleteCart,
 } = foodSlice.actions;
 
 export default foodSlice.reducer;
