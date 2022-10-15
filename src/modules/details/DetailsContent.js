@@ -14,9 +14,10 @@ import priceVN from "utils/priceVN";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addCart, getFoodDetails } from "store/food/slice";
+import { getFoodDetails } from "store/food/slice";
 import ProductRation from "modules/products/ProductRation";
 import useGetCount from "hooks/useGetCount";
+import { addCart } from "store/cart/slice";
 
 const DetailsContentStyled = styled.div`
   background-color: #fff;

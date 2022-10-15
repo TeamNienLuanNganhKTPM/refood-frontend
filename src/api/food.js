@@ -45,26 +45,3 @@ export const deleteFoodCommentApi = (comment) => {
     url: `/food/delete-comment`,
   });
 };
-
-export const addCartFoodApi = (cartItem) => {
-  return instance.request({
-    method: "POST",
-    data: cartItem,
-    url: `/cart/add-to-cart`,
-  });
-};
-
-export const getCartDetailFoodApi = () => {
-  return instance.request({
-    method: "GET",
-    url: `/cart/get-cart-detail`,
-  });
-};
-
-export const deleteCartApi = (mactma) => {
-  return instance.request({
-    method: "DELETE",
-    data: mactma,
-    url: `/cart/delete-cart-detail`,
-  });
-};

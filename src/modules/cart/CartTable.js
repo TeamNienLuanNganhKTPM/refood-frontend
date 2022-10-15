@@ -9,13 +9,12 @@ import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { deleteCart } from "store/food/slice";
+import { deleteCart, updateCartItem } from "store/cart/slice";
 import Swal from "sweetalert2";
 import priceVN from "utils/priceVN";
 
 const CartTable = ({ data }) => {
   const [subTotal, setSubTotal] = useState(0);
-  console.log("CartTable ~ subTotal", subTotal);
   const { getCount, handleSetGetCount } = useGetCount();
   const dispatch = useDispatch();
 
@@ -25,6 +24,19 @@ const CartTable = ({ data }) => {
     }
   }, [getCount, data.FoodPrice]);
 
+  // Update cart
+  useEffect(() => {
+    function updateCart() {
+      if (data.FoodDishCount !== getCount)
+        dispatch(
+          updateCartItem({
+            mactma: data.FoodDetailID,
+            count: getCount,
+          })
+        );
+    }
+    updateCart();
+  }, [getCount, data.FoodDishCount, dispatch, data.FoodDetailID]);
   // Delete cart item
   const handleDeleteCartItem = () => {
     try {
@@ -55,10 +67,19 @@ const CartTable = ({ data }) => {
           </div>
         </td>
         <td className="cl-name">
-          <ProductTitle>{data.FoodName}</ProductTitle>
+          <ProductTitle>
+            {data.length > 15
+              ? data.FoodName.slice(0, 15) + "..."
+              : data.FoodName}
+          </ProductTitle>
         </td>
         <td className="cl-price">
           <ProductPrice>{priceVN(data.FoodPrice)}</ProductPrice>
+        </td>
+        <td className="cl-ration">
+          <div className="px-4 py-2 text-sm font-medium text-center border rounded-md text-primary bg-bgPrimary border-primary">
+            {data.FoodRation} người
+          </div>
         </td>
         <td className="cl-quantity">
           <Quantity

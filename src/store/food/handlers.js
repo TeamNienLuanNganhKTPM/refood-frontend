@@ -119,56 +119,6 @@ function* handleDeleteComment({ payload }) {
   }
 }
 
-function* handleAddCart({ payload }) {
-  try {
-    const response = yield call(addCartFoodApi, payload);
-    if (response.status === 200) {
-      Swal.fire({
-        position: "center",
-        icon: "success",
-        text: response.data.message,
-        showConfirmButton: false,
-        timer: 2000,
-      });
-    }
-    yield put(getCartDetail());
-  } catch (error) {
-    const { message } = error.response.data;
-    console.log(message);
-  }
-}
-
-function* handleGetCartDetail() {
-  try {
-    const response = yield call(getCartDetailFoodApi);
-    if (response.status === 200) {
-      yield put(updateCart(response.data.cart_detail));
-    }
-  } catch (error) {
-    const { message } = error.response.data;
-    console.log(message);
-  }
-}
-
-function* handleDeleteCart({ payload }) {
-  try {
-    const response = yield call(deleteCartApi, payload);
-    if (response.status === 200) {
-      Swal.fire({
-        position: "center",
-        icon: "success",
-        text: response.data.message,
-        showConfirmButton: false,
-        timer: 2000,
-      });
-      yield put(getCartDetail());
-    }
-  } catch (error) {
-    const { message } = error.response.data;
-    console.log(message);
-  }
-}
-
 export {
   handleGetAllFoods,
   handleSearchNameFood,
@@ -177,7 +127,4 @@ export {
   handleGetCommentDetails,
   handleAddCommentDetails,
   handleDeleteComment,
-  handleAddCart,
-  handleGetCartDetail,
-  handleDeleteCart,
 };

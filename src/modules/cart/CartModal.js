@@ -1,14 +1,13 @@
 /** @format */
 
 import { Button } from "components/button";
-import { Dropdown } from "components/dropdown";
 import ProductPrice from "modules/products/ProductPrice";
 import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { getCartDetail } from "store/food/slice";
+import { getCartDetail } from "store/cart/slice";
 import styled from "styled-components";
 import priceVN from "utils/priceVN";
 import CartItem from "./CartItem";
@@ -103,7 +102,7 @@ const CartModal = ({ className = "" }) => {
   const [total, setTotal] = useState(0);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { cart } = useSelector((state) => state.food);
+  const { cart } = useSelector((state) => state.cart);
 
   // Get list cart
   useEffect(() => {

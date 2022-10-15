@@ -9,17 +9,11 @@ import {
   handleGetCommentDetails,
   handleAddCommentDetails,
   handleDeleteComment,
-  handleAddCart,
-  handleGetCartDetail,
-  handleDeleteCart,
 } from "./handlers";
 import {
-  addCart,
   addCommentDetails,
-  deleteCart,
   deleteComment,
   getAllFood,
-  getCartDetail,
   getCommentDetails,
   getFoodDetails,
   searchFood,
@@ -33,7 +27,4 @@ export default function* foodWatcher() {
   yield takeLatest(getCommentDetails.type, handleGetCommentDetails);
   yield takeLatest(addCommentDetails.type, handleAddCommentDetails);
   yield takeLatest(deleteComment.type, handleDeleteComment);
-  yield takeLatest(addCart.type, handleAddCart);
-  yield takeLatest(getCartDetail.type, handleGetCartDetail);
-  yield takeLatest(deleteCart.type, handleDeleteCart);
 }

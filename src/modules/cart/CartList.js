@@ -59,7 +59,7 @@ const CartListStyled = styled.div`
 `;
 
 const CartList = () => {
-  const { cart } = useSelector((state) => state.food);
+  const { cart } = useSelector((state) => state.cart);
   return (
     <CartListStyled>
       <table>
@@ -68,6 +68,7 @@ const CartList = () => {
             <th className="cl-thumb">&nbsp;</th>
             <th className="cl-name">Món ăn</th>
             <th className="cl-price">Giá</th>
+            <th className="cl-ration">Khẩu phần</th>
             <th className="cl-quantity">Số lượng</th>
             <th className="cl-subtotal">Tạm tính</th>
             <th className="cl-remove">&nbsp;</th>

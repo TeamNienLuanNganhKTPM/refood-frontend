@@ -190,7 +190,7 @@ const HeaderTop = ({ className = "" }) => {
   };
   const token = window.localStorage.getItem("accessToken");
   const { user } = useSelector((state) => state.auth);
-  const { cart } = useSelector((state) => state.food);
+  const { cart } = useSelector((state) => state.cart);
 
   // Modal cart display none when path current /cart
   useEffect(() => {
