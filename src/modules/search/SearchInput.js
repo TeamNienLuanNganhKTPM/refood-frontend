@@ -3,13 +3,17 @@
 import React from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { searchFood } from "store/food/slice";
 import useModal from "hooks/useModal";
 import ModalComponent from "components/modal/ModalComponent";
 import SearchDetailModal from "./SearchDetailModal";
+import { Input } from "components/input";
+import { useForm } from "react-hook-form";
+import { useEffect } from "react";
+import { filterSearchFood } from "store/search/slice";
+import Swal from "sweetalert2";
+const queryString = require("query-string");
 
 const SearchInputStyled = styled.div`
   display: flex;
@@ -28,7 +32,6 @@ const SearchInputStyled = styled.div`
     border-radius: 8px;
     color: ${(props) => props.theme.text};
     background-color: #f3f4f7;
-    padding: 12px;
   }
   .search-icon {
     position: absolute;
@@ -46,29 +49,53 @@ const SearchInputStyled = styled.div`
 `;
 
 const SearchInput = ({ className = "" }) => {
-  const [values, setValues] = useState("");
   const { modalIsOpen, openModal, closeModal } = useModal();
+  const { control, getValues, reset } = useForm({
+    mode: "onChange",
+  });
+  //
   // Handle Click Search
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const handleClickSearch = () => {
-    try {
-      dispatch(searchFood({ name: values }));
-      navigate(`/food/find-foods?name=${values}`);
-    } catch (error) {
-      console.log(error);
-    }
+    const query = queryString.stringify(getValues(), {
+      skipNull: true,
+    });
+    let timerInterval;
+    Swal.fire({
+      timer: 2000,
+      timerProgressBar: true,
+      didOpen: () => {
+        Swal.showLoading();
+        const b = Swal.getHtmlContainer().querySelector("b");
+        timerInterval = setInterval(() => {
+          b.textContent = Swal.getTimerLeft();
+        }, 100);
+      },
+      willClose: () => {
+        clearInterval(timerInterval);
+      },
+    }).then((result) => {
+      dispatch(filterSearchFood(query));
+      navigate(`/food/find-foods?${query}`);
+    });
   };
+
+  const location = useLocation();
+  const parsed = queryString.parse(location.search);
+  useEffect(() => {
+    reset(parsed);
+  }, []);
+
   return (
     <SearchInputStyled className={className}>
-      <div className="search-main">
-        <input
+      <form className="search-main">
+        <Input
           type="text"
           className="search-input"
           placeholder="Tìm món ăn..."
-          onChange={(e) => {
-            setValues(e.target.value);
-          }}
+          control={control}
+          name="name"
         />
         <span className="search-icon" onClick={handleClickSearch}>
           <svg
@@ -86,12 +113,11 @@ const SearchInput = ({ className = "" }) => {
             />
           </svg>
         </span>
-      </div>
-      <div
-        className="flex justify-end text-xs transition-all cursor-pointer text-text hover:text-primary"
-        onClick={openModal}
-      >
-        Tìm kiếm nâng cao
+      </form>
+      <div className="flex justify-end text-xs transition-all text-text ">
+        <span onClick={openModal} className="cursor-pointer hover:text-primary">
+          Tìm kiếm nâng cao
+        </span>
       </div>
       <ModalComponent modalIsOpen={modalIsOpen} closeModal={closeModal}>
         <SearchDetailModal closeModal={closeModal}></SearchDetailModal>

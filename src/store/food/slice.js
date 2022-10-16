@@ -15,10 +15,6 @@ const foodSlice = createSlice({
       ...state,
       foods: payload,
     }),
-    searchFood: (state, { payload }) => ({
-      ...state,
-      foods: [],
-    }),
     getFoodDetails: (state, { payload }) => ({
       ...state,
     }),
@@ -47,7 +43,6 @@ const foodSlice = createSlice({
 export const {
   getAllFood,
   updateAllFood,
-  searchFood,
   getFoodDetails,
   updateFoodDetails,
   getCommentDetails,

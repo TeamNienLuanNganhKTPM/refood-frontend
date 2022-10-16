@@ -5,7 +5,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 
 const Search = () => {
-  const { foods } = useSelector((state) => state.food);
+  const { foods } = useSelector((state) => state.search);
   return (
     <>
       <div className="flex-layout grid-row">

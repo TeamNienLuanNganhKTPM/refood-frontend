@@ -1,10 +1,8 @@
 /** @format */
-import { Checkbox } from "components/checkbox";
-import { Field } from "components/field";
-import FieldCheckboxes from "components/field/FieldCheckboxes";
+
 import React from "react";
-import { useForm } from "react-hook-form";
 import styled from "styled-components";
+import PriceItem from "./PriceItem";
 
 const SearchItemStyled = styled.div`
   .widget-title {
@@ -19,25 +17,10 @@ const SearchItemStyled = styled.div`
 `;
 
 const SearchToPrice = ({ title, data }) => {
-  console.log("SearchItem ~ data", data);
-  const { control } = useForm({
-    mode: "onChange",
-  });
   return (
     <SearchItemStyled>
       <div className="widget-title">{title}</div>
-      <div>
-        {data.length > 0 &&
-          data.map((item) => (
-            <Field key={item.id}>
-              <FieldCheckboxes>
-                <Checkbox control={control} name={item.name}>
-                  {item.title}
-                </Checkbox>
-              </FieldCheckboxes>
-            </Field>
-          ))}
-      </div>
+      <div className="flex flex-col gap-2"></div>
     </SearchItemStyled>
   );
 };

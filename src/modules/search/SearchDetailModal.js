@@ -3,19 +3,21 @@
 import { Button } from "components/button";
 import { Dropdown } from "components/dropdown";
 import { Input } from "components/input";
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { searchFood, SEARCH_FOOD_REQUEST } from "store/food/slice";
+import { useLocation, useNavigate } from "react-router-dom";
+import { filterSearchFood } from "store/search/slice";
 import styled from "styled-components";
+import Swal from "sweetalert2";
 import {
   priceStatus,
   rationStatus,
   reviewStatus,
   typeStatus,
 } from "utils/constants";
+const queryString = require("query-string");
 
 const SearchDetailModalStyled = styled.div`
   width: 500px;
@@ -183,6 +185,7 @@ const SearchDetailModal = ({ closeModal }) => {
     control,
     handleSubmit,
     setValue,
+    reset,
     formState: { isValid },
   } = useForm({
     mode: "onChange",
@@ -192,16 +195,46 @@ const SearchDetailModal = ({ closeModal }) => {
   const dispatch = useDispatch();
   const handleSubmitSearch = (values) => {
     if (!isValid) return null;
-    const paramSearch = new URLSearchParams([
-      ...Object.entries(values),
-    ]).toString();
+    if (values.name === "") {
+      delete values.name;
+    }
+    const query = queryString.stringify(values, {
+      skipNull: true,
+    });
     try {
-      dispatch(searchFood(values));
-      navigate(`/food/find-foods?${paramSearch}`);
+      let timerInterval;
+      Swal.fire({
+        timer: 2000,
+        timerProgressBar: true,
+        didOpen: () => {
+          Swal.showLoading();
+          const b = Swal.getHtmlContainer().querySelector("b");
+          timerInterval = setInterval(() => {
+            b.textContent = Swal.getTimerLeft();
+          }, 100);
+        },
+        willClose: () => {
+          clearInterval(timerInterval);
+        },
+      }).then((result) => {
+        dispatch(filterSearchFood(query));
+        navigate(`/food/find-foods?${query}`);
+      });
+      closeModal();
     } catch (error) {
       console.log(error);
     }
   };
+
+  const location = useLocation();
+  const parsed = queryString.parse(location.search);
+  useEffect(() => {
+    if (parsed?.name) {
+      reset({ name: parsed.name });
+    } else {
+      reset({ name: "" });
+    }
+  }, []);
 
   return (
     <SearchDetailModalStyled>

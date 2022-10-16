@@ -12,14 +12,13 @@ const {
   addCartFoodApi,
   getCartDetailFoodApi,
   deleteCartApi,
+  filterFoodApi,
 } = require("api/food");
 const { call, put } = require("redux-saga/effects");
 const {
   updateAllFood,
   updateFoodDetails,
   updateCommentDetails,
-  updateCart,
-  getCartDetail,
 } = require("./slice");
 
 function* handleGetAllFoods() {
@@ -33,33 +32,45 @@ function* handleGetAllFoods() {
   }
 }
 
-function* handleSearchNameFood({ payload }) {
-  const response = yield call(findFoodApi, payload);
-  const { foodByName } = response.data;
-  if (response.status === 200) {
-    yield put(updateAllFood(foodByName));
-  }
-}
+// function* handleSearchNameFood({ payload }) {
+//   const response = yield call(findFoodApi, payload);
+//   const { foodByName } = response.data;
+//   if (response.status === 200) {
+//     yield put(updateAllFood(foodByName));
+//   }
+// }
 
-function* handleSearchFoodToKey({ payload }) {
-  try {
-    const response = yield call(findFoodApi, payload);
-    const { foodByName, foodByPrices, foodByRation, foodByReview, foodByType } =
-      response.data;
-    const foods = foodByName.concat(
-      foodByPrices,
-      foodByRation,
-      foodByReview,
-      foodByType
-    );
-    if (response.status === 200) {
-      yield put(updateAllFood(foods));
-    }
-  } catch (error) {
-    const { message } = error.response.data;
-    console.log(message);
-  }
-}
+// function* handleFilterSearchFood({ payload }) {
+//   try {
+//     const response = yield call(filterFoodApi, payload);
+//     if (response.status === 200) {
+//       yield put(updateAllFood(response.data.foods));
+//     }
+//   } catch (error) {
+//     const { message } = error.response.data;
+//     console.log(message);
+//   }
+// }
+
+// function* handleSearchFoodToKey({ payload }) {
+//   try {
+//     const response = yield call(findFoodApi, payload);
+//     const { foodByName, foodByPrices, foodByRation, foodByReview, foodByType } =
+//       response.data;
+//     const foods = foodByName.concat(
+//       foodByPrices,
+//       foodByRation,
+//       foodByReview,
+//       foodByType
+//     );
+//     if (response.status === 200) {
+//       yield put(updateAllFood(foods));
+//     }
+//   } catch (error) {
+//     const { message } = error.response.data;
+//     console.log(message);
+//   }
+// }
 
 function* handleGetFoodDetail({ payload }) {
   try {
@@ -121,8 +132,6 @@ function* handleDeleteComment({ payload }) {
 
 export {
   handleGetAllFoods,
-  handleSearchNameFood,
-  handleSearchFoodToKey,
   handleGetFoodDetail,
   handleGetCommentDetails,
   handleAddCommentDetails,
