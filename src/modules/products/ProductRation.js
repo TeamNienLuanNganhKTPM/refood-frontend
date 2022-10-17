@@ -58,7 +58,7 @@ const ProductRation = ({ data, className = "", handleSelectRation }) => {
   }, []);
 
   const handleClickRation = (index, foodID) => {
-    handleSelectRation(foodID);
+    handleSelectRation(foodID, index);
     const ration = refRation.current.children;
     const rationActive = document.querySelectorAll(".ration-active");
     for (let i = 0; i < rationActive.length; i++) {

@@ -44,6 +44,7 @@ const SearchRation = ({ setRationSelect }) => {
     },
     { id: 4, checked: false, label: 4 },
     { id: 5, checked: false, label: 5 },
+    { id: 6, checked: false, label: 6 },
   ]);
 
   const handleRation = (id) => {

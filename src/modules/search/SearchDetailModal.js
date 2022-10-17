@@ -110,12 +110,10 @@ const listType = [
   {
     id: "1",
     name: "Khai vị",
-    value: typeStatus.KHAIVI,
   },
   {
     id: "1",
     name: "Đặt tiệc",
-    value: typeStatus.DATTIEC,
   },
 ];
 
@@ -294,7 +292,7 @@ const SearchDetailModal = ({ closeModal }) => {
                     className="sd-option"
                     onClick={() => {
                       setSelectType(type.name);
-                      setValue("type", type.value);
+                      setValue("type", type.name);
                     }}
                   >
                     {type.name}

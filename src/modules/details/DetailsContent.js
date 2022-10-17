@@ -169,6 +169,7 @@ const DetailsContentStyled = styled.div`
 
 const DetailsContent = ({ className = "" }) => {
   const [ration, setRation] = useState("");
+  const [price, setPrice] = useState("");
   const params = useParams();
   const { slug } = params;
   const dispatch = useDispatch();
@@ -188,12 +189,22 @@ const DetailsContent = ({ className = "" }) => {
 
   const { foodDetails } = useSelector((state) => state.food);
   const [image, setImage] = useState("");
+
   const getImage = (url) => {
     setImage(url);
   };
 
-  const handleSelectRation = (foodID) => {
+  // Get price default
+  useEffect(() => {
+    if (foodDetails) {
+      const price = priceVN(foodDetails?.FoodPrices[0].FoodPrice);
+      setPrice(price);
+    }
+  }, [foodDetails]);
+
+  const handleSelectRation = (foodID, index) => {
     setRation(foodID);
+    setPrice(priceVN(foodDetails?.FoodPrices[index]?.FoodPrice));
   };
   // Add cart
   const handleAddCart = () => {
@@ -245,12 +256,7 @@ const DetailsContent = ({ className = "" }) => {
             </div>
             <div className="detail-price">
               <ProductPrice sizeText="32px" className="mb-5">
-                {priceVN(foodDetails?.FoodPrices[0].FoodPrice) +
-                  "~" +
-                  priceVN(
-                    foodDetails?.FoodPrices[foodDetails?.FoodPrices.length - 1]
-                      .FoodPrice
-                  )}
+                {price}
               </ProductPrice>
             </div>
             <div className="detail-ration">

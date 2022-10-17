@@ -1,6 +1,7 @@
 /** @format */
 
 import React from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 
 const DetailsDescStyled = styled.div`
@@ -8,26 +9,10 @@ const DetailsDescStyled = styled.div`
 `;
 
 const DetailsDesc = () => {
+  const { foodDetails } = useSelector((state) => state.food);
   return (
     <DetailsDescStyled>
-      <p>
-        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ullam non
-        quaerat labore vel itaque incidunt repudiandae aperiam, sit, quam
-        aspernatur fugiat tempore enim, quasi velit consectetur? Fuga amet quia
-        nam!
-      </p>
-      <p>
-        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ullam non
-        quaerat labore vel itaque incidunt repudiandae aperiam, sit, quam
-        aspernatur fugiat tempore enim, quasi velit consectetur? Fuga amet quia
-        nam!
-      </p>
-      <p>
-        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ullam non
-        quaerat labore vel itaque incidunt repudiandae aperiam, sit, quam
-        aspernatur fugiat tempore enim, quasi velit consectetur? Fuga amet quia
-        nam!
-      </p>
+      <p>{foodDetails?.FoodDescription}</p>
     </DetailsDescStyled>
   );
 };

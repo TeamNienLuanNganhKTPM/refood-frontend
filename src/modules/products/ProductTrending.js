@@ -21,6 +21,7 @@ const ProductTreding = styled.div`
     font-weight: 600;
     color: ${(props) => props.theme.text};
     cursor: pointer;
+    padding-top: 15px;
   }
   .trend-content {
     border: 1px solid ${(props) => props.theme.borderLight};
@@ -77,31 +78,33 @@ const ProductTrending = () => {
       <h3 className="trend-heading">Món ăn hot nhất</h3>
       <div className="trend-content">
         {foods.length > 0 &&
-          foods.map((food) => {
+          foods.map((food, index) => {
             const { FoodName, FoodPrices, FoodImages } = food;
             return (
-              <div className="trend-lists" key={FoodName}>
-                <ProductImage
-                  url={FoodImages[0].FoodImageUrl}
-                  className="trend-image"
-                ></ProductImage>
-                <div className="trend-info">
-                  <ProductTitle className="trend-title">
-                    {FoodName}
-                  </ProductTitle>
-                  {FoodPrices.length <= 1 ? (
-                    <ProductPrice className="text-base">
-                      {priceVN(FoodPrices[0].FoodPrice)}
-                    </ProductPrice>
-                  ) : (
-                    <ProductPrice className="text-base">
-                      {priceVN(FoodPrices[0].FoodPrice) +
-                        "~" +
-                        priceVN(FoodPrices[FoodPrices.length - 1].FoodPrice)}
-                    </ProductPrice>
-                  )}
+              index < 6 && (
+                <div className="trend-lists" key={FoodName}>
+                  <ProductImage
+                    url={FoodImages[0].FoodImageUrl}
+                    className="trend-image"
+                  ></ProductImage>
+                  <div className="trend-info">
+                    <ProductTitle className="trend-title">
+                      {FoodName}
+                    </ProductTitle>
+                    {FoodPrices.length <= 1 ? (
+                      <ProductPrice className="text-base">
+                        {priceVN(FoodPrices[0].FoodPrice)}
+                      </ProductPrice>
+                    ) : (
+                      <ProductPrice className="text-base">
+                        {priceVN(FoodPrices[0].FoodPrice) +
+                          "~" +
+                          priceVN(FoodPrices[FoodPrices.length - 1].FoodPrice)}
+                      </ProductPrice>
+                    )}
+                  </div>
                 </div>
-              </div>
+              )
             );
           })}
       </div>

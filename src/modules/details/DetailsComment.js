@@ -289,28 +289,30 @@ const DetailsComment = () => {
             </div>
           );
         })}
-      <div className="flex justify-center">
-        {!loading ? (
-          <Button
-            type="submit"
-            height="40px"
-            className=""
-            onClick={handleLoadMore}
-            disabled={page >= countAllComment}
-          >
-            Xem thêm
-          </Button>
-        ) : (
-          <Button
-            type="submit"
-            height="40px"
-            className="w-[130px] pointer-events-none"
-            onClick={handleLoadMore}
-          >
-            <div className="w-8 h-8 mx-auto border-4 border-t-4 border-white rounded-full border-t-transparent animate-spin"></div>
-          </Button>
-        )}
-      </div>
+      {comments?.length > 0 && (
+        <div className="flex justify-center">
+          {!loading ? (
+            <Button
+              type="submit"
+              height="40px"
+              className=""
+              onClick={handleLoadMore}
+              disabled={page >= countAllComment}
+            >
+              Xem thêm
+            </Button>
+          ) : (
+            <Button
+              type="submit"
+              height="40px"
+              className="w-[130px] pointer-events-none"
+              onClick={handleLoadMore}
+            >
+              <div className="w-8 h-8 mx-auto border-4 border-t-4 border-white rounded-full border-t-transparent animate-spin"></div>
+            </Button>
+          )}
+        </div>
+      )}
     </DetailsCommentStyled>
   );
 };

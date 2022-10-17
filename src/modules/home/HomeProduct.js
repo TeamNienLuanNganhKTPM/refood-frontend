@@ -36,11 +36,11 @@ const HomeProduct = () => {
     <HomeProductStyled>
       <div className="product-main">
         <SectionLeft className="section-left">
-          <img
+          {/* <img
             src="https://images.unsplash.com/photo-1601585099780-6b176dc702af?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTc5fHxmb29kfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=600&q=60"
             alt=""
             className="rounded-lg"
-          />
+          /> */}
           <ProductTrending></ProductTrending>
         </SectionLeft>
         <SectionRight className="section-right">
