@@ -12,10 +12,11 @@ export const getFoodDetailApi = (param) => {
   });
 };
 
-export const getFoodCommentApi = (id) => {
+export const getFoodCommentApi = (data) => {
+  const { foodId, page } = data;
   return instance.request({
     method: "GET",
-    url: `/food/get-food-comments/${id}`,
+    url: `/food/get-food-comments/${foodId}?limit=${page}`,
   });
 };
 

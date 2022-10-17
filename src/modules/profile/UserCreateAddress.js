@@ -15,6 +15,9 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Field } from "components/field";
 import { ErrorMessage } from "components/error";
 import useChecked from "hooks/useChecked";
+import Swal from "sweetalert2";
+import { useDispatch } from "react-redux";
+import { authAddAddress, authGetAllAddress } from "store/auth/slice";
 
 const UserCreateAddressStyled = styled.div`
   width: 500px;
@@ -122,7 +125,8 @@ const UserCreateAddress = ({ closeModal }) => {
 
   const user = localStorage.getItem("user");
   const { CustomerName, CustomerPhone } = JSON.parse(user);
-  const { notifySuccess, notifyError } = useNotification();
+  const { notifyError } = useNotification();
+  const dispatch = useDispatch();
   useEffect(() => {
     reset({
       name: CustomerName,
@@ -169,13 +173,17 @@ const UserCreateAddress = ({ closeModal }) => {
   const handleSubmitAddress = async (values) => {
     if (!isValid) return null;
     try {
-      const response = await addAddressApi(values);
-      if (response.status === 200) {
-        notifySuccess(response.data.message);
-      }
-      setTimeout(() => {
-        window.location.reload();
-      }, 3000);
+      Swal.fire({
+        timer: 2000,
+        timerProgressBar: true,
+        didOpen: () => {
+          Swal.showLoading();
+        },
+      }).then((result) => {
+        dispatch(authAddAddress(values));
+        dispatch(authGetAllAddress());
+        closeModal();
+      });
     } catch (error) {
       const { message } = error.response.data;
       notifyError(message);

@@ -1,10 +1,21 @@
 /** @format */
 
-import { getAddressDetailApi, loginApi, registerApi } from "api/user";
+import {
+  addAddressApi,
+  getAddressDetailApi,
+  getAllAddressApi,
+  loginApi,
+  registerApi,
+  updateAddressApi,
+} from "api/user";
 import { toast } from "react-toastify";
 import { call, put } from "redux-saga/effects";
 import Swal from "sweetalert2";
-import { authUpdateAddressInfo, authUpdateUser } from "./slice";
+import {
+  authUpdateAddress,
+  authUpdateAddressInfo,
+  authUpdateUser,
+} from "./slice";
 
 function* handleAuthRegister(action) {
   const { payload } = action;
@@ -66,6 +77,54 @@ function* logOut() {
   });
 }
 
+function* handleGetAllAddress() {
+  try {
+    const response = yield call(getAllAddressApi);
+    if (response.status === 200) {
+      yield put(authUpdateAddress(response.data.addresses));
+    }
+  } catch (error) {
+    const { message } = error.response.data;
+    console.log(message);
+  }
+}
+
+function* handleAddAddress({ payload }) {
+  try {
+    const response = yield call(addAddressApi, payload);
+    if (response.status === 200) {
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        text: response.data.message,
+        showConfirmButton: false,
+        timer: 2000,
+      });
+    }
+  } catch (error) {
+    const { message } = error.response.data;
+    console.log(message);
+  }
+}
+
+function* handleUpdateAddress({ payload }) {
+  try {
+    const response = yield call(updateAddressApi, payload);
+    if (response.status === 200) {
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        text: response.data.message,
+        showConfirmButton: false,
+        timer: 2000,
+      });
+    }
+  } catch (error) {
+    const { message } = error.response.data;
+    console.log(message);
+  }
+}
+
 function* handleGetAddressDetail({ payload }) {
   try {
     const response = yield call(getAddressDetailApi, payload);
@@ -78,4 +137,12 @@ function* handleGetAddressDetail({ payload }) {
   }
 }
 
-export { handleAuthRegister, handleAuthLogin, logOut, handleGetAddressDetail };
+export {
+  handleAuthRegister,
+  handleAuthLogin,
+  logOut,
+  handleGetAddressDetail,
+  handleGetAllAddress,
+  handleAddAddress,
+  handleUpdateAddress,
+};

@@ -6,7 +6,6 @@ import React from "react";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { authLogin } from "store/auth/slice";
 import { addCommentDetails, getCommentDetails } from "store/food/slice";
 import styled from "styled-components";

@@ -53,19 +53,11 @@ const SearchRation = ({ setRationSelect }) => {
         ? { ...item, checked: !item.checked }
         : { ...item, checked: false };
     });
-    let timerInterval;
     Swal.fire({
       timer: 2000,
       timerProgressBar: true,
       didOpen: () => {
         Swal.showLoading();
-        const b = Swal.getHtmlContainer().querySelector("b");
-        timerInterval = setInterval(() => {
-          b.textContent = Swal.getTimerLeft();
-        }, 100);
-      },
-      willClose: () => {
-        clearInterval(timerInterval);
       },
     }).then((result) => {
       setRations(chageCheckedRation);

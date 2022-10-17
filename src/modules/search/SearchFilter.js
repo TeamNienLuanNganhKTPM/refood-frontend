@@ -79,7 +79,7 @@ const SearchFilter = () => {
       <div className="s-filter">
         <SearchType setTypeSelect={setTypeSelect}></SearchType>
       </div>
-      <div className="s-filter">
+      <div className="pr-5 s-filter">
         <SearchPrice setPriceSelect={setPriceSelect}></SearchPrice>
       </div>
       <div className="s-filter">

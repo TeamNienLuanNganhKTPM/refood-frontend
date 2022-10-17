@@ -32,46 +32,6 @@ function* handleGetAllFoods() {
   }
 }
 
-// function* handleSearchNameFood({ payload }) {
-//   const response = yield call(findFoodApi, payload);
-//   const { foodByName } = response.data;
-//   if (response.status === 200) {
-//     yield put(updateAllFood(foodByName));
-//   }
-// }
-
-// function* handleFilterSearchFood({ payload }) {
-//   try {
-//     const response = yield call(filterFoodApi, payload);
-//     if (response.status === 200) {
-//       yield put(updateAllFood(response.data.foods));
-//     }
-//   } catch (error) {
-//     const { message } = error.response.data;
-//     console.log(message);
-//   }
-// }
-
-// function* handleSearchFoodToKey({ payload }) {
-//   try {
-//     const response = yield call(findFoodApi, payload);
-//     const { foodByName, foodByPrices, foodByRation, foodByReview, foodByType } =
-//       response.data;
-//     const foods = foodByName.concat(
-//       foodByPrices,
-//       foodByRation,
-//       foodByReview,
-//       foodByType
-//     );
-//     if (response.status === 200) {
-//       yield put(updateAllFood(foods));
-//     }
-//   } catch (error) {
-//     const { message } = error.response.data;
-//     console.log(message);
-//   }
-// }
-
 function* handleGetFoodDetail({ payload }) {
   try {
     const response = yield call(getFoodDetailApi, payload);
@@ -88,7 +48,7 @@ function* handleGetCommentDetails({ payload }) {
   try {
     const response = yield call(getFoodCommentApi, payload);
     if (response.status === 200) {
-      yield put(updateCommentDetails(response.data.comments));
+      yield put(updateCommentDetails(response.data));
     }
   } catch (error) {
     const { message } = error.response.data;

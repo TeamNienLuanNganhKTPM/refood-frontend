@@ -1,5 +1,6 @@
 /** @format */
 
+import { Button } from "components/button";
 import Comment from "modules/comment/Comment";
 import React from "react";
 import { useEffect } from "react";
@@ -161,10 +162,16 @@ const DetailsCommentStyled = styled.div`
 
 const DetailsComment = () => {
   const [showCmt, setShowCmt] = useState(false);
-  const { foodDetails, comments } = useSelector((state) => state.food);
+  const [page, setPage] = useState(5);
+  const [loading, setLoading] = useState(false);
+  const { foodDetails, comments, countAllComment } = useSelector(
+    (state) => state.food
+  );
+
   const user = window.localStorage.getItem("user");
   const CustomerId = JSON.parse(user)?.CustomerId;
   const dispatch = useDispatch();
+
   const handleClickCmt = () => {
     setShowCmt(true);
   };
@@ -172,16 +179,19 @@ const DetailsComment = () => {
   useEffect(() => {
     async function fetchCommentDetails() {
       try {
-        dispatch(getCommentDetails(foodDetails?.FoodId));
+        if (foodDetails?.FoodId) {
+          dispatch(
+            getCommentDetails({ foodId: foodDetails?.FoodId, page: page })
+          );
+        }
       } catch (error) {
         console.log(error);
       }
     }
     fetchCommentDetails();
-  }, [dispatch, foodDetails?.FoodId]);
+  }, [dispatch, foodDetails?.FoodId, page]);
 
   const handleDeleteCmt = (CommentId) => {
-    console.log("handleDeleteCmt ~ CommentId", CommentId);
     Swal.fire({
       title: "Bạn muốn xóa bình luận?",
       icon: "warning",
@@ -197,6 +207,27 @@ const DetailsComment = () => {
       }
     });
   };
+
+  const handleLoadMore = () => {
+    setLoading(true);
+    try {
+      if (page < countAllComment) {
+        setTimeout(() => {
+          setPage(page * 2);
+          dispatch(
+            getCommentDetails({ foodId: foodDetails?.FoodId, page: page })
+          );
+          setLoading(false);
+        }, 1000);
+      } else {
+        setLoading(false);
+      }
+    } catch (error) {
+      setLoading(true);
+      console.log(error);
+    }
+  };
+
   return (
     <DetailsCommentStyled>
       <h3 className="cmt-heading">Bình luận</h3>
@@ -258,6 +289,28 @@ const DetailsComment = () => {
             </div>
           );
         })}
+      <div className="flex justify-center">
+        {!loading ? (
+          <Button
+            type="submit"
+            height="40px"
+            className=""
+            onClick={handleLoadMore}
+            disabled={page >= countAllComment}
+          >
+            Xem thêm
+          </Button>
+        ) : (
+          <Button
+            type="submit"
+            height="40px"
+            className="w-[130px] pointer-events-none"
+            onClick={handleLoadMore}
+          >
+            <div className="w-8 h-8 mx-auto border-4 border-t-4 border-white rounded-full border-t-transparent animate-spin"></div>
+          </Button>
+        )}
+      </div>
     </DetailsCommentStyled>
   );
 };

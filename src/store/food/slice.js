@@ -27,7 +27,8 @@ const foodSlice = createSlice({
     }),
     updateCommentDetails: (state, { payload }) => ({
       ...state,
-      comments: payload,
+      comments: payload.comments,
+      countAllComment: payload.countAll,
     }),
     addCommentDetails: (state, { payload }) => ({
       ...state,

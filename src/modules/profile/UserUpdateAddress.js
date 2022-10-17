@@ -5,12 +5,7 @@ import { React, useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Textarea } from "components/textarea";
 import { Input } from "components/input";
-import {
-  getAddressDetailApi,
-  getDistrictApi,
-  getWardApi,
-  updateAddressApi,
-} from "api/user";
+import { getAddressDetailApi, getDistrictApi, getWardApi } from "api/user";
 import { Dropdown } from "components/dropdown";
 import { Checkbox } from "components/checkbox";
 import { Button } from "components/button";
@@ -19,7 +14,9 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Field } from "components/field";
 import { ErrorMessage } from "components/error";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import Swal from "sweetalert2";
+import { authGetAllAddress, updateAddress } from "store/auth/slice";
 
 const UserCreateAddressStyled = styled.div`
   width: 500px;
@@ -130,7 +127,7 @@ const UserUpdateAddress = ({ closeModal }) => {
       isdefault: false,
     },
   });
-  const { notifySuccess, notifyError } = useNotification();
+  const { notifyError } = useNotification();
   const { addressInfo } = useSelector((state) => state.auth);
   // Get address detail
   useEffect(() => {
@@ -192,17 +189,36 @@ const UserUpdateAddress = ({ closeModal }) => {
     setIsCheck((isCheck) => !isCheck);
   };
 
+  const dispatch = useDispatch();
+
   // Submit create address
   const handleSubmitUpdateAddress = async (values) => {
     if (!isValid) return null;
+    // try {
+    //   const response = await updateAddressApi(values);
+    //   if (response.status === 200) {
+    //     notifySuccess(response.data.message);
+    //   }
+    //   setTimeout(() => {
+    //     window.location.reload();
+    //   }, 3000);
+    // } catch (error) {
+    //   const { message } = error.response.data;
+    //   notifyError(message);
+    // }
     try {
-      const response = await updateAddressApi(values);
-      if (response.status === 200) {
-        notifySuccess(response.data.message);
-      }
-      setTimeout(() => {
+      Swal.fire({
+        timer: 2000,
+        timerProgressBar: true,
+        didOpen: () => {
+          Swal.showLoading();
+        },
+      }).then((result) => {
+        dispatch(updateAddress(values));
+        dispatch(authGetAllAddress());
+        closeModal();
         window.location.reload();
-      }, 3000);
+      });
     } catch (error) {
       const { message } = error.response.data;
       notifyError(message);

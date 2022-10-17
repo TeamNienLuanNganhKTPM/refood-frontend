@@ -1,38 +1,36 @@
 /** @format */
 
-import { deleteAddressApi, getAllAddressApi } from "api/user";
+import { deleteAddressApi } from "api/user";
 import ModalComponent from "components/modal/ModalComponent";
 import useModal from "hooks/useModal";
 import useNotification from "hooks/useNotification";
 import React from "react";
-import { useState } from "react";
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { authGetAddressDetail } from "store/auth/slice";
+import { useDispatch, useSelector } from "react-redux";
+import { authGetAddressDetail, authGetAllAddress } from "store/auth/slice";
 import Swal from "sweetalert2";
 import { addressStatus } from "utils/constants";
 import UserUpdateAddress from "./UserUpdateAddress";
 
 const UserAddressList = () => {
-  const [addresses, setAddresses] = useState([]);
+  // const [addresses, setAddresses] = useState([]);
   const { modalIsOpen, openModal, closeModal } = useModal();
   const dispatch = useDispatch();
   const { notifySuccess, notifyError } = useNotification();
 
-  // Get all address from database
+  const { addresses } = useSelector((state) => state.auth);
+
+  // Get all address
   useEffect(() => {
-    async function getAllAddress() {
+    function getAllAddress() {
       try {
-        const response = await getAllAddressApi();
-        if (response.status === 200) {
-          setAddresses(response?.data?.addresses);
-        }
+        dispatch(authGetAllAddress());
       } catch (error) {
         console.log(error);
       }
     }
     getAllAddress();
-  }, []);
+  }, [dispatch]);
 
   // Open Modal Update Address And Get Address Detail
   const handleGetAddressDetail = (addressId) => {
@@ -70,31 +68,31 @@ const UserAddressList = () => {
 
   return (
     <>
-      {addresses.length > 0 &&
-        addresses.map((address) => (
-          <div className="address-main" key={address.AddressId}>
+      {addresses?.length > 0 &&
+        addresses?.map((address) => (
+          <div className="address-main" key={address?.AddressId}>
             <div className="address-info">
               <div className="address-user">
                 <div className="address-name">
-                  {address.AddressRecieverName}
+                  {address?.AddressRecieverName}
                 </div>
                 <div className="text-line">|</div>
                 <div className="address-text">
-                  {address.AddressRecieverPhone}
+                  {address?.AddressRecieverPhone}
                 </div>
               </div>
               <div className="address-update">
-                {address.isDefaultAddress === addressStatus.NOT_DEFAULT && (
+                {address?.isDefaultAddress === addressStatus.NOT_DEFAULT && (
                   <span
                     className="hover:text-redPrimary"
-                    onClick={() => handleDeleteAddress(address.AddressId)}
+                    onClick={() => handleDeleteAddress(address?.AddressId)}
                   >
                     Xóa
                   </span>
                 )}
                 <span
                   className="hover:text-redPrimary"
-                  onClick={() => handleGetAddressDetail(address.AddressId)}
+                  onClick={() => handleGetAddressDetail(address?.AddressId)}
                 >
                   Cập nhật
                 </span>
@@ -111,15 +109,15 @@ const UserAddressList = () => {
             <div className="address-desc">
               <div className="address-direction">
                 <span className="address-text">
-                  {address.AddressNumAndStreetName}
+                  {address?.AddressNumAndStreetName}
                 </span>
                 <span className="address-text">
-                  {address.AddressWard}, {address.AddressDistrict}, Cần Thơ
+                  {address?.AddressWard}, {address?.AddressDistrict}, Cần Thơ
                 </span>
               </div>
               <button className="address-set">Thiết lặp mặc định</button>
             </div>
-            {address.isDefaultAddress === addressStatus.DEFAULT && (
+            {address?.isDefaultAddress === addressStatus.DEFAULT && (
               <div>
                 <button className="address-default">Mặc định</button>
               </div>

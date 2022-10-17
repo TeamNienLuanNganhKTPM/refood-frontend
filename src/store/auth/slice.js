@@ -23,12 +23,25 @@ const authSlice = createSlice({
       accessToken: payload.access_token,
     }),
     authLogOut: (state, action) => ({}),
+    authGetAllAddress: (state) => ({
+      ...state,
+    }),
+    authAddAddress: (state) => ({
+      ...state,
+    }),
     authGetAddressDetail: (state, { payload }) => ({
       ...state,
     }),
     authUpdateAddressInfo: (state, { payload }) => ({
       ...state,
       addressInfo: payload,
+    }),
+    authUpdateAddress: (state, { payload }) => ({
+      ...state,
+      addresses: payload,
+    }),
+    updateAddress: (state) => ({
+      ...state,
     }),
   },
 });
@@ -38,8 +51,12 @@ export const {
   authRegister,
   authUpdateUser,
   authLogOut,
+  authGetAllAddress,
   authGetAddressDetail,
   authUpdateAddressInfo,
+  authUpdateAddress,
+  authAddAddress,
+  updateAddress,
 } = authSlice.actions;
 
 export default authSlice.reducer;
