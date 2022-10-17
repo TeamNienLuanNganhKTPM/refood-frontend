@@ -3,8 +3,9 @@
 import React from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllFood } from "store/food/slice";
+import { getAllFood, getAllFoodPagination } from "store/food/slice";
 import styled from "styled-components";
+import { page } from "utils/constants";
 import priceVN from "utils/priceVN";
 import ProductImage from "./ProductImage";
 import ProductPrice from "./ProductPrice";
@@ -60,7 +61,12 @@ const ProductTrending = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     function fetchData() {
-      dispatch(getAllFood());
+      dispatch(
+        getAllFoodPagination({
+          currentPage: page.currentPage,
+          countFood: page.countFood,
+        })
+      );
     }
     fetchData();
   }, [dispatch]);

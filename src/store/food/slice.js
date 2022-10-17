@@ -15,6 +15,17 @@ const foodSlice = createSlice({
       ...state,
       foods: payload,
     }),
+    getAllFoodPagination: (state) => ({
+      ...state,
+      foods: [],
+    }),
+    updateAllFoodPagination: (state, { payload }) => ({
+      ...state,
+      foods: payload.foods,
+      countOnPage: payload.countOnPage,
+      pageCurrent: payload.pageCur,
+      pageNumber: payload.pageNum,
+    }),
     getFoodDetails: (state, { payload }) => ({
       ...state,
     }),
@@ -50,6 +61,8 @@ export const {
   updateCommentDetails,
   addCommentDetails,
   deleteComment,
+  getAllFoodPagination,
+  updateAllFoodPagination,
 } = foodSlice.actions;
 
 export default foodSlice.reducer;

@@ -3,7 +3,8 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { getAllFood } from "store/food/slice";
+import { getAllFood, getAllFoodPagination } from "store/food/slice";
+import { page, pageCount } from "utils/constants";
 import ProductHeading from "./ProductHeading";
 import ProductList from "./ProductList";
 
@@ -11,15 +12,29 @@ const ProductBestSeller = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     function fetchData() {
-      dispatch(getAllFood());
+      dispatch(
+        getAllFoodPagination({
+          currentPage: page.currentPage,
+          countFood: page.countFood,
+        })
+      );
     }
     fetchData();
   }, [dispatch]);
 
   const navigate = useNavigate();
   const handleAllFoodBestSell = () => {
-    dispatch(getAllFood());
-    navigate("/food");
+    try {
+      dispatch(
+        getAllFoodPagination({
+          currentPage: page.currentPage,
+          countFood: page.countFood,
+        })
+      );
+      navigate("/food");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const { foods } = useSelector((state) => state.food);

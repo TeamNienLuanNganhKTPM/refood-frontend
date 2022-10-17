@@ -51,3 +51,8 @@ export const reviewStatus = {
   VIEW4: 4,
   VIEW5: 5,
 };
+
+export const page = {
+  currentPage: 1,
+  countFood: 12,
+};

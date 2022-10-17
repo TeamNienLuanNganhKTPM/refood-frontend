@@ -3,7 +3,15 @@
 import instance from "api";
 
 export const getAllFoodApi = () =>
-  instance.request({ method: "GET", url: "/food/get-foods" });
+  instance.request({ method: "GET", url: `/food/get-foods` });
+
+export const getAllPaginationFoodApi = (data) => {
+  const { currentPage, countFood } = data;
+  return instance.request({
+    method: "GET",
+    url: `/food/get-foods/${currentPage}/${countFood}`,
+  });
+};
 
 export const getFoodDetailApi = (param) => {
   return instance.request({

@@ -4,21 +4,18 @@ import Swal from "sweetalert2";
 
 const {
   getAllFoodApi,
-  findFoodApi,
   getFoodDetailApi,
   getFoodCommentApi,
   addFoodCommentApi,
   deleteFoodCommentApi,
-  addCartFoodApi,
-  getCartDetailFoodApi,
-  deleteCartApi,
-  filterFoodApi,
+  getAllPaginationFoodApi,
 } = require("api/food");
 const { call, put } = require("redux-saga/effects");
 const {
   updateAllFood,
   updateFoodDetails,
   updateCommentDetails,
+  updateAllFoodPagination,
 } = require("./slice");
 
 function* handleGetAllFoods() {
@@ -26,6 +23,18 @@ function* handleGetAllFoods() {
     const response = yield call(getAllFoodApi);
     if (response.status === 200) {
       yield put(updateAllFood(response.data.foods));
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+function* handleGetAllFoodPagination({ payload }) {
+  console.log("function*handleGetAllFoodPagination ~ payload", payload);
+  try {
+    const response = yield call(getAllPaginationFoodApi, payload);
+    if (response.status === 200) {
+      yield put(updateAllFoodPagination(response.data));
     }
   } catch (error) {
     console.log(error);
@@ -96,4 +105,5 @@ export {
   handleGetCommentDetails,
   handleAddCommentDetails,
   handleDeleteComment,
+  handleGetAllFoodPagination,
 };
