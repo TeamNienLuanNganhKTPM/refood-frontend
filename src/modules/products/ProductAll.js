@@ -41,24 +41,31 @@ const ProductAll = () => {
 
   return (
     <>
-      <div className="flex-layout grid-row">
-        {foods.length > 0 &&
-          foods.map((food) => (
-            <ProductItem key={food.FoodName} data={food}></ProductItem>
-          ))}
+      <div>
+      {foods.length > 0 ?
+        <div className="flex-layout grid-row">
+          {
+            foods.map((food) => (
+              <ProductItem key={food.FoodName} data={food}></ProductItem>
+            ))}
+        </div>
+        <div className="flex justify-center mt-10 bg-white rounded">
+          <ReactPaginate
+            breakLabel="..."
+            nextLabel=">>"
+            onPageChange={handlePageClick}
+            pageRangeDisplayed={5}
+            pageCount={pageCount}
+            previousLabel="<<"
+            renderOnZeroPageCount={null}
+            className="pagination"
+          />
+        </div>
+     : 
+      <span>Không tìm thấy món ăn!</span>
+    }
       </div>
-      <div className="flex justify-center mt-10 bg-white rounded">
-        <ReactPaginate
-          breakLabel="..."
-          nextLabel=">>"
-          onPageChange={handlePageClick}
-          pageRangeDisplayed={5}
-          pageCount={pageCount}
-          previousLabel="<<"
-          renderOnZeroPageCount={null}
-          className="pagination"
-        />
-      </div>
+    </>
     </>
   );
 };
