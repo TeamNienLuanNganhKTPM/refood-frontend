@@ -13,17 +13,20 @@ const SearchType = ({ setTypeSelect }) => {
   });
   const [types, setTypes] = useState([
     { id: 1, checked: false, label: "Khai vị" },
-    // {
-    //   id: 2,
-    //   checked: false,
-    //   label: "Món xào",
-    // },
-    // {
-    //   id: 3,
-    //   checked: false,
-    //   label: "Món chiên",
-    // },
-    // { id: 4, checked: false, label: "Món hấp" },
+    {
+      id: 2,
+      checked: false,
+      label: "Món xào",
+    },
+    {
+      id: 3,
+      checked: false,
+      label: "Món chiên",
+    },
+    { id: 4, checked: false, label: "Món hấp" },
+    { id: 5, checked: false, label: "Món nướng" },
+    { id: 6, checked: false, label: "Món gỏi" },
+    { id: 7, checked: false, label: "Món lẩu" }, 
   ]);
 
   const handleCheckedType = (id) => {
