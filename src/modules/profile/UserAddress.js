@@ -7,8 +7,8 @@ import useNotification from "hooks/useNotification";
 import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { authGetAddressDetail } from "store/auth/slice";
+import { useDispatch, useSelector } from "react-redux";
+import { authGetAddressDetail, authGetAllAddress } from "store/auth/slice";
 import styled from "styled-components";
 import Swal from "sweetalert2";
 import { addressStatus } from "utils/constants";
@@ -117,6 +117,23 @@ const UserAddressStyled = styled.div`
 
 const UserAddress = () => {
   const { modalIsOpen, openModal, closeModal } = useModal();
+
+  const { addresses } = useSelector((state) => state.auth);
+
+  const dispatch = useDispatch();
+
+  // Get all address
+  useEffect(() => {
+    function getAllAddress() {
+      try {
+        dispatch(authGetAllAddress());
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    getAllAddress();
+  }, [dispatch]);
+
   return (
     <UserAddressStyled>
       <div className="address-heading">
@@ -128,7 +145,7 @@ const UserAddress = () => {
           <UserCreateAddress closeModal={closeModal}></UserCreateAddress>
         </ModalComponent>
       </div>
-      <UserAddressList></UserAddressList>
+      <UserAddressList addresses={addresses}></UserAddressList>
     </UserAddressStyled>
   );
 };

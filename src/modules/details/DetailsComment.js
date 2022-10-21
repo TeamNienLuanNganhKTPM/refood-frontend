@@ -84,7 +84,7 @@ const DetailsCommentStyled = styled.div`
   .cmt-time {
     color: ${(props) => props.theme.textGray};
     font-size: 13px;
-    cursor: pointer;
+    pointer-events: none;
   }
   .cmt-input {
     display: flex;
@@ -203,7 +203,9 @@ const DetailsComment = () => {
         dispatch(
           deleteComment({ commentid: CommentId, foodid: foodDetails?.FoodId })
         );
-        dispatch(getCommentDetails(foodDetails?.FoodId));
+        dispatch(
+          getCommentDetails({ foodId: foodDetails?.FoodId, page: page })
+        );
       }
     });
   };
@@ -239,10 +241,16 @@ const DetailsComment = () => {
           return (
             <div className="cmt-content" key={cmt.CommentId}>
               <div className="cmt-info">
-                <div className="cmt-avatar">{nameComment}</div>
-                <strong className="cmt-name">{cmt.CommentOwnerName}</strong>
+                <div className="pointer-events-none cmt-avatar">
+                  {nameComment}
+                </div>
+                <strong className="pointer-events-none cmt-name">
+                  {cmt.CommentOwnerName}
+                </strong>
               </div>
-              <div className="cmt-question">{cmt.CommentContent}</div>
+              <div className="pointer-events-none cmt-question">
+                {cmt.CommentContent}
+              </div>
               <div className="cmt-answer">
                 <span className="cmt-rely" onClick={handleClickCmt}>
                   Trả lời
@@ -255,7 +263,7 @@ const DetailsComment = () => {
                     Xóa
                   </span>
                 )}
-                <span>-</span>
+                <span className="pointer-events-none">-</span>
                 <span className="cmt-time">{formatDate}</span>
               </div>
               {cmt.CommentReplies.length > 0 &&
@@ -266,12 +274,14 @@ const DetailsComment = () => {
                       <div className="rely">
                         <div className="rely-user">
                           <img src="/logo.png" alt="" className="rely-image" />
-                          <strong className="cmt-name">
+                          <strong className="pointer-events-none cmt-name">
                             {rely.CommentReplierName}
                           </strong>
-                          <div className="qtv">Quản trị viên</div>
+                          <div className="pointer-events-none qtv">
+                            Quản trị viên
+                          </div>
                         </div>
-                        <div className="cmt-question">
+                        <div className="pointer-events-none cmt-question">
                           {rely.CommentReplyContent}
                         </div>
                         <div className="cmt-answer">

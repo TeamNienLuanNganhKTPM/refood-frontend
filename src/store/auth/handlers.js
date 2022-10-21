@@ -4,6 +4,7 @@ import {
   addAddressApi,
   getAddressDetailApi,
   getAllAddressApi,
+  getUserApi,
   loginApi,
   registerApi,
   updateAddressApi,
@@ -77,6 +78,18 @@ function* logOut() {
   });
 }
 
+function* handleGetUser() {
+  try {
+    const response = yield call(getUserApi);
+    if (response.status === 200) {
+      yield put(authUpdateUser(response.data));
+    }
+  } catch (error) {
+    const { message } = error.response.data;
+    console.log(message);
+  }
+}
+
 function* handleGetAllAddress() {
   try {
     const response = yield call(getAllAddressApi);
@@ -100,6 +113,7 @@ function* handleAddAddress({ payload }) {
         showConfirmButton: false,
         timer: 2000,
       });
+      yield put(authUpdateAddress(response.data.address));
     }
   } catch (error) {
     const { message } = error.response.data;
@@ -141,6 +155,7 @@ export {
   handleAuthRegister,
   handleAuthLogin,
   logOut,
+  handleGetUser,
   handleGetAddressDetail,
   handleGetAllAddress,
   handleAddAddress,

@@ -1,13 +1,13 @@
 /** @format */
 
+import ModalComponent from "components/modal/ModalComponent";
 import UserModal from "modules/auth/UserModal";
 import CartModal from "modules/cart/CartModal";
 import SearchInput from "modules/search/SearchInput";
 import { useEffect } from "react";
 import { React, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
-import { getCartDetail } from "store/food/slice";
 import styled from "styled-components";
 
 const HeaderStyled = styled.div`

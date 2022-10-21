@@ -17,6 +17,9 @@ const authSlice = createSlice({
       ...state,
       ...payload,
     }),
+    authGetUser: (state) => ({
+      ...state,
+    }),
     authUpdateUser: (state, { payload }) => ({
       ...state,
       user: payload.customer_info,
@@ -32,14 +35,24 @@ const authSlice = createSlice({
     authGetAddressDetail: (state, { payload }) => ({
       ...state,
     }),
-    authUpdateAddressInfo: (state, { payload }) => ({
-      ...state,
-      addressInfo: payload,
-    }),
-    authUpdateAddress: (state, { payload }) => ({
-      ...state,
-      addresses: payload,
-    }),
+    authUpdateAddressInfo: (state, { payload }) => {
+      return {
+        ...state,
+        addressInfo: payload,
+      };
+    },
+    authUpdateAddress: (state, { payload }) => {
+      let result = [];
+      if (payload.length > 0) {
+        payload.map((item) => {
+          return result.push(item);
+        });
+      }
+      return {
+        ...state,
+        addresses: result,
+      };
+    },
     updateAddress: (state) => ({
       ...state,
     }),
@@ -49,6 +62,7 @@ const authSlice = createSlice({
 export const {
   authLogin,
   authRegister,
+  authGetUser,
   authUpdateUser,
   authLogOut,
   authGetAllAddress,

@@ -1,15 +1,15 @@
 /** @format */
 import instance from "api";
 
-export const findFoodApi = (param) => {
-  return instance.request({
+export const findFoodApi = async (param) => {
+  return await instance.request({
     method: "GET",
     url: `/food/find-foods?${param}`,
   });
 };
 
-export const filterFoodApi = (param) => {
-  return instance.request({
+export const filterFoodApi = async (param) => {
+  return await instance.request({
     method: "GET",
     url: `/food/filter-foods?${param}`,
   });

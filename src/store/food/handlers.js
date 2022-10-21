@@ -1,5 +1,6 @@
 /** @format */
 
+import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 
 const {
@@ -30,7 +31,6 @@ function* handleGetAllFoods() {
 }
 
 function* handleGetAllFoodPagination({ payload }) {
-  console.log("function*handleGetAllFoodPagination ~ payload", payload);
   try {
     const response = yield call(getAllPaginationFoodApi, payload);
     if (response.status === 200) {
@@ -79,7 +79,9 @@ function* handleAddCommentDetails({ payload }) {
     }
   } catch (error) {
     const { message } = error.response.data;
-    console.log(message);
+    toast.error(message, {
+      position: "bottom-right",
+    });
   }
 }
 

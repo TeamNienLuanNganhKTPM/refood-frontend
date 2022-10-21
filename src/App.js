@@ -7,14 +7,11 @@ import "swiper/scss";
 import "swiper/scss/navigation";
 import "swiper/scss/pagination";
 
-const UserVoucher = lazy(() => import("modules/profile/UserVoucher"));
 const UserRating = lazy(() => import("modules/profile/UserRating"));
 const UserPurchase = lazy(() => import("modules/profile/UserPurchase"));
-const UserPromotion = lazy(() => import("modules/profile/UserPromotion"));
 const UserProfile = lazy(() => import("modules/profile/UserProfile"));
 const UserPassword = lazy(() => import("modules/profile/UserPassword"));
 const UserPage = lazy(() => import("pages/UserPage"));
-const UserNotifyOrder = lazy(() => import("modules/profile/UserNotifyOrder"));
 const UserAddress = lazy(() => import("modules/profile/UserAddress"));
 const Search = lazy(() => import("modules/search/Search"));
 const ProductPage = lazy(() => import("pages/ProductPage"));
@@ -57,24 +54,12 @@ const App = () => {
               element={<UserPassword></UserPassword>}
             ></Route>
             <Route
-              path="/user/purchase"
+              path="/user/order"
               element={<UserPurchase></UserPurchase>}
             ></Route>
             <Route
-              path="/user/notifications/order"
-              element={<UserNotifyOrder></UserNotifyOrder>}
-            ></Route>
-            <Route
-              path="/user/notifications/promotion"
-              element={<UserPromotion></UserPromotion>}
-            ></Route>
-            <Route
-              path="/user/notifications/rating"
+              path="/user/rating"
               element={<UserRating></UserRating>}
-            ></Route>
-            <Route
-              path="/user/voucher"
-              element={<UserVoucher></UserVoucher>}
             ></Route>
           </Route>
         </Routes>

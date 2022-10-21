@@ -1,13 +1,15 @@
 /** @format */
 
-import { getUserApi, updateUserInfoApi } from "api/user";
+import { updateUserInfoApi } from "api/user";
 import { Button } from "components/button";
 import { Input } from "components/input";
 import { Label } from "components/label";
 import React from "react";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import { authGetUser } from "store/auth/slice";
 import styled from "styled-components";
 import Swal from "sweetalert2";
 import UserHeading from "./UserHeading";
@@ -31,28 +33,18 @@ const UserProfile = () => {
     },
   });
 
-  // Get data user from database
+  const { user } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    async function fetchUserData() {
-      try {
-        const response = await getUserApi();
-        const { CustomerEmail, CustomerName, CustomerPhone } =
-          response?.data?.customer_info;
-        if (response.status === 200) {
-          reset({
-            name: CustomerName,
-            email: CustomerEmail || "Cập nhật email",
-            phonenumber: CustomerPhone,
-          });
-        } else {
-          console.log("Fetch data user error");
-        }
-      } catch (error) {
-        console.log(error);
-      }
+    if (user) {
+      reset({
+        name: user?.CustomerName,
+        email: user?.CustomerEmail || "Cập nhật email",
+        phonenumber: user?.CustomerPhone,
+      });
     }
-    fetchUserData();
-  }, [reset]);
+  }, [reset, user]);
 
   // Handle update info user
   const handleUpdateUser = async (values) => {
@@ -67,6 +59,7 @@ const UserProfile = () => {
           showConfirmButton: false,
           timer: 1500,
         });
+        dispatch(authGetUser());
       } else {
         toast.error(response.data.message, {
           position: "bottom-right",

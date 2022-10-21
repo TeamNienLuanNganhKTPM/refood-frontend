@@ -2,45 +2,69 @@
 
 import instance from "api";
 
-export const registerApi = (user) =>
-  instance.request({ method: "POST", data: user, url: "/auth/register" });
+export const registerApi = async (user) =>
+  await instance.request({ method: "POST", data: user, url: "/auth/register" });
 
-export const loginApi = (user) =>
-  instance.request({ method: "POST", data: user, url: "/auth/login" });
+export const loginApi = async (user) => {
+  console.log("user", user);
+  return await instance.request({
+    method: "POST",
+    data: user,
+    url: "/auth/login",
+  });
+};
 
-export const getUserApi = () =>
-  instance.request({ method: "GET", url: "/auth/info" });
+export const getUserApi = async () =>
+  await instance.request({ method: "GET", url: "/auth/info" });
 
-export const updateUserInfoApi = (user) =>
-  instance.request({ method: "PUT", data: user, url: "/auth/update/info" });
+export const updateUserInfoApi = async (user) =>
+  await instance.request({
+    method: "PUT",
+    data: user,
+    url: "/auth/update/info",
+  });
 
-export const updateUserPassApi = (user) =>
-  instance.request({ method: "PUT", data: user, url: "/auth/update/password" });
+export const updateUserPassApi = async (user) =>
+  await instance.request({
+    method: "PUT",
+    data: user,
+    url: "/auth/update/password",
+  });
 
-export const getDistrictApi = () =>
-  instance.request({ method: "GET", url: "/cantho-units/get-districts" });
+export const getDistrictApi = async () =>
+  await instance.request({ method: "GET", url: "/cantho-units/get-districts" });
 
-export const getWardApi = (districtId) =>
-  instance.request({
+export const getWardApi = async (districtId) =>
+  await instance.request({
     method: "GET",
     url: `/cantho-units/get-wards/${districtId}`,
   });
 
-export const getAllAddressApi = () =>
-  instance.request({ method: "GET", url: "/auth/get-addresses" });
+export const getAllAddressApi = async () =>
+  await instance.request({ method: "GET", url: "/auth/get-addresses" });
 
-export const getAddressDetailApi = (id) =>
-  instance.request({ method: "GET", url: `/auth/get-address-detail/${id}` });
+export const getAddressDetailApi = async (id) =>
+  await instance.request({
+    method: "GET",
+    url: `/auth/get-address-detail/${id}`,
+  });
 
-export const addAddressApi = (address) =>
-  instance.request({ method: "POST", data: address, url: "/auth/add/address" });
+export const addAddressApi = async (address) =>
+  await instance.request({
+    method: "POST",
+    data: address,
+    url: "/auth/add/address",
+  });
 
-export const updateAddressApi = (address) =>
-  instance.request({
+export const updateAddressApi = async (address) =>
+  await instance.request({
     method: "PUT",
     data: address,
     url: "/auth/update/address",
   });
 
-export const deleteAddressApi = (id) =>
-  instance.request({ method: "DELETE", url: `/auth/delete/address/${id}` });
+export const deleteAddressApi = async (id) =>
+  await instance.request({
+    method: "DELETE",
+    url: `/auth/delete/address/${id}`,
+  });

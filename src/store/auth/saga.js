@@ -7,6 +7,7 @@ import {
   handleAuthRegister,
   handleGetAddressDetail,
   handleGetAllAddress,
+  handleGetUser,
   handleUpdateAddress,
   logOut,
 } from "./handlers";
@@ -16,6 +17,7 @@ import {
   authGetAllAddress,
   authLogin,
   authLogOut,
+  authGetUser,
   authRegister,
   updateAddress,
 } from "./slice";
@@ -24,6 +26,7 @@ export default function* authWatcher() {
   yield takeLatest(authRegister.type, handleAuthRegister);
   yield takeLatest(authLogin.type, handleAuthLogin);
   yield takeLatest(authLogOut.type, logOut);
+  yield takeLatest(authGetUser.type, handleGetUser);
   yield takeLatest(authGetAddressDetail.type, handleGetAddressDetail);
   yield takeLatest(authAddAddress.type, handleAddAddress);
   yield takeLatest(authGetAllAddress.type, handleGetAllAddress);

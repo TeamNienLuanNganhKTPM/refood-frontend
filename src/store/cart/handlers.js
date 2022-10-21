@@ -9,7 +9,7 @@ const {
   updateCartApi,
 } = require("api/cart");
 const { call, put } = require("redux-saga/effects");
-const { updateCart, getCartDetail } = require("./slice");
+const { updateCart, getCartDetail, errorCart } = require("./slice");
 
 function* handleAddCart({ payload }) {
   try {
@@ -26,7 +26,7 @@ function* handleAddCart({ payload }) {
     yield put(getCartDetail());
   } catch (error) {
     const { message } = error.response.data;
-    console.log(message);
+    yield put(errorCart(message));
   }
 }
 
@@ -38,7 +38,7 @@ function* handleGetCartDetail() {
     }
   } catch (error) {
     const { message } = error.response.data;
-    console.log(message);
+    yield put(errorCart(message));
   }
 }
 

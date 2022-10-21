@@ -5,32 +5,16 @@ import ModalComponent from "components/modal/ModalComponent";
 import useModal from "hooks/useModal";
 import useNotification from "hooks/useNotification";
 import React from "react";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { authGetAddressDetail, authGetAllAddress } from "store/auth/slice";
 import Swal from "sweetalert2";
 import { addressStatus } from "utils/constants";
 import UserUpdateAddress from "./UserUpdateAddress";
 
-const UserAddressList = () => {
-  // const [addresses, setAddresses] = useState([]);
+const UserAddressList = ({ addresses }) => {
   const { modalIsOpen, openModal, closeModal } = useModal();
   const dispatch = useDispatch();
   const { notifySuccess, notifyError } = useNotification();
-
-  const { addresses } = useSelector((state) => state.auth);
-
-  // Get all address
-  useEffect(() => {
-    function getAllAddress() {
-      try {
-        dispatch(authGetAllAddress());
-      } catch (error) {
-        console.log(error);
-      }
-    }
-    getAllAddress();
-  }, [dispatch]);
 
   // Open Modal Update Address And Get Address Detail
   const handleGetAddressDetail = (addressId) => {
@@ -54,9 +38,7 @@ const UserAddressList = () => {
           const response = await deleteAddressApi(addressId);
           if (response.status === 200) {
             notifySuccess(response.data.message);
-            setTimeout(() => {
-              window.location.reload();
-            }, 2500);
+            dispatch(authGetAllAddress());
           }
         }
       });
@@ -68,62 +50,67 @@ const UserAddressList = () => {
 
   return (
     <>
-      {addresses?.length > 0 &&
-        addresses?.map((address) => (
-          <div className="address-main" key={address?.AddressId}>
-            <div className="address-info">
-              <div className="address-user">
-                <div className="address-name">
-                  {address?.AddressRecieverName}
+      {addresses?.length > 0 ? (
+        <div>
+          {addresses?.map((address) => (
+            <div className="address-main" key={address?.AddressId}>
+              <div className="address-info">
+                <div className="address-user">
+                  <div className="address-name">
+                    {address?.AddressRecieverName}
+                  </div>
+                  <div className="text-line">|</div>
+                  <div className="address-text">
+                    {address?.AddressRecieverPhone}
+                  </div>
                 </div>
-                <div className="text-line">|</div>
-                <div className="address-text">
-                  {address?.AddressRecieverPhone}
-                </div>
-              </div>
-              <div className="address-update">
-                {address?.isDefaultAddress === addressStatus.NOT_DEFAULT && (
+                <div className="address-update">
+                  {address?.isDefaultAddress === addressStatus.NOT_DEFAULT && (
+                    <span
+                      className="hover:text-redPrimary"
+                      onClick={() => handleDeleteAddress(address?.AddressId)}
+                    >
+                      Xóa
+                    </span>
+                  )}
                   <span
                     className="hover:text-redPrimary"
-                    onClick={() => handleDeleteAddress(address?.AddressId)}
+                    onClick={() => handleGetAddressDetail(address?.AddressId)}
                   >
-                    Xóa
+                    Cập nhật
                   </span>
-                )}
-                <span
-                  className="hover:text-redPrimary"
-                  onClick={() => handleGetAddressDetail(address?.AddressId)}
-                >
-                  Cập nhật
-                </span>
-                <ModalComponent
-                  modalIsOpen={modalIsOpen}
-                  closeModal={closeModal}
-                >
-                  <UserUpdateAddress
+                  <ModalComponent
+                    modalIsOpen={modalIsOpen}
                     closeModal={closeModal}
-                  ></UserUpdateAddress>
-                </ModalComponent>
+                  >
+                    <UserUpdateAddress
+                      closeModal={closeModal}
+                    ></UserUpdateAddress>
+                  </ModalComponent>
+                </div>
               </div>
+              <div className="address-desc">
+                <div className="address-direction">
+                  <span className="address-text">
+                    {address?.AddressNumAndStreetName}
+                  </span>
+                  <span className="address-text">
+                    {address?.AddressWard}, {address?.AddressDistrict}, Cần Thơ
+                  </span>
+                </div>
+                <button className="address-set">Thiết lặp mặc định</button>
+              </div>
+              {address?.isDefaultAddress === addressStatus.DEFAULT && (
+                <div>
+                  <button className="address-default">Mặc định</button>
+                </div>
+              )}
             </div>
-            <div className="address-desc">
-              <div className="address-direction">
-                <span className="address-text">
-                  {address?.AddressNumAndStreetName}
-                </span>
-                <span className="address-text">
-                  {address?.AddressWard}, {address?.AddressDistrict}, Cần Thơ
-                </span>
-              </div>
-              <button className="address-set">Thiết lặp mặc định</button>
-            </div>
-            {address?.isDefaultAddress === addressStatus.DEFAULT && (
-              <div>
-                <button className="address-default">Mặc định</button>
-              </div>
-            )}
-          </div>
-        ))}
+          ))}
+        </div>
+      ) : (
+        <span>Thêm địa chỉ mới</span>
+      )}
     </>
   );
 };

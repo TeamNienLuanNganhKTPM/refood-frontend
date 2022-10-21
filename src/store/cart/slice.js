@@ -26,6 +26,10 @@ const cartSlice = createSlice({
       ...state,
       ...payload,
     }),
+    errorCart: (state, { payload }) => ({
+      ...state,
+      message: payload,
+    }),
   },
 });
 
@@ -35,6 +39,7 @@ export const {
   getCartDetail,
   updateCartItem,
   deleteCart,
+  errorCart,
 } = cartSlice.actions;
 
 export default cartSlice.reducer;

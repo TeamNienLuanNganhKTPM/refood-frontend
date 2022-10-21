@@ -170,7 +170,7 @@ const UserCreateAddress = ({ closeModal }) => {
   };
 
   // Submit create address
-  const handleSubmitAddress = async (values) => {
+  const handleSubmitAddress = (values) => {
     if (!isValid) return null;
     try {
       Swal.fire({
@@ -181,8 +181,8 @@ const UserCreateAddress = ({ closeModal }) => {
         },
       }).then((result) => {
         dispatch(authAddAddress(values));
-        dispatch(authGetAllAddress());
         closeModal();
+        window.location.reload();
       });
     } catch (error) {
       const { message } = error.response.data;

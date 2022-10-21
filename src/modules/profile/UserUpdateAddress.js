@@ -194,18 +194,6 @@ const UserUpdateAddress = ({ closeModal }) => {
   // Submit create address
   const handleSubmitUpdateAddress = async (values) => {
     if (!isValid) return null;
-    // try {
-    //   const response = await updateAddressApi(values);
-    //   if (response.status === 200) {
-    //     notifySuccess(response.data.message);
-    //   }
-    //   setTimeout(() => {
-    //     window.location.reload();
-    //   }, 3000);
-    // } catch (error) {
-    //   const { message } = error.response.data;
-    //   notifyError(message);
-    // }
     try {
       Swal.fire({
         timer: 2000,

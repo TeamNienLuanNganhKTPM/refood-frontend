@@ -61,9 +61,12 @@ const UserModal = ({ className = "" }) => {
         </li>
       </ul>
       <ul>
-        <li className="um-item">Đơn hàng của tôi</li>
-        <li className="um-item">Đánh giá sản phẩm</li>
-        <li className="um-item">Mã giảm giá của tôi</li>
+        <li className="um-item">
+          <Link to={"/user/order"}>Đơn hàng của tôi</Link>
+        </li>
+        <li className="um-item">
+          <Link to={"/user/order"}>Đánh giá sản phẩm</Link>
+        </li>
       </ul>
       <ul>
         <li className="um-logout" onClick={handleLogOut}>

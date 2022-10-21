@@ -2,31 +2,31 @@
 
 import instance from "api";
 
-export const addCartApi = (cartItem) => {
-  return instance.request({
+export const addCartApi = async (cartItem) => {
+  return await instance.request({
     method: "POST",
     data: cartItem,
     url: `/cart/add-to-cart`,
   });
 };
 
-export const getCartDetailApi = () => {
-  return instance.request({
+export const getCartDetailApi = async () => {
+  return await instance.request({
     method: "GET",
     url: `/cart/get-cart-detail`,
   });
 };
 
-export const updateCartApi = (cartItem) => {
-  return instance.request({
+export const updateCartApi = async (cartItem) => {
+  return await instance.request({
     method: "POST",
     data: cartItem,
     url: `/cart/update-cart`,
   });
 };
 
-export const deleteCartApi = (mactma) => {
-  return instance.request({
+export const deleteCartApi = async (mactma) => {
+  return await instance.request({
     method: "DELETE",
     data: mactma,
     url: `/cart/delete-cart-detail`,

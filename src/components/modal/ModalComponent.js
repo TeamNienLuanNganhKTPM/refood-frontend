@@ -18,13 +18,19 @@ const customStyles = {
 
 Modal.setAppElement("#root");
 
-const ModalComponent = ({ children, modalIsOpen, closeModal = () => {} }) => {
+const ModalComponent = ({
+  children,
+  modalIsOpen,
+  closeModal = () => {},
+  className = "",
+}) => {
   return (
     <>
       <Modal
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
         style={customStyles}
+        className={className}
         overlayClassName="overlay"
         bodyOpenClassName="overflow"
       >

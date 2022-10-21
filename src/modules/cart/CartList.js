@@ -75,10 +75,13 @@ const CartList = () => {
           </tr>
         </thead>
         <tbody>
-          {cart?.length > 0 &&
+          {cart?.length > 0 ? (
             cart.map((item) => (
               <CartTable key={item.FoodDetailID} data={item}></CartTable>
-            ))}
+            ))
+          ) : (
+            <span>Khoong co mon an</span>
+          )}
         </tbody>
       </table>
     </CartListStyled>

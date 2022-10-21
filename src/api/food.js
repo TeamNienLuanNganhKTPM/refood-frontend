@@ -2,42 +2,42 @@
 
 import instance from "api";
 
-export const getAllFoodApi = () =>
-  instance.request({ method: "GET", url: `/food/get-foods` });
+export const getAllFoodApi = async () =>
+  await instance.request({ method: "GET", url: `/food/get-foods` });
 
-export const getAllPaginationFoodApi = (data) => {
+export const getAllPaginationFoodApi = async (data) => {
   const { currentPage, countFood } = data;
-  return instance.request({
+  return await instance.request({
     method: "GET",
     url: `/food/get-foods/${currentPage}/${countFood}`,
   });
 };
 
-export const getFoodDetailApi = (param) => {
-  return instance.request({
+export const getFoodDetailApi = async (param) => {
+  return await instance.request({
     method: "GET",
     url: `/food/get-food-details/${param}`,
   });
 };
 
-export const getFoodCommentApi = (data) => {
+export const getFoodCommentApi = async (data) => {
   const { foodId, page } = data;
-  return instance.request({
+  return await instance.request({
     method: "GET",
     url: `/food/get-food-comments/${foodId}?limit=${page}`,
   });
 };
 
-export const addFoodCommentApi = (comment) => {
-  return instance.request({
+export const addFoodCommentApi = async (comment) => {
+  return await instance.request({
     method: "POST",
     data: comment,
     url: `/food/add-comment`,
   });
 };
 
-export const deleteFoodCommentApi = (comment) => {
-  return instance.request({
+export const deleteFoodCommentApi = async (comment) => {
+  return await instance.request({
     method: "DELETE",
     data: comment,
     url: `/food/delete-comment`,

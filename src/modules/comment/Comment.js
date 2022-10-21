@@ -10,9 +10,15 @@ import { authLogin } from "store/auth/slice";
 import { addCommentDetails, getCommentDetails } from "store/food/slice";
 import styled from "styled-components";
 import Swal from "sweetalert2";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { ErrorMessage } from "components/error";
 
 const CommentStyled = styled.div`
   width: 750px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
   .cmt-textarea {
     min-height: 100px;
     border-radius: 4px 4px 0 0;
@@ -26,15 +32,20 @@ const CommentStyled = styled.div`
   }
 `;
 
+const schema = yup.object({
+  content: yup.string().required("Vui lòng nhập bình luận"),
+});
+
 const Comment = ({ className = "" }) => {
   const {
     control,
     handleSubmit,
     setValue,
     reset,
-    formState: { isValid },
+    formState: { isValid, errors },
   } = useForm({
     mode: "onChange",
+    resolver: yupResolver(schema),
   });
   const { foodDetails } = useSelector((state) => state.food);
   const user = window.localStorage.getItem("user");
@@ -50,7 +61,7 @@ const Comment = ({ className = "" }) => {
     if (!isValid) return;
     if (CustomerId) {
       dispatch(addCommentDetails(values));
-      dispatch(getCommentDetails(foodDetails?.FoodId));
+      dispatch(getCommentDetails({ foodId: foodDetails?.FoodId, page: 8 }));
       reset({});
     } else {
       const { value: phonenumber } = await Swal.fire({
@@ -87,13 +98,16 @@ const Comment = ({ className = "" }) => {
   };
   return (
     <CommentStyled className={className}>
-      <Textarea
-        name="content"
-        type="textarea"
-        control={control}
-        className="cmt-textarea"
-        placeholder="Mời bạn để lại bình luận"
-      ></Textarea>
+      <div>
+        <Textarea
+          name="content"
+          type="textarea"
+          control={control}
+          className="cmt-textarea"
+          placeholder="Mời bạn để lại bình luận"
+        ></Textarea>
+        <ErrorMessage message={errors.content?.message}></ErrorMessage>
+      </div>
       <div className="flex justify-end">
         <Button
           type="submit"

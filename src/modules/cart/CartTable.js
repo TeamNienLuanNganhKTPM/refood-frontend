@@ -51,6 +51,7 @@ const CartTable = ({ data }) => {
       }).then((result) => {
         if (result.isConfirmed) {
           dispatch(deleteCart({ mactma: data.FoodDetailID }));
+          window.location.reload();
         }
       });
     } catch (error) {
