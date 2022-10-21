@@ -16,6 +16,7 @@ const SearchType = ({ setTypeSelect }) => {
     {
       id: 2,
       checked: false,
+
       label: "Món cơm",
     },
     {
@@ -23,6 +24,7 @@ const SearchType = ({ setTypeSelect }) => {
       checked: false,
       label: "Món chiên",
     },
+
     { id: 4, checked: false, label: "Món gỏi" },
     { id: 5, checked: false, label: "Món xào" },
     { id: 6, checked: false, label: "Món hấp" },
