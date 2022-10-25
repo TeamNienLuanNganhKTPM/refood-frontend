@@ -6,20 +6,21 @@
 
 /** @format */
 
-import { Button } from "components/button";
-import { Field } from "components/field";
-import { Input } from "components/input";
-import InputPasswordToggle from "components/input/InputPasswordToggle";
-import { Label } from "components/label";
 import React from "react";
-import { useForm } from "react-hook-form";
+import PropTypes from "prop-types";
+import InputPasswordToggle from "components/input/InputPasswordToggle";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { ErrorMessage } from "components/error";
-import { useDispatch, useSelector } from "react-redux";
-import { authLogin } from "store/auth/slice";
 import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
 import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Label } from "components/label";
+import { Input } from "components/input";
+import { Field } from "components/field";
+import { ErrorMessage } from "components/error";
+import { Button } from "components/button";
+import { authLogin } from "store/auth/slice";
 
 const schema = yup.object({
   phonenumber: yup.string().required("Vui lòng nhập số điện thoại"),
@@ -92,7 +93,7 @@ const Login = ({ show }) => {
           </div>
           <Button
             type="submit"
-            kind="secondary"
+            kind="primary"
             height="44px"
             className="w-full max-w-[180px] mx-auto uppercase"
             disabled={isSubmitting}
@@ -103,6 +104,10 @@ const Login = ({ show }) => {
       )}
     </>
   );
+};
+
+Login.propTypes = {
+  show: PropTypes.bool,
 };
 
 export default Login;

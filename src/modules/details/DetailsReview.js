@@ -1,12 +1,11 @@
 /** @format */
-
-import React from "react";
-import { useEffect } from "react";
-import { useState } from "react";
-import { useRef } from "react";
 import styled from "styled-components";
+import React from "react";
 import DetailsRate from "./DetailsRate";
 import DetailsDesc from "./DetailsDesc";
+import { useState } from "react";
+import { useRef } from "react";
+import { useEffect } from "react";
 
 const links = [
   {

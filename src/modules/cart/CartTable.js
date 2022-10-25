@@ -1,17 +1,18 @@
 /** @format */
 
-import { Quantity } from "components/quantity";
 import useGetCount from "hooks/useGetCount";
-import ProductImage from "modules/products/ProductImage";
-import ProductPrice from "modules/products/ProductPrice";
-import ProductTitle from "modules/products/ProductTitle";
-import React from "react";
-import { useEffect } from "react";
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { deleteCart, updateCartItem } from "store/cart/slice";
 import Swal from "sweetalert2";
+import React from "react";
+import PropTypes from "prop-types";
+import ProductTitle from "modules/products/ProductTitle";
+import ProductPrice from "modules/products/ProductPrice";
+import ProductImage from "modules/products/ProductImage";
 import priceVN from "utils/priceVN";
+import { useState } from "react";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { Quantity } from "components/quantity";
+import { deleteCart, updateCartItem } from "store/cart/slice";
 
 const CartTable = ({ data }) => {
   const [subTotal, setSubTotal] = useState(0);
@@ -113,6 +114,10 @@ const CartTable = ({ data }) => {
       </tr>
     </>
   );
+};
+
+CartTable.propTypes = {
+  data: PropTypes.object,
 };
 
 export default CartTable;

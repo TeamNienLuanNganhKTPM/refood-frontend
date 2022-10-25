@@ -44,6 +44,7 @@ ModalComponent.propTypes = {
   children: PropTypes.any,
   modalIsOpen: PropTypes.bool,
   closeModal: PropTypes.func,
+  className: PropTypes.string,
 };
 
 export default ModalComponent;

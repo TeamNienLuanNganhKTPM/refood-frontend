@@ -1,9 +1,9 @@
 /** @format */
 
-import React from "react";
-import { useSelector } from "react-redux";
 import styled from "styled-components";
+import React from "react";
 import CartTable from "./CartTable";
+import { useSelector } from "react-redux";
 
 const CartListStyled = styled.div`
   width: 820px;

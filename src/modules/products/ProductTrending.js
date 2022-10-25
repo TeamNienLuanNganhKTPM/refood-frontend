@@ -1,15 +1,14 @@
 /** @format */
-
+import styled from "styled-components";
 import React from "react";
+import ProductTitle from "./ProductTitle";
+import ProductPrice from "./ProductPrice";
+import ProductImage from "./ProductImage";
+import priceVN from "utils/priceVN";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllFood, getAllFoodPagination } from "store/food/slice";
-import styled from "styled-components";
 import { page } from "utils/constants";
-import priceVN from "utils/priceVN";
-import ProductImage from "./ProductImage";
-import ProductPrice from "./ProductPrice";
-import ProductTitle from "./ProductTitle";
+import { getAllFoodPagination } from "store/food/slice";
 
 const ProductTreding = styled.div`
   display: flex;

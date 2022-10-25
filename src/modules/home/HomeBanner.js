@@ -1,10 +1,10 @@
 /** @format */
 
-import SectionLeft from "components/layout/SectionLeft";
+import styled from "styled-components";
 import SectionRight from "components/layout/SectionRight";
+import SectionLeft from "components/layout/SectionLeft";
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import styled from "styled-components";
 import { Autoplay, Navigation, Pagination } from "swiper";
 
 const HomeBannerStyled = styled.section`

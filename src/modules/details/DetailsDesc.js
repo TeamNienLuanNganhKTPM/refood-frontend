@@ -1,8 +1,8 @@
 /** @format */
 
+import styled from "styled-components";
 import React from "react";
 import { useSelector } from "react-redux";
-import styled from "styled-components";
 
 const DetailsDescStyled = styled.div`
   transition: 3s all linear;

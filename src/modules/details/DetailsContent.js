@@ -1,22 +1,23 @@
 /** @format */
 
+import useGetCount from "hooks/useGetCount";
 import styled from "styled-components";
 import React from "react";
+import PropTypes from "prop-types";
 import ProductTitle from "modules/products/ProductTitle";
 import ProductStar from "modules/products/ProductStar";
+import ProductRation from "modules/products/ProductRation";
 import ProductPrice from "modules/products/ProductPrice";
 import ProductImage from "modules/products/ProductImage";
-import DetailsThumb from "./DetailsThumb";
-import { Button } from "components/button";
-import { useState } from "react";
-import { Quantity } from "components/quantity";
 import priceVN from "utils/priceVN";
+import DetailsThumb from "./DetailsThumb";
+import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Quantity } from "components/quantity";
 import { getFoodDetails } from "store/food/slice";
-import ProductRation from "modules/products/ProductRation";
-import useGetCount from "hooks/useGetCount";
+import { Button } from "components/button";
 import { addCart } from "store/cart/slice";
 
 const DetailsContentStyled = styled.div`
@@ -34,9 +35,6 @@ const DetailsContentStyled = styled.div`
       transition: all 3s;
     }
   }
-  /* .thumb-image img:first-child {
-    border: 2px solid lightseagreen;
-  } */
   .detail-content {
     width: 100%;
     display: flex;
@@ -296,6 +294,9 @@ const DetailsContent = ({ className = "" }) => {
       )}
     </>
   );
+};
+DetailsContent.propTypes = {
+  className: PropTypes.string,
 };
 
 export default DetailsContent;

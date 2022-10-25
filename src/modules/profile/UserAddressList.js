@@ -1,15 +1,16 @@
 /** @format */
 
-import { deleteAddressApi } from "api/user";
-import ModalComponent from "components/modal/ModalComponent";
-import useModal from "hooks/useModal";
-import useNotification from "hooks/useNotification";
-import React from "react";
-import { useDispatch } from "react-redux";
-import { authGetAddressDetail, authGetAllAddress } from "store/auth/slice";
-import Swal from "sweetalert2";
-import { addressStatus } from "utils/constants";
 import UserUpdateAddress from "./UserUpdateAddress";
+import useNotification from "hooks/useNotification";
+import useModal from "hooks/useModal";
+import Swal from "sweetalert2";
+import React from "react";
+import PropTypes from "prop-types";
+import ModalComponent from "components/modal/ModalComponent";
+import { useDispatch } from "react-redux";
+import { deleteAddressApi } from "api/user";
+import { authGetAddressDetail, authGetAllAddress } from "store/auth/slice";
+import { addressStatus } from "utils/constants";
 
 const UserAddressList = ({ addresses }) => {
   const { modalIsOpen, openModal, closeModal } = useModal();
@@ -113,6 +114,10 @@ const UserAddressList = ({ addresses }) => {
       )}
     </>
   );
+};
+
+UserAddressList.propTypes = {
+  addresses: PropTypes.array,
 };
 
 export default UserAddressList;

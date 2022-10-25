@@ -1,8 +1,8 @@
 /** @format */
 
 import React from "react";
-import { DropdownProvider } from "./dropdown-context";
 import PropTypes from "prop-types";
+import { DropdownProvider } from "./dropdown-context";
 
 const Dropdown = ({ children, className = "", ...props }) => {
   return (

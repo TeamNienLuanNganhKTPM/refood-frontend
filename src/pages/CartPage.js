@@ -1,11 +1,11 @@
 /** @format */
 
-import Layout from "components/layout/Layout";
-import CartList from "modules/cart/CartList";
-import CartTotal from "modules/cart/CartTotal";
-import React from "react";
-import { useSelector } from "react-redux";
 import styled from "styled-components";
+import React from "react";
+import Layout from "components/layout/Layout";
+import CartTotal from "modules/cart/CartTotal";
+import CartList from "modules/cart/CartList";
+import { useSelector } from "react-redux";
 
 const CartPageStyled = styled.div`
   margin-top: 40px;

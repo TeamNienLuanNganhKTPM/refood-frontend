@@ -1,10 +1,11 @@
 /** @format */
 
-import ProductImage from "modules/products/ProductImage";
-import React from "react";
-import { useEffect } from "react";
-import { useRef } from "react";
 import styled from "styled-components";
+import React from "react";
+import PropTypes from "prop-types";
+import ProductImage from "modules/products/ProductImage";
+import { useRef } from "react";
+import { useEffect } from "react";
 
 const DetailsThumbStyled = styled.div`
   width: 100%;
@@ -73,6 +74,12 @@ const DetailsThumb = ({ image, className = "", getImage }) => {
       </DetailsThumbStyled>
     </>
   );
+};
+
+DetailsThumb.propTypes = {
+  image: PropTypes.array,
+  className: PropTypes.string,
+  getImage: PropTypes.string,
 };
 
 export default DetailsThumb;

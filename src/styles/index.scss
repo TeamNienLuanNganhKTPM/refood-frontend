@@ -11,7 +11,7 @@
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
     font-family: "Epilogue", sans-serif;
     font-size: 16px;
-    color: #232323;
+    color: #171725;
     overflow-x: hidden;
   }
 }
@@ -34,18 +34,18 @@
   font-size: 16px;
   font-weight: 500;
   text-transform: uppercase;
-  color: #3e445a;
+  color: #4b5264;
   letter-spacing: 1px;
   cursor: pointer;
 }
 .menu-item:first-child {
-  background-color: #f0faff;
-  color: #2bbef9;
+  background-color: #f1fbf7;
+  color: #1dc071;
   border-radius: 40px;
 }
 .menu-item:hover {
-  background-color: #f0faff;
-  color: #2bbef9;
+  background-color: #f1fbf7;
+  color: #1dc071;
   border-radius: 40px;
   transition: all 0.15s;
 }
@@ -67,7 +67,7 @@
 }
 
 .product-list .swiper-button-prev {
-  color: #2bbef9;
+  color: #1dc071;
   padding: 20px;
   border-radius: 100%;
   background-color: rgba(255, 255, 255, 0.7);
@@ -85,7 +85,7 @@
 }
 
 .product-list .swiper-button-next {
-  color: #2bbef9;
+  color: #1dc071;
   padding: 20px;
   border-radius: 100%;
   background-color: rgba(255, 255, 255, 0.7);
@@ -124,7 +124,7 @@
 .banner-main .swiper-pagination-bullet {
   height: 12px;
   width: 12px;
-  background: #2bbef9;
+  background: #1dc071;
 }
 
 .zoom-enter .content {
@@ -180,7 +180,7 @@
   box-shadow: 0 10px 20px 0 rgba(black, 0.25);
   li {
     // background-color: #e2e4ec;
-    color: #202435;
+    color: #171725;
     padding: 6px 12px;
     border: 1px solid #d9d9e9;
     flex: 1;
@@ -194,15 +194,11 @@
     user-select: none;
     &:hover {
       background-color: rgba(white, 0.25);
-      color: #2bbef9;
+      color: #1dc071;
     }
   }
   .selected {
     @apply text-primary;
-  }
-  .previous {
-  }
-  .next {
   }
 }
 

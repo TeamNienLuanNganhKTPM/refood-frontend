@@ -1,9 +1,9 @@
 /** @format */
 
-import React from "react";
 import styled from "styled-components";
-import PropTypes from "prop-types";
+import React from "react";
 import Rating from "react-rating";
+import PropTypes from "prop-types";
 
 const ProductStarStyled = styled.div`
   display: flex;
@@ -61,6 +61,7 @@ const ProductStar = ({ className = "", starNumber }) => {
 
 ProductStar.propTypes = {
   className: PropTypes.string,
+  starNumber: PropTypes.number,
 };
 
 export default ProductStar;

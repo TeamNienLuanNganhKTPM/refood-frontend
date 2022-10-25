@@ -1,14 +1,12 @@
 /** @format */
 
-import { getUserApi } from "api/user";
+import styled from "styled-components";
 import React from "react";
-import { useState } from "react";
-import { useEffect } from "react";
 import { useRef } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, NavLink } from "react-router-dom";
 import { authGetUser } from "store/auth/slice";
-import styled from "styled-components";
 
 const sideBarLink = [
   {

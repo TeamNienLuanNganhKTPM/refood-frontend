@@ -1,10 +1,11 @@
 /** @format */
 
-import React from "react";
-import { useEffect } from "react";
-import { useState } from "react";
 import styled from "styled-components";
+import React from "react";
+import PropTypes from "prop-types";
 import priceVN from "utils/priceVN";
+import { useState } from "react";
+import { useEffect } from "react";
 
 const SearchPriceStyled = styled.div`
   .range-input {
@@ -158,6 +159,10 @@ const SearchPrice = ({ setPriceSelect }) => {
       </div>
     </SearchPriceStyled>
   );
+};
+
+SearchPrice.propTypes = {
+  setPriceSelect: PropTypes.array,
 };
 
 export default SearchPrice;

@@ -1,12 +1,12 @@
 /** @format */
 
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { getAllFood, getAllFoodPagination } from "store/food/slice";
-import { page, pageCount } from "utils/constants";
-import ProductHeading from "./ProductHeading";
 import ProductList from "./ProductList";
+import ProductHeading from "./ProductHeading";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { page } from "utils/constants";
+import { getAllFoodPagination } from "store/food/slice";
 
 const ProductBestSeller = () => {
   const dispatch = useDispatch();

@@ -13,11 +13,11 @@ const ProductRationStyled = styled.div`
   gap: 12px;
   .ration-item {
     padding: 10px 20px;
-    border: 1px solid ${(props) => props.theme.red};
+    border: 1px solid ${(props) => props.theme.secondary};
     border-radius: 6px;
-    background-color: ${(props) => props.theme.lightRed};
+    background-color: ${(props) => props.theme.secondary1};
     cursor: pointer;
-    color: ${(props) => props.theme.red};
+    color: ${(props) => props.theme.secondary};
     font-size: 16px;
     font-weight: 500;
   }

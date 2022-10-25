@@ -1,22 +1,19 @@
 /** @format */
 
-import { Button } from "components/button";
-import { Dropdown } from "components/dropdown";
-import { Input } from "components/input";
+import Swal from "sweetalert2";
+import styled from "styled-components";
 import React, { useEffect } from "react";
+import PropTypes from "prop-types";
 import { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
-import { useLocation, useNavigate } from "react-router-dom";
+import { priceStatus, rationStatus, reviewStatus } from "utils/constants";
+import { Input } from "components/input";
 import { filterSearchFood } from "store/search/slice";
-import styled from "styled-components";
-import Swal from "sweetalert2";
-import {
-  priceStatus,
-  rationStatus,
-  reviewStatus,
-  typeStatus,
-} from "utils/constants";
+import { Dropdown } from "components/dropdown";
+import { Button } from "components/button";
+
 const queryString = require("query-string");
 
 const SearchDetailModalStyled = styled.div`
@@ -358,6 +355,10 @@ const SearchDetailModal = ({ closeModal }) => {
       </form>
     </SearchDetailModalStyled>
   );
+};
+
+SearchDetailModal.propTypes = {
+  closeModal: PropTypes.func,
 };
 
 export default SearchDetailModal;

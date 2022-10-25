@@ -1,21 +1,22 @@
 /** @format */
 
+import useNotification from "hooks/useNotification";
+import Swal from "sweetalert2";
 import styled from "styled-components";
-import { React, useState, useEffect } from "react";
+import PropTypes from "prop-types";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
 import { Textarea } from "components/textarea";
+import { React, useState, useEffect } from "react";
 import { Input } from "components/input";
-import { getAddressDetailApi, getDistrictApi, getWardApi } from "api/user";
+import { getDistrictApi, getWardApi } from "api/user";
+import { Field } from "components/field";
+import { ErrorMessage } from "components/error";
 import { Dropdown } from "components/dropdown";
 import { Checkbox } from "components/checkbox";
 import { Button } from "components/button";
-import useNotification from "hooks/useNotification";
-import * as yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { Field } from "components/field";
-import { ErrorMessage } from "components/error";
-import { useDispatch, useSelector } from "react-redux";
-import Swal from "sweetalert2";
 import { authGetAllAddress, updateAddress } from "store/auth/slice";
 
 const UserCreateAddressStyled = styled.div`
@@ -350,6 +351,10 @@ const UserUpdateAddress = ({ closeModal }) => {
       </form>
     </UserCreateAddressStyled>
   );
+};
+
+UserUpdateAddress.propTypes = {
+  closeModal: PropTypes.func,
 };
 
 export default UserUpdateAddress;

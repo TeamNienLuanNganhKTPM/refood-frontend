@@ -1,18 +1,18 @@
 /** @format */
 
-import { updateUserInfoApi } from "api/user";
-import { Button } from "components/button";
-import { Input } from "components/input";
-import { Label } from "components/label";
-import React from "react";
-import { useEffect } from "react";
-import { useForm } from "react-hook-form";
-import { useDispatch, useSelector } from "react-redux";
-import { toast } from "react-toastify";
-import { authGetUser } from "store/auth/slice";
-import styled from "styled-components";
-import Swal from "sweetalert2";
 import UserHeading from "./UserHeading";
+import Swal from "sweetalert2";
+import styled from "styled-components";
+import React from "react";
+import { useForm } from "react-hook-form";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { updateUserInfoApi } from "api/user";
+import { toast } from "react-toastify";
+import { Label } from "components/label";
+import { Input } from "components/input";
+import { Button } from "components/button";
+import { authGetUser } from "store/auth/slice";
 
 const UserProfileStyled = styled.div`
   padding: 0 15px;

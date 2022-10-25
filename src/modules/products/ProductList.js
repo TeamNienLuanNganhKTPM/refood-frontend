@@ -4,6 +4,7 @@ import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper";
 import ProductItem from "./ProductItem";
+import PropTypes from "prop-types";
 
 const ProductList = ({ data }) => {
   return (
@@ -28,6 +29,9 @@ const ProductList = ({ data }) => {
       </>
     </div>
   );
+};
+ProductList.propTypes = {
+  data: PropTypes.array,
 };
 
 export default ProductList;

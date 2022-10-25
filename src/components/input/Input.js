@@ -1,9 +1,9 @@
 /** @format */
 
-import React from "react";
 import styled, { css } from "styled-components";
-import { useController } from "react-hook-form";
+import React from "react";
 import PropTypes from "prop-types";
+import { useController } from "react-hook-form";
 
 const InputStyles = styled.div`
   position: relative;

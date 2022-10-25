@@ -1,15 +1,15 @@
 /** @format */
 
-import { Button } from "components/button";
-import Comment from "modules/comment/Comment";
+import Swal from "sweetalert2";
+import styled from "styled-components";
 import React from "react";
-import { useEffect } from "react";
+import formatToDate from "utils/formatDate";
+import Comment from "modules/comment/Comment";
 import { useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteComment, getCommentDetails } from "store/food/slice";
-import styled from "styled-components";
-import Swal from "sweetalert2";
-import formatToDate from "utils/formatDate";
+import { Button } from "components/button";
 
 const DetailsCommentStyled = styled.div`
   margin-top: 60px;

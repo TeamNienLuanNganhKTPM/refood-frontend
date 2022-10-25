@@ -1,10 +1,11 @@
 /** @format */
 
-import React from "react";
-import { useEffect } from "react";
-import { useState } from "react";
-import styled from "styled-components";
 import Swal from "sweetalert2";
+import styled from "styled-components";
+import React from "react";
+import PropTypes from "prop-types";
+import { useState } from "react";
+import { useEffect } from "react";
 
 const SearchRationStyled = styled.div`
   display: flex;
@@ -94,6 +95,10 @@ const SearchRation = ({ setRationSelect }) => {
       </div>
     </SearchRationStyled>
   );
+};
+
+SearchRation.propTypes = {
+  setRationSelect: PropTypes.array,
 };
 
 export default SearchRation;

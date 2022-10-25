@@ -1,16 +1,17 @@
 /** @format */
 
-import { Button } from "components/button";
-import ProductPrice from "modules/products/ProductPrice";
-import React from "react";
-import { useState } from "react";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { getCartDetail } from "store/cart/slice";
 import styled from "styled-components";
+import React from "react";
+import PropTypes from "prop-types";
+import ProductPrice from "modules/products/ProductPrice";
 import priceVN from "utils/priceVN";
 import CartItem from "./CartItem";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getCartDetail } from "store/cart/slice";
+import { Button } from "components/button";
 
 const CartStyled = styled.div`
   position: absolute;
@@ -174,6 +175,10 @@ const CartModal = ({ className = "" }) => {
       </div>
     </CartStyled>
   );
+};
+
+CartModal.propTypes = {
+  className: PropTypes.string,
 };
 
 export default CartModal;

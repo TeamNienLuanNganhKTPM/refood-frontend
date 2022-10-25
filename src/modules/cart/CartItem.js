@@ -1,11 +1,12 @@
 /** @format */
 
-import ProductImage from "modules/products/ProductImage";
-import ProductPrice from "modules/products/ProductPrice";
-import ProductTitle from "modules/products/ProductTitle";
-import React from "react";
 import styled from "styled-components";
+import React from "react";
+import ProductTitle from "modules/products/ProductTitle";
+import ProductPrice from "modules/products/ProductPrice";
+import ProductImage from "modules/products/ProductImage";
 import priceVN from "../../utils/priceVN";
+import PropTypes from "prop-types";
 
 const CartItemStyled = styled.div`
   display: flex;
@@ -59,6 +60,10 @@ const CartItem = ({ data }) => {
       </div>
     </CartItemStyled>
   );
+};
+
+CartItem.propTypes = {
+  data: PropTypes.object,
 };
 
 export default CartItem;

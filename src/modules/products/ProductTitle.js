@@ -1,7 +1,7 @@
 /** @format */
 
-import React from "react";
 import styled from "styled-components";
+import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
@@ -37,6 +37,7 @@ const ProductTitle = ({ children, className = "", to = "" }) => {
 ProductTitle.propTypes = {
   children: PropTypes.any,
   className: PropTypes.string,
+  to: PropTypes.string,
 };
 
 export default ProductTitle;

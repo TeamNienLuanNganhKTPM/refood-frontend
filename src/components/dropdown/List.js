@@ -1,10 +1,10 @@
 /** @format */
 
 import React from "react";
-import { useDropdown } from "./dropdown-context";
 import PropTypes from "prop-types";
-import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import { useEffect } from "react";
+import { useDropdown } from "./dropdown-context";
 
 const List = ({ children, className = "", open, props }) => {
   const { show, setShow } = useDropdown();

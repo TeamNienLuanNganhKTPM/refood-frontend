@@ -1,10 +1,10 @@
 /** @format */
 
 import styled from "styled-components";
-import React from "react";
-import { useState } from "react";
-import Login from "modules/auth/Login";
 import Register from "modules/auth/Register";
+import React from "react";
+import Login from "modules/auth/Login";
+import { useState } from "react";
 
 const AccountPageStyled = styled.div`
   padding-top: 50px;

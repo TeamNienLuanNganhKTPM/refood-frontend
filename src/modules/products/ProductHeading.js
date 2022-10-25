@@ -1,11 +1,7 @@
 /** @format */
-
+import styled from "styled-components";
 import React from "react";
 import PropTypes from "prop-types";
-import { useDispatch } from "react-redux";
-import { getAllFood } from "store/food/slice";
-import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
 import { Button } from "components/button";
 
 const ProductHeadingStyled = styled.div`

@@ -2,6 +2,7 @@
 
 import styled from "styled-components";
 import React from "react";
+import PropTypes from "prop-types";
 import { NavLink } from "react-router-dom";
 import { Dropdown } from "components/dropdown";
 
@@ -153,6 +154,10 @@ const HeaderBottom = ({ className = "" }) => {
       </div>
     </HeaderBottomStyled>
   );
+};
+
+HeaderBottom.propTypes = {
+  className: PropTypes.string,
 };
 
 export default HeaderBottom;

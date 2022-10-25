@@ -1,16 +1,16 @@
 /** @format */
 
-import { updateUserPassApi } from "api/user";
-import { Button } from "components/button";
-import { Input } from "components/input";
-import { Label } from "components/label";
+import UserHeading from "./UserHeading";
+import Swal from "sweetalert2";
+import styled from "styled-components";
 import React from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { updateUserPassApi } from "api/user";
 import { toast } from "react-toastify";
-import styled from "styled-components";
-import Swal from "sweetalert2";
-import UserHeading from "./UserHeading";
+import { Link } from "react-router-dom";
+import { Label } from "components/label";
+import { Input } from "components/input";
+import { Button } from "components/button";
 
 const UserPasswordStyled = styled.div`
   padding: 0 15px;

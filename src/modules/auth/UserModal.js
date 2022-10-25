@@ -1,12 +1,11 @@
 /** @format */
 
-import React from "react";
-import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import React from "react";
 import PropTypes from "prop-types";
 import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 import { authLogOut } from "store/auth/slice";
-import { useEffect } from "react";
 
 const UserModalStyled = styled.div`
   position: absolute;

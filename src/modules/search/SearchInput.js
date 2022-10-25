@@ -1,18 +1,18 @@
 /** @format */
 
-import React from "react";
-import styled from "styled-components";
-import PropTypes from "prop-types";
-import { useLocation, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
 import useModal from "hooks/useModal";
-import ModalComponent from "components/modal/ModalComponent";
+import Swal from "sweetalert2";
+import styled from "styled-components";
 import SearchDetailModal from "./SearchDetailModal";
-import { Input } from "components/input";
+import React from "react";
+import PropTypes from "prop-types";
+import ModalComponent from "components/modal/ModalComponent";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { Input } from "components/input";
 import { filterSearchFood } from "store/search/slice";
-import Swal from "sweetalert2";
 const queryString = require("query-string");
 
 const SearchInputStyled = styled.div`

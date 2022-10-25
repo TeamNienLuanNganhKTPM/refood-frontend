@@ -1,7 +1,8 @@
 /** @format */
 
-import React from "react";
 import styled from "styled-components";
+import React from "react";
+import PropTypes from "prop-types";
 
 const ProductCartStyled = styled.div`
   width: 100%;
@@ -28,6 +29,10 @@ const ProductCart = ({ className = "" }) => {
       Thêm giỏ hàng
     </ProductCartStyled>
   );
+};
+
+ProductCart.propTypes = {
+  className: PropTypes.string,
 };
 
 export default ProductCart;

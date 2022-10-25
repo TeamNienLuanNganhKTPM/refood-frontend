@@ -1,11 +1,11 @@
 /** @format */
 
-import { DropdownProvider } from "components/dropdown/dropdown-context";
 import React from "react";
-import HeaderBottom from "./HeaderBottom";
 import HeaderTop from "./HeaderTop";
+import HeaderBottom from "./HeaderBottom";
+import { DropdownProvider } from "components/dropdown/dropdown-context";
 
-const Header = ({ props }) => {
+const Header = () => {
   return (
     <>
       <DropdownProvider>

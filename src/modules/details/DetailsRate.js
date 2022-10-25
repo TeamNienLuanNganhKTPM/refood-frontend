@@ -1,10 +1,10 @@
 /** @format */
 
-import ProductStar from "modules/products/ProductStar";
-import React from "react";
 import styled from "styled-components";
-import DetailsEvaluate from "./DetailsEvaluate";
+import React from "react";
+import ProductStar from "modules/products/ProductStar";
 import DetailsMeta from "./DetailsMeta";
+import DetailsEvaluate from "./DetailsEvaluate";
 
 const data = [
   {

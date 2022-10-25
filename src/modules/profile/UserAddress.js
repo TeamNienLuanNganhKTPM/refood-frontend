@@ -1,20 +1,14 @@
 /** @format */
 
-import { deleteAddressApi, getAllAddressApi } from "api/user";
-import ModalComponent from "components/modal/ModalComponent";
+import UserCreateAddress from "./UserCreateAddress";
+import UserAddressList from "./UserAddressList";
 import useModal from "hooks/useModal";
-import useNotification from "hooks/useNotification";
+import styled from "styled-components";
 import React from "react";
-import { useState } from "react";
+import ModalComponent from "components/modal/ModalComponent";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { authGetAddressDetail, authGetAllAddress } from "store/auth/slice";
-import styled from "styled-components";
-import Swal from "sweetalert2";
-import { addressStatus } from "utils/constants";
-import UserAddressList from "./UserAddressList";
-import UserCreateAddress from "./UserCreateAddress";
-import UserUpdateAddress from "./UserUpdateAddress";
+import { authGetAllAddress } from "store/auth/slice";
 
 const UserAddressStyled = styled.div`
   .address-heading {

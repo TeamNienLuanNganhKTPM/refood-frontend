@@ -1,8 +1,8 @@
 /** @format */
 
 import React from "react";
-import { useController } from "react-hook-form";
 import PropTypes from "prop-types";
+import { useController } from "react-hook-form";
 
 const Checkbox = ({ checked, children, control, name, ...rest }) => {
   const { field } = useController({

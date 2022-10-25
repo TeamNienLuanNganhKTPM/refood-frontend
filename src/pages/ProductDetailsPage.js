@@ -2,11 +2,11 @@
 
 import styled from "styled-components";
 import React from "react";
-import Layout from "components/layout/Layout";
-import DetailsContent from "modules/details/DetailsContent";
-import DetailsReview from "modules/details/DetailsReview";
-import DetailsComment from "modules/details/DetailsComment";
 import ProductSimilar from "modules/products/ProductSimilar";
+import Layout from "components/layout/Layout";
+import DetailsReview from "modules/details/DetailsReview";
+import DetailsContent from "modules/details/DetailsContent";
+import DetailsComment from "modules/details/DetailsComment";
 
 const ProductDetailsPageStyled = styled.div`
   background-color: #f7f8fd;

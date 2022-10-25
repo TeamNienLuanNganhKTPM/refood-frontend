@@ -1,18 +1,19 @@
 /** @format */
 
-import { Button } from "components/button";
-import { Textarea } from "components/textarea";
-import React from "react";
-import { useEffect } from "react";
-import { useForm } from "react-hook-form";
-import { useDispatch, useSelector } from "react-redux";
-import { authLogin } from "store/auth/slice";
-import { addCommentDetails, getCommentDetails } from "store/food/slice";
-import styled from "styled-components";
 import Swal from "sweetalert2";
+import styled from "styled-components";
+import React from "react";
+import PropTypes from "prop-types";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm } from "react-hook-form";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Textarea } from "components/textarea";
 import { ErrorMessage } from "components/error";
+import { Button } from "components/button";
+import { authLogin } from "store/auth/slice";
+import { addCommentDetails, getCommentDetails } from "store/food/slice";
 
 const CommentStyled = styled.div`
   width: 750px;
@@ -120,6 +121,10 @@ const Comment = ({ className = "" }) => {
       </div>
     </CommentStyled>
   );
+};
+
+Comment.propTypes = {
+  className: PropTypes.string,
 };
 
 export default Comment;

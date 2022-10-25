@@ -1,14 +1,14 @@
 /** @format */
 
-import ModalComponent from "components/modal/ModalComponent";
 import UserModal from "modules/auth/UserModal";
-import CartModal from "modules/cart/CartModal";
+import styled from "styled-components";
 import SearchInput from "modules/search/SearchInput";
+import PropTypes from "prop-types";
+import CartModal from "modules/cart/CartModal";
+import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import { React, useState } from "react";
-import { useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
-import styled from "styled-components";
 
 const HeaderStyled = styled.div`
   padding-top: 30px;
@@ -309,6 +309,10 @@ const HeaderTop = ({ className = "" }) => {
       </HeaderStyled>
     </>
   );
+};
+
+HeaderTop.propTypes = {
+  className: PropTypes.string,
 };
 
 export default HeaderTop;

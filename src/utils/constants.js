@@ -1,12 +1,15 @@
 /** @format */
 
 export const theme = {
-  primary: "#2bbef9",
-  textPrimary: "#202435",
-  text: "#3e445a",
+  primary: "#1dc071",
+  secondary: "#6F49FD",
+  textPrimary: "#171725",
+  text: "#4B5264",
+  text3: "#808191",
+  text4: "#B2B3BD",
   lineGray: "#e2e4ec",
   red: "#ea2b0f",
-  lightBlue: "#f0faff",
+  lightBlue: "#F1FBF7",
   textGray: "#9b9bb4",
   line: "#d9d9e9",
   borderLight: "#edeef5",
@@ -17,6 +20,7 @@ export const theme = {
   grayDark: "#f7f8fd",
   textPlaceHoder: "#9ca3af",
   lightRed: "#fff1ee",
+  secondary1: "#E2DBFF",
 };
 
 export const addressStatus = {

@@ -1,12 +1,12 @@
 /** @format */
 
-import SectionLeft from "components/layout/SectionLeft";
+import styled from "styled-components";
 import SectionRight from "components/layout/SectionRight";
+import SectionLeft from "components/layout/SectionLeft";
+import React from "react";
+import ProductTrending from "modules/products/ProductTrending";
 import ProductNew from "modules/products/ProductNew";
 import ProductBestSeller from "modules/products/ProductBestSeller";
-import React from "react";
-import styled from "styled-components";
-import ProductTrending from "modules/products/ProductTrending";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllFood } from "store/food/slice";
@@ -36,11 +36,6 @@ const HomeProduct = () => {
     <HomeProductStyled>
       <div className="product-main">
         <SectionLeft className="section-left">
-          {/* <img
-            src="https://images.unsplash.com/photo-1601585099780-6b176dc702af?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTc5fHxmb29kfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=600&q=60"
-            alt=""
-            className="rounded-lg"
-          /> */}
           <ProductTrending></ProductTrending>
         </SectionLeft>
         <SectionRight className="section-right">

@@ -1,13 +1,13 @@
 /** @format */
 
-import { Dropdown } from "components/dropdown";
-import Layout from "components/layout/Layout";
-import SectionLeft from "components/layout/SectionLeft";
-import SectionRight from "components/layout/SectionRight";
-import ProductLeft from "modules/products/ProductLeft";
-import React from "react";
-import { Outlet } from "react-router-dom";
 import styled from "styled-components";
+import SectionRight from "components/layout/SectionRight";
+import SectionLeft from "components/layout/SectionLeft";
+import React from "react";
+import ProductLeft from "modules/products/ProductLeft";
+import Layout from "components/layout/Layout";
+import { Outlet } from "react-router-dom";
+import { Dropdown } from "components/dropdown";
 
 const ProductPageStyled = styled.div`
   .pp-main {

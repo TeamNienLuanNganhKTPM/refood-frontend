@@ -5,11 +5,11 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: "#2bbef9",
-        bgPrimary: "#f0faff",
+        primary: "#1dc071",
+        bgPrimary: "#F1FBF7",
         blueBold: "#233A95",
         redPrimary: "#ea2b0f",
-        text: "#3e445a",
+        text: "#171725",
         textLight: "#c2c2d3",
         line: "#d9d9e9",
       },

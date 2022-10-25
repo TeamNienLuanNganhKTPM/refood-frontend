@@ -1,16 +1,16 @@
 /** @format */
 
-import React from "react";
 import styled from "styled-components";
-import ProductCart from "./ProductCart";
-import ProductImage from "./ProductImage";
-import ProductPrice from "./ProductPrice";
-import ProductStar from "./ProductStar";
-import ProductTitle from "./ProductTitle";
-import PropTypes from "prop-types";
 import slugify from "slugify";
-import { Link } from "react-router-dom";
+import React from "react";
+import PropTypes from "prop-types";
+import ProductTitle from "./ProductTitle";
+import ProductStar from "./ProductStar";
+import ProductPrice from "./ProductPrice";
+import ProductImage from "./ProductImage";
+import ProductCart from "./ProductCart";
 import priceVN from "utils/priceVN";
+import { Link } from "react-router-dom";
 
 const ProductItemStyled = styled.div`
   height: 100%;
@@ -95,9 +95,11 @@ const ProductItem = ({ data }) => {
 };
 
 ProductItem.propTypes = {
-  url: PropTypes.string,
-  title: PropTypes.string,
-  price: PropTypes.number,
+  FoodName: PropTypes.string,
+  FoodSlug: PropTypes.string,
+  FoodPrices: PropTypes.array,
+  FoodImages: PropTypes.array,
+  FoodReviewAvg: PropTypes.number,
 };
 
 export default ProductItem;

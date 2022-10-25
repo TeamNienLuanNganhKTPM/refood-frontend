@@ -1,12 +1,12 @@
 /** @format */
 
-import Layout from "components/layout/Layout";
-import SectionLeft from "components/layout/SectionLeft";
-import SectionRight from "components/layout/SectionRight";
 import UserSideBar from "modules/profile/UserSideBar";
-import React from "react";
-import { Outlet } from "react-router-dom";
 import styled from "styled-components";
+import SectionRight from "components/layout/SectionRight";
+import SectionLeft from "components/layout/SectionLeft";
+import React from "react";
+import Layout from "components/layout/Layout";
+import { Outlet } from "react-router-dom";
 
 const UserPageStyled = styled.div`
   padding: 40px 0;

@@ -1,10 +1,11 @@
 /** @format */
 
-import React from "react";
-import { useEffect } from "react";
-import { useState } from "react";
-import styled from "styled-components";
 import Swal from "sweetalert2";
+import styled from "styled-components";
+import React from "react";
+import PropTypes from "prop-types";
+import { useState } from "react";
+import { useEffect } from "react";
 
 const SearchRateStyled = styled.div`
   display: flex;
@@ -104,6 +105,10 @@ const SearchRate = ({ setRateSelect }) => {
       </div>
     </SearchRateStyled>
   );
+};
+
+SearchRate.propTypes = {
+  setRateSelect: PropTypes.array,
 };
 
 export default SearchRate;

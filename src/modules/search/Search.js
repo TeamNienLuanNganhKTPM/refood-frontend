@@ -1,14 +1,14 @@
 /** @format */
 
-import ProductItem from "modules/products/ProductItem";
-import React from "react";
-import { useEffect } from "react";
-import { useState } from "react";
-import ReactPaginate from "react-paginate";
-import { useDispatch, useSelector } from "react-redux";
-import { getAllFoodPagination } from "store/food/slice";
 import Swal from "sweetalert2";
+import ReactPaginate from "react-paginate";
+import React from "react";
+import ProductItem from "modules/products/ProductItem";
+import { useState } from "react";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { page } from "utils/constants";
+import { getAllFoodPagination } from "store/food/slice";
 
 const Search = () => {
   const [pageCount, setPageCount] = useState(0);

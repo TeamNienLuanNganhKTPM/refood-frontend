@@ -1,11 +1,12 @@
 /** @format */
 
-import { Checkbox } from "components/checkbox";
+import Swal from "sweetalert2";
 import React from "react";
-import { useEffect } from "react";
+import PropTypes from "prop-types";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import Swal from "sweetalert2";
+import { useEffect } from "react";
+import { Checkbox } from "components/checkbox";
 
 const SearchType = ({ setTypeSelect }) => {
   const { control } = useForm({
@@ -76,6 +77,10 @@ const SearchType = ({ setTypeSelect }) => {
       })}
     </>
   );
+};
+
+SearchType.propTypes = {
+  setTypeSelect: PropTypes.array,
 };
 
 export default SearchType;

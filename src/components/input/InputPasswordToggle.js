@@ -1,9 +1,9 @@
 /** @format */
 
-import { IconEyeClose, IconEyeOpen } from "components/icon";
 import React, { useState } from "react";
-import Input from "./Input";
 import PropTypes from "prop-types";
+import Input from "./Input";
+import { IconEyeClose, IconEyeOpen } from "components/icon";
 
 const InputPasswordToggle = ({ control, name = "" }) => {
   const [togglePassword, setTogglePassword] = useState(false);

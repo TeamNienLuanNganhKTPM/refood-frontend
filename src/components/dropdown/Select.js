@@ -1,8 +1,8 @@
 /** @format */
 
 import React from "react";
-import { useDropdown } from "./dropdown-context";
 import PropTypes from "prop-types";
+import { useDropdown } from "./dropdown-context";
 
 const Select = ({
   placeholder = "",
