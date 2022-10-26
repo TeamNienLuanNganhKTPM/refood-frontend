@@ -79,7 +79,7 @@ const DetailsThumb = ({ image, className = "", getImage }) => {
 DetailsThumb.propTypes = {
   image: PropTypes.array,
   className: PropTypes.string,
-  getImage: PropTypes.string,
+  getImage: PropTypes.func,
 };
 
 export default DetailsThumb;

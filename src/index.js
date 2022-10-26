@@ -13,6 +13,8 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Provider } from "react-redux";
 import { store } from "store/configureStore";
+import { UserProvider } from "contexts/user-context";
+import { CartProvider } from "contexts/cart-context";
 
 const container = document.getElementById("root");
 const root = createRoot(container);
@@ -22,7 +24,11 @@ root.render(
     <ThemeProvider theme={theme}>
       <GlobalStyles></GlobalStyles>
       <BrowserRouter>
-        <App />
+        <UserProvider>
+          <CartProvider>
+            <App />
+          </CartProvider>
+        </UserProvider>
         <ToastContainer></ToastContainer>
       </BrowserRouter>
     </ThemeProvider>

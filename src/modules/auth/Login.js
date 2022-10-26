@@ -20,7 +20,8 @@ import { Input } from "components/input";
 import { Field } from "components/field";
 import { ErrorMessage } from "components/error";
 import { Button } from "components/button";
-import { authLogin } from "store/auth/slice";
+import { authGetAllAddress, authLogin } from "store/auth/slice";
+import { useUser } from "contexts/user-context";
 
 const schema = yup.object({
   phonenumber: yup.string().required("Vui lòng nhập số điện thoại"),
@@ -59,8 +60,10 @@ const Login = ({ show }) => {
   };
   const { user } = useSelector((state) => state.auth);
   const navigate = useNavigate();
+  const [, setUserInfo] = useUser();
   useEffect(() => {
     if (user && user.CustomerId) {
+      setUserInfo(user);
       navigate("/");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -4,9 +4,14 @@ import styled from "styled-components";
 import React from "react";
 import CartTable from "./CartTable";
 import { useSelector } from "react-redux";
+import { useCart } from "contexts/cart-context";
+import { useEffect } from "react";
 
 const CartListStyled = styled.div`
   width: 820px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
   table {
     width: 100%;
     margin-bottom: 1rem;
@@ -60,6 +65,22 @@ const CartListStyled = styled.div`
 
 const CartList = () => {
   const { cart } = useSelector((state) => state.cart);
+  const [, setTotal, , setListCart] = useCart();
+
+  useEffect(() => {
+    function getTotalPriceFood() {
+      if (cart) {
+        setListCart(cart);
+        let result = 0;
+        cart.forEach((item) => {
+          result += item.FoodDishCount * item.FoodPrice;
+        });
+        setTotal(result);
+      }
+    }
+    getTotalPriceFood();
+  }, [cart, setListCart, setTotal]);
+
   return (
     <CartListStyled>
       <table>
@@ -80,7 +101,7 @@ const CartList = () => {
               <CartTable key={item.FoodDetailID} data={item}></CartTable>
             ))
           ) : (
-            <span>Khoong co mon an</span>
+            <span>Không có món ăn trong giỏ hàng</span>
           )}
         </tbody>
       </table>

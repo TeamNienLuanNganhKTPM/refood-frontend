@@ -35,20 +35,7 @@ const CartStyled = styled.div`
     flex-direction: column;
     gap: 10px;
   }
-  .cart-lists::-webkit-scrollbar {
-    width: 4px;
-  }
 
-  /* Track */
-  .cart-lists::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 5px ${(props) => props.theme.textLight};
-    border-radius: 10px;
-  }
-
-  /* Handle */
-  .cart-lists::-webkit-scrollbar-thumb {
-    background: ${(props) => props.theme.blueBold};
-  }
   .cart-content {
     padding: 20px 0;
     display: flex;
@@ -129,7 +116,7 @@ const CartModal = ({ className = "" }) => {
   return (
     <CartStyled className={className}>
       <div className="cart-content">
-        <div className="cart-lists">
+        <div className="cart-lists scroll">
           {cart?.length > 0 ? (
             cart.map((item) => (
               <CartItem key={item.FoodDetailID} data={item}></CartItem>
@@ -166,7 +153,11 @@ const CartModal = ({ className = "" }) => {
               navigate("/cart");
             }}
           >
-            <span className="details-name">Xem chi tiết</span>
+            {cart?.length > 0 ? (
+              <span className="details-name">Xem chi tiết</span>
+            ) : (
+              <span className="details-name">Thêm món ăn ngay</span>
+            )}
           </Button>
           <Button className="btn-pay" height="44px" kind="none">
             <span className="pay-name">Thanh toán</span>

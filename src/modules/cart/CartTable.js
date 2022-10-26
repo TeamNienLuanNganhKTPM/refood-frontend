@@ -63,7 +63,7 @@ const CartTable = ({ data }) => {
   return (
     <>
       <tr>
-        <td className="cl-thumb">
+        <td className="cl-thumb ">
           <div className="cl-image">
             <ProductImage url={data.FoodThumb}></ProductImage>
           </div>

@@ -21,10 +21,10 @@ const Radio = ({ checked, children, control, name, ...rest }) => {
       />
       <div className="flex items-center font-medium cursor-pointer gap-x-3">
         <div
-          className={`w-7 h-7 rounded-full border flex items-center justify-center p-1 ${
+          className={`w-5 h-5 rounded-full border flex items-center justify-center p-1 ${
             checked
               ? "bg-primary border-primary text-white"
-              : "border-gray-200 text-transparent"
+              : "border-textLight text-transparent"
           }`}
         >
           <svg

@@ -9,22 +9,18 @@ import { useSelector } from "react-redux";
 
 const CartPageStyled = styled.div`
   margin-top: 40px;
-  .cp-main {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 30px;
-  }
+  margin-bottom: 80px;
 `;
 
 const CartPage = () => {
   const { cart } = useSelector((state) => state.cart);
+
   return (
     <Layout>
       <CartPageStyled>
         <div className="container">
           {cart?.length > 0 ? (
-            <div className="cp-main">
+            <div className="flex justify-between items-start gap-[30px] lg:flex-nowrap flex-wrap">
               <CartList></CartList>
               <CartTotal></CartTotal>
             </div>

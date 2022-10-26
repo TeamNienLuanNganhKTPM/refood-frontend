@@ -23,6 +23,8 @@ const HomeProductStyled = styled.section`
 
 const HomeProduct = () => {
   // Get all food from database
+  const { foods } = useSelector((state) => state.food);
+
   const dispatch = useDispatch();
   useEffect(() => {
     function fetchData() {
@@ -30,7 +32,7 @@ const HomeProduct = () => {
     }
     fetchData();
   }, [dispatch]);
-  const { foods } = useSelector((state) => state.food);
+
   if (!foods) return null;
   return (
     <HomeProductStyled>
@@ -47,4 +49,4 @@ const HomeProduct = () => {
   );
 };
 
-export default HomeProduct;
+export default React.memo(HomeProduct);

@@ -60,3 +60,7 @@ export const page = {
   currentPage: 1,
   countFood: 12,
 };
+
+export const feeDelivery = {
+  fee: 0,
+};
