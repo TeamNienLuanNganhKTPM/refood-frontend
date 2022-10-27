@@ -23,8 +23,8 @@ const OrderDetail = () => {
     fetchOrderDetail();
   }, [dispatch, id]);
 
-  const { orderInfo } = useSelector((state) => state.order);
-  const data = orderInfo?.OrderDetails ? orderInfo?.OrderDetails : [];
+  const { orderDetail } = useSelector((state) => state.order);
+  const data = orderDetail?.OrderDetails ? orderDetail?.OrderDetails : [];
   return (
     <div>
       <div className="flex items-center justify-between py-2 border-b border-b-line">
@@ -47,10 +47,12 @@ const OrderDetail = () => {
         </div>
         <div className="flex items-center justify-end gap-3 text-base font-normal uppercase">
           <span className="text-text1">
-            Ngày đặt: {formatToDate(orderInfo?.OrderDate)}
+            Ngày đặt: {formatToDate(orderDetail?.OrderDate)}
           </span>
           <span>|</span>
-          <span className="text-text1">ID Đơn hàng: {orderInfo?.OrderID}</span>
+          <span className="text-text1">
+            ID Đơn hàng: {orderDetail?.OrderID}
+          </span>
           <span>|</span>
           <span className="text-redPrimary">Đơn hàng đã giao</span>
         </div>
@@ -60,7 +62,7 @@ const OrderDetail = () => {
         <h3 className="text-lg font-medium b-4 text-text">Địa chỉ</h3>
         <div className="flex flex-col gap-1 text-sm ">
           <span className="p-2 text-text1 bg-bgPrimary">
-            {orderInfo?.OrderAdress}
+            {orderDetail?.OrderAdress}
           </span>
         </div>
       </div>
@@ -76,13 +78,13 @@ const OrderDetail = () => {
             Phương thức thanh toán:
           </span>
           <span className="text-base text-text1">
-            {orderInfo?.OrderPaymentMethod}
+            {orderDetail?.OrderPaymentMethod}
           </span>
         </div>
         <div className="flex items-center justify-end gap-3">
           <span className="text-lg font-medium text-text">Tổng tiền:</span>
           <ProductPrice sizeText="20px">
-            {priceVN(orderInfo?.OrderSubTotal)}
+            {priceVN(orderDetail?.OrderSubTotal)}
           </ProductPrice>
         </div>
       </div>

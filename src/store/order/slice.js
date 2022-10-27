@@ -43,7 +43,7 @@ const orderSlice = createSlice({
     }),
     updateOrderDetail: (state, { payload }) => ({
       ...state,
-      orderInfo: payload.order_detail,
+      orderDetail: payload.order_detail,
     }),
   },
 });

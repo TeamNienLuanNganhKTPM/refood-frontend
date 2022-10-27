@@ -57,9 +57,11 @@ const ProductItemStyled = styled.div`
 const ProductItem = ({ data }) => {
   const { FoodName, FoodSlug, FoodPrices, FoodImages, FoodReviewAvg } = data;
   const slug = slugify(FoodSlug, { lower: true });
+
   useEffect(() => {
     document.body.scrollIntoView({ behavior: "smooth", block: "start" });
   }, [slug]);
+
   if (!data) return null;
   return (
     <ProductItemStyled className="cards">

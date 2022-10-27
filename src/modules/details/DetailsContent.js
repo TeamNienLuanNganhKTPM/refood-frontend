@@ -206,6 +206,7 @@ const DetailsContent = ({ className = "" }) => {
   };
   // Add cart
   const handleAddCart = () => {
+    console.log(ration, getCount);
     dispatch(
       addCart({
         mactma: ration,
