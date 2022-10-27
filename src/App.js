@@ -16,6 +16,7 @@ const UserAddress = lazy(() => import("modules/profile/UserAddress"));
 const Search = lazy(() => import("modules/search/Search"));
 const ProductPage = lazy(() => import("pages/ProductPage"));
 const ProductDetailsPage = lazy(() => import("pages/ProductDetailsPage"));
+const OrderDetailPage = lazy(() => import("pages/OrderDetailPage"));
 const ProductAll = lazy(() => import("modules/products/ProductAll"));
 const HomePage = lazy(() => import("pages/HomePage"));
 const CartPage = lazy(() => import("pages/CartPage"));
@@ -59,6 +60,10 @@ const App = () => {
             <Route
               path="/user/order"
               element={<UserPurchase></UserPurchase>}
+            ></Route>
+            <Route
+              path="/user/order/:slug"
+              element={<OrderDetailPage></OrderDetailPage>}
             ></Route>
             <Route
               path="/user/rating"

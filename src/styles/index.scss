@@ -16,6 +16,22 @@
   }
 }
 
+table {
+  @apply w-full max-w-full;
+}
+th {
+  @apply bg-secondary1 p-4  text-base text-text text-left uppercase font-medium;
+}
+tbody td:first-child {
+  @apply left-0;
+}
+tr {
+  @apply border-b border-b-line;
+}
+td {
+  @apply p-4 text-left text-base text-text1;
+}
+
 .container {
   width: 100%;
   max-width: 1170px;
@@ -218,6 +234,10 @@
   background: #6f49fd;
 }
 
+.step {
+  color: #171725;
+  width: 100%;
+}
 // Responsive
 
 /* Desktop and Ipad pro*/

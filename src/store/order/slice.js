@@ -10,7 +10,7 @@ const orderSlice = createSlice({
       ...state,
       ...payload,
     }),
-    updateOrderFood: (state, { payload }) => ({
+    updateOrderInfoFood: (state, { payload }) => ({
       ...state,
       message: payload.message,
       orderInfo: payload.order_info,
@@ -27,15 +27,27 @@ const orderSlice = createSlice({
       ...state,
       url: payload.url,
     }),
+    getAllOrderFood: (state) => ({
+      ...state,
+    }),
+    updateOrderFood: (state, { payload }) => ({
+      ...state,
+      orders: payload.orders,
+      countOnPage: payload.countOnPage,
+      pageCurrent: payload.pageCur,
+      pageNumber: payload.pageNum,
+    }),
   },
 });
 
 export const {
   createOrderFood,
-  updateOrderFood,
+  updateOrderInfoFood,
   initOrder,
   getVNPAYOrder,
   getUrlPay,
+  getAllOrderFood,
+  updateOrderFood,
 } = orderSlice.actions;
 
 export default orderSlice.reducer;
