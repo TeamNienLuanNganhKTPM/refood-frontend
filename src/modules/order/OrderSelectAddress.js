@@ -11,7 +11,6 @@ import Swal from "sweetalert2";
 import { addressStatus } from "utils/constants";
 
 const OrderSelectAddressStyled = styled.div`
-  width: 500px;
   overflow-y: hidden;
   .osa-top {
     display: flex;
@@ -136,7 +135,7 @@ const OrderSelectAddress = ({
 
   return (
     <>
-      <OrderSelectAddressStyled>
+      <OrderSelectAddressStyled className="lg:w-[500px] w-[300px]">
         <div className="osa-top">
           <h3 className="osa-heading">Chọn địa chỉ khác</h3>
           <div className="cursor-pointer text-text" onClick={closeModal}>

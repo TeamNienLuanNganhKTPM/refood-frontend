@@ -5,6 +5,9 @@ import React from "react";
 import PropTypes from "prop-types";
 import { NavLink } from "react-router-dom";
 import { Dropdown } from "components/dropdown";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllTypesFood } from "store/food/slice";
 
 const HeaderBottomStyled = styled.div`
   padding: 20px 0;
@@ -40,78 +43,88 @@ const HeaderBottomStyled = styled.div`
   }
 `;
 
-const types = [
-  {
-    id: 1,
-    label: "Khai vị",
-  },
-  {
-    id: 2,
-    label: "Tráng miệng",
-  },
-  {
-    id: 3,
-    label: "Món xào",
-  },
-  {
-    id: 4,
-    label: "Món hấp",
-  },
-  {
-    id: 5,
-    label: "Món chiên",
-  },
-  {
-    id: 6,
-    label: "Món nướng",
-  },
-  {
-    id: 7,
-    label: "Món ram",
-  },
-  {
-    id: 8,
-    label: "Món canh",
-  },
-  {
-    id: 9,
-    label: "Món rang",
-  },
-  {
-    id: 10,
-    label: "Cơm",
-  },
-  {
-    id: 11,
-    label: "Cơm cháy",
-  },
-  {
-    id: 12,
-    label: "Mì",
-  },
-  {
-    id: 13,
-    label: "Cháo",
-  },
-  {
-    id: 14,
-    label: "Lẩu",
-  },
-  {
-    id: 15,
-    label: "Gỏi",
-  },
-  {
-    id: 16,
-    label: "Nước uống",
-  },
-  {
-    id: 17,
-    label: "Đặt tiệc",
-  },
-];
+// const types = [
+//   {
+//     id: 1,
+//     label: "Khai vị",
+//   },
+//   {
+//     id: 2,
+//     label: "Tráng miệng",
+//   },
+//   {
+//     id: 3,
+//     label: "Món xào",
+//   },
+//   {
+//     id: 4,
+//     label: "Món hấp",
+//   },
+//   {
+//     id: 5,
+//     label: "Món chiên",
+//   },
+//   {
+//     id: 6,
+//     label: "Món nướng",
+//   },
+//   {
+//     id: 7,
+//     label: "Món ram",
+//   },
+//   {
+//     id: 8,
+//     label: "Món canh",
+//   },
+//   {
+//     id: 9,
+//     label: "Món rang",
+//   },
+//   {
+//     id: 10,
+//     label: "Cơm",
+//   },
+//   {
+//     id: 11,
+//     label: "Cơm cháy",
+//   },
+//   {
+//     id: 12,
+//     label: "Mì",
+//   },
+//   {
+//     id: 13,
+//     label: "Cháo",
+//   },
+//   {
+//     id: 14,
+//     label: "Lẩu",
+//   },
+//   {
+//     id: 15,
+//     label: "Gỏi",
+//   },
+//   {
+//     id: 16,
+//     label: "Nước uống",
+//   },
+//   {
+//     id: 17,
+//     label: "Đặt tiệc",
+//   },
+// ];
 
 const HeaderBottom = ({ className = "" }) => {
+  const { typesFood } = useSelector((state) => state.food);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    function fetchAllTypesFood() {
+      dispatch(getAllTypesFood());
+    }
+    fetchAllTypesFood();
+  }, [dispatch]);
+
+  const types = typesFood ? typesFood : [];
   return (
     <HeaderBottomStyled className={className}>
       <div className="container">
@@ -127,8 +140,8 @@ const HeaderBottom = ({ className = "" }) => {
                   types.map((item, index) => {
                     return (
                       index < 11 && (
-                        <Dropdown.Option key={item.id}>
-                          {item.label}
+                        <Dropdown.Option key={item.FoodTypeId}>
+                          {item.FoodTypeName}
                         </Dropdown.Option>
                       )
                     );

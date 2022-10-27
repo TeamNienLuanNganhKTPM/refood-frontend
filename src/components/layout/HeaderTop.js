@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import { React, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { useCart } from "contexts/cart-context";
 
 const HeaderStyled = styled.div`
   padding-top: 30px;
@@ -191,6 +192,21 @@ const HeaderTop = ({ className = "" }) => {
   const token = window.localStorage.getItem("accessToken");
   const { user } = useSelector((state) => state.auth);
   const { cart } = useSelector((state) => state.cart);
+  const [, setTotal, , setListCart] = useCart();
+
+  useEffect(() => {
+    function getTotalPriceFood() {
+      if (cart) {
+        setListCart(cart);
+        let result = 0;
+        cart.forEach((item) => {
+          result += item.FoodDishCount * item.FoodPrice;
+        });
+        setTotal(result);
+      }
+    }
+    getTotalPriceFood();
+  }, [cart, setListCart, setTotal]);
 
   // Modal cart display none when path current /cart
   useEffect(() => {

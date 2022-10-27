@@ -10,6 +10,7 @@ const {
   addFoodCommentApi,
   deleteFoodCommentApi,
   getAllPaginationFoodApi,
+  getAllTypesFoodApi,
 } = require("api/food");
 const { call, put } = require("redux-saga/effects");
 const {
@@ -17,6 +18,7 @@ const {
   updateFoodDetails,
   updateCommentDetails,
   updateAllFoodPagination,
+  updateTypesFood,
 } = require("./slice");
 
 function* handleGetAllFoods() {
@@ -101,6 +103,18 @@ function* handleDeleteComment({ payload }) {
   }
 }
 
+function* handleGetAllTypesFood() {
+  try {
+    const response = yield call(getAllTypesFoodApi);
+    if (response.status === 200) {
+      yield put(updateTypesFood(response.data.foodtypes));
+    }
+  } catch (error) {
+    const { message } = error.response.data;
+    console.log(message);
+  }
+}
+
 export {
   handleGetAllFoods,
   handleGetFoodDetail,
@@ -108,4 +122,5 @@ export {
   handleAddCommentDetails,
   handleDeleteComment,
   handleGetAllFoodPagination,
+  handleGetAllTypesFood,
 };

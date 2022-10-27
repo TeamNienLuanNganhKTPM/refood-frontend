@@ -1,12 +1,13 @@
 /** @format */
 
 import styled from "styled-components";
-import React from "react";
+import React, { useEffect } from "react";
 import ProductSimilar from "modules/products/ProductSimilar";
 import Layout from "components/layout/Layout";
 import DetailsReview from "modules/details/DetailsReview";
 import DetailsContent from "modules/details/DetailsContent";
 import DetailsComment from "modules/details/DetailsComment";
+import { useLocation } from "react-router-dom";
 
 const ProductDetailsPageStyled = styled.div`
   background-color: #f7f8fd;
@@ -35,6 +36,10 @@ const ProductDetailsPageStyled = styled.div`
   }
 `;
 const ProductDetailsPage = () => {
+  const location = useLocation();
+  useEffect(() => {
+    document.body.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, [location.pathname]);
   return (
     <Layout>
       <div className="pb-10 bg-[#f7f8fd]"></div>

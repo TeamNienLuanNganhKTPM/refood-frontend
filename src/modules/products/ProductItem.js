@@ -2,7 +2,7 @@
 
 import styled from "styled-components";
 import slugify from "slugify";
-import React from "react";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import ProductTitle from "./ProductTitle";
 import ProductStar from "./ProductStar";
@@ -57,6 +57,9 @@ const ProductItemStyled = styled.div`
 const ProductItem = ({ data }) => {
   const { FoodName, FoodSlug, FoodPrices, FoodImages, FoodReviewAvg } = data;
   const slug = slugify(FoodSlug, { lower: true });
+  useEffect(() => {
+    document.body.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, [slug]);
   if (!data) return null;
   return (
     <ProductItemStyled className="cards">

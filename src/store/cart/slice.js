@@ -29,6 +29,7 @@ const cartSlice = createSlice({
     errorCart: (state, { payload }) => ({
       ...state,
       message: payload,
+      cart: [],
     }),
   },
 });

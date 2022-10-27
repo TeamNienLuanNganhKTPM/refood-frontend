@@ -1,13 +1,12 @@
 /** @format */
 
 import Layout from "components/layout/Layout";
-import { Textarea } from "components/textarea";
 import OrderAddress from "modules/order/OrderAddress";
 import OrderListProduct from "modules/order/OrderListProduct";
 import OrderPay from "modules/order/OrderPay";
 import OrderTotal from "modules/order/OrderTotal";
 import React, { useEffect } from "react";
-import { useForm } from "react-hook-form";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { authGetUser } from "store/auth/slice";
 import styled from "styled-components";
@@ -21,11 +20,11 @@ const OrderPageStyled = styled.div`
 `;
 
 const OrderPage = () => {
+  const [note, setNote] = useState("");
+  const [addressId, setAddressId] = useState("");
+  const [pay, setPay] = useState("");
   const dispatch = useDispatch();
   const { cart } = useSelector((state) => state.cart);
-  const { control } = useForm({
-    mode: "onChange",
-  });
 
   useEffect(() => {
     async function fetchUserData() {
@@ -37,12 +36,13 @@ const OrderPage = () => {
     }
     fetchUserData();
   }, [dispatch]);
+
   return (
     <Layout>
       <OrderPageStyled>
         <div className="container">
           <div className="order-main">
-            <OrderAddress></OrderAddress>
+            <OrderAddress setAddressId={setAddressId}></OrderAddress>
             <div className="flex justify-between items-start gap-[30px] lg:flex-nowrap flex-wrap">
               <div className="flex flex-col gap-3 w-full lg:w-[70%] h-auto">
                 <div className="flex flex-col gap-3 py-3">
@@ -58,20 +58,23 @@ const OrderPage = () => {
                 <div className="flex flex-col gap-3">
                   <h3 className="font-medium">Ghi chú</h3>
                   <div className="flex w-full">
-                    <Textarea
-                      name="content"
+                    <textarea
+                      name="note"
                       type="textarea"
-                      control={control}
-                      className="rounded"
-                      height="100px"
+                      className="w-full p-3 border rounded border-line"
                       placeholder="Ghi chú"
-                    ></Textarea>
+                      onChange={(e) => setNote(e.target.value)}
+                    ></textarea>
                   </div>
                 </div>
               </div>
               <div className="w-[320px] p-3 flex flex-col gap-5">
-                <OrderPay></OrderPay>
-                <OrderTotal></OrderTotal>
+                <OrderPay setPay={setPay}></OrderPay>
+                <OrderTotal
+                  note={note}
+                  addressId={addressId}
+                  pay={pay}
+                ></OrderTotal>
               </div>
             </div>
           </div>

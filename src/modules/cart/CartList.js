@@ -65,21 +65,6 @@ const CartListStyled = styled.div`
 
 const CartList = () => {
   const { cart } = useSelector((state) => state.cart);
-  const [, setTotal, , setListCart] = useCart();
-
-  useEffect(() => {
-    function getTotalPriceFood() {
-      if (cart) {
-        setListCart(cart);
-        let result = 0;
-        cart.forEach((item) => {
-          result += item.FoodDishCount * item.FoodPrice;
-        });
-        setTotal(result);
-      }
-    }
-    getTotalPriceFood();
-  }, [cart, setListCart, setTotal]);
 
   return (
     <CartListStyled>

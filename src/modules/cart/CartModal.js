@@ -6,12 +6,12 @@ import PropTypes from "prop-types";
 import ProductPrice from "modules/products/ProductPrice";
 import priceVN from "utils/priceVN";
 import CartItem from "./CartItem";
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getCartDetail } from "store/cart/slice";
 import { Button } from "components/button";
+import { useCart } from "contexts/cart-context";
 
 const CartStyled = styled.div`
   position: absolute;
@@ -87,9 +87,9 @@ const CartStyled = styled.div`
 `;
 
 const CartModal = ({ className = "" }) => {
-  const [total, setTotal] = useState(0);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [total] = useCart();
   const { cart } = useSelector((state) => state.cart);
 
   // Get list cart
@@ -99,19 +99,6 @@ const CartModal = ({ className = "" }) => {
     }
     getCart();
   }, [dispatch]);
-
-  useEffect(() => {
-    function totalCart() {
-      if (cart?.length > 0) {
-        let result = 0;
-        cart.forEach((item) => {
-          result += item.FoodPrice * item.FoodDishCount;
-        });
-        setTotal(result);
-      }
-    }
-    totalCart();
-  }, [cart]);
 
   return (
     <CartStyled className={className}>
@@ -159,7 +146,14 @@ const CartModal = ({ className = "" }) => {
               <span className="details-name">Thêm món ăn ngay</span>
             )}
           </Button>
-          <Button className="btn-pay" height="44px" kind="none">
+          <Button
+            className="btn-pay"
+            height="44px"
+            kind="none"
+            onClick={() => {
+              navigate("/order");
+            }}
+          >
             <span className="pay-name">Thanh toán</span>
           </Button>
         </div>

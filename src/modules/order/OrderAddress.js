@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { authGetAllAddress } from "store/auth/slice";
 import styled from "styled-components";
 import OrderSelectAddress from "./OrderSelectAddress";
+import PropTypes from "prop-types";
 
 const OrderAddressStyled = styled.div`
   display: flex;
@@ -42,7 +43,7 @@ const OrderAddressStyled = styled.div`
   }
 `;
 
-const OrderAddress = () => {
+const OrderAddress = ({ setAddressId }) => {
   const [addressOrder, setAddressOrder] = useState({});
   const { user, addresses } = useSelector((state) => state.auth);
   const { modalIsOpen, openModal, closeModal } = useModal();
@@ -70,6 +71,13 @@ const OrderAddress = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [addresses]);
+
+  // Get address id for order
+  useEffect(() => {
+    if (addressOrder) {
+      setAddressId(addressOrder.AddressId);
+    }
+  }, [addressOrder, setAddressId]);
 
   return (
     <OrderAddressStyled>
@@ -109,6 +117,10 @@ const OrderAddress = () => {
       </div>
     </OrderAddressStyled>
   );
+};
+
+OrderAddress.propTypes = {
+  setAddressId: PropTypes.func,
 };
 
 export default React.memo(OrderAddress);
