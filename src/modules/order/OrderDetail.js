@@ -4,16 +4,19 @@ import StepProcessBar from "components/stepprocessbar/StepProcessBar";
 import React from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { getOrderDetail } from "store/order/slice";
 import OrderDetailItem from "./OrderDetailItem";
 import formatToDate from "../../utils/formatDate";
 import ProductPrice from "modules/products/ProductPrice";
 import priceVN from "utils/priceVN";
+import queryString from "query-string";
+import Swal from "sweetalert2";
 
 const OrderDetail = () => {
   const param = useParams();
   const id = param.slug;
+  const navigate = useNavigate();
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -25,9 +28,29 @@ const OrderDetail = () => {
 
   const { orderDetail } = useSelector((state) => state.order);
   const data = orderDetail?.OrderDetails ? orderDetail?.OrderDetails : [];
+
+  const location = useLocation();
+  const value = queryString.parse(location.search);
+
+  useEffect(() => {
+    if (value.paid === "vnpay") {
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "Đã thanh toán bằng VNPay",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    }
+  }, []);
   return (
     <div>
-      <div className="flex items-center justify-between py-2 border-b border-b-line">
+      <div
+        className="flex items-center justify-between py-2 mb-10 border-b border-b-line"
+        onClick={() => {
+          navigate("/user/order/");
+        }}
+      >
         <div className="flex cursor-pointer text-text1">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -57,9 +80,11 @@ const OrderDetail = () => {
           <span className="text-redPrimary">Đơn hàng đã giao</span>
         </div>
       </div>
-      <StepProcessBar></StepProcessBar>
-      <div className="py-3 border-b border-b-line">
-        <h3 className="text-lg font-medium b-4 text-text">Địa chỉ</h3>
+      <div className="relative">
+        <StepProcessBar></StepProcessBar>
+      </div>
+      <div className="py-3 mt-10 border-b border-b-line">
+        <h3 className="mb-2 text-lg font-medium b-4 text-text">Địa chỉ</h3>
         <div className="flex flex-col gap-1 text-sm ">
           <span className="p-2 text-text1 bg-bgPrimary">
             {orderDetail?.OrderAdress}

@@ -4,6 +4,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import formatToDate from "utils/formatDate";
 import priceVN from "utils/priceVN";
+import selectState from "utils/selectState";
 
 const OrderItem = ({ data }) => {
   const navigate = useNavigate();
@@ -16,7 +17,7 @@ const OrderItem = ({ data }) => {
       <td>{data.OrderPaymentMethod}</td>
       <td>
         <span className="px-1 py-2 bg-bgPrimary text-primary">
-          {data.OrderState}
+          {selectState(data.OrderState)}
         </span>
       </td>
       <td>{priceVN(data.OrderSubTotal)}</td>

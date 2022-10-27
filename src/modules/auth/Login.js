@@ -20,7 +20,7 @@ import { Input } from "components/input";
 import { Field } from "components/field";
 import { ErrorMessage } from "components/error";
 import { Button } from "components/button";
-import { authGetAllAddress, authLogin } from "store/auth/slice";
+import { authLogin } from "store/auth/slice";
 import { useUser } from "contexts/user-context";
 
 const schema = yup.object({
