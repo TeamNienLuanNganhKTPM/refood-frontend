@@ -1,13 +1,13 @@
 /** @format */
 
-import StepProcessBar from "components/stepprocessbar/StepProcessBar";
+import OrderDetail from "modules/order/OrderDetail";
 import React from "react";
 
 const OrderDetailPage = () => {
   return (
-    <div>
-      <StepProcessBar></StepProcessBar>
-    </div>
+    <>
+      <OrderDetail></OrderDetail>
+    </>
   );
 };
 

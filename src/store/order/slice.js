@@ -37,6 +37,14 @@ const orderSlice = createSlice({
       pageCurrent: payload.pageCur,
       pageNumber: payload.pageNum,
     }),
+    getOrderDetail: (state, { payload }) => ({
+      ...state,
+      ...payload,
+    }),
+    updateOrderDetail: (state, { payload }) => ({
+      ...state,
+      orderInfo: payload.order_detail,
+    }),
   },
 });
 
@@ -48,6 +56,8 @@ export const {
   getUrlPay,
   getAllOrderFood,
   updateOrderFood,
+  getOrderDetail,
+  updateOrderDetail,
 } = orderSlice.actions;
 
 export default orderSlice.reducer;

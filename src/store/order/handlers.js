@@ -1,8 +1,18 @@
 /** @format */
 
-const { createOrderApi, vnPayOrderApi, getAllOrderApi } = require("api/order");
+const {
+  createOrderApi,
+  vnPayOrderApi,
+  getAllOrderApi,
+  getOrderDetailApi,
+} = require("api/order");
 const { call, put } = require("redux-saga/effects");
-const { updateOrderInfoFood, getUrlPay, updateOrderFood } = require("./slice");
+const {
+  updateOrderInfoFood,
+  getUrlPay,
+  updateOrderFood,
+  updateOrderDetail,
+} = require("./slice");
 
 function* handleCreateOrderFood({ payload }) {
   try {
@@ -40,4 +50,21 @@ function* handleGetAllOrderFood({ payload }) {
   }
 }
 
-export { handleCreateOrderFood, handleVNPayOrder, handleGetAllOrderFood };
+function* handleGetOrderDetail({ payload }) {
+  try {
+    const response = yield call(getOrderDetailApi, payload);
+    if (response.status === 200) {
+      yield put(updateOrderDetail(response.data));
+    }
+  } catch (error) {
+    const { message } = error.response.data;
+    console.log(message);
+  }
+}
+
+export {
+  handleCreateOrderFood,
+  handleVNPayOrder,
+  handleGetAllOrderFood,
+  handleGetOrderDetail,
+};
