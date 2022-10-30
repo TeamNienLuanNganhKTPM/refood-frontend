@@ -65,6 +65,7 @@ const SearchRate = ({ setRateSelect }) => {
       },
     }).then((result) => {
       setRates(chageCheckedRate);
+      document.body.scrollIntoView({ behavior: "smooth" });
     });
   };
 
@@ -108,7 +109,7 @@ const SearchRate = ({ setRateSelect }) => {
 };
 
 SearchRate.propTypes = {
-  setRateSelect: PropTypes.array,
+  setRateSelect: PropTypes.func,
 };
 
 export default SearchRate;

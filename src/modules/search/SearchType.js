@@ -47,6 +47,7 @@ const SearchType = ({ setTypeSelect }) => {
       },
     }).then((result) => {
       setTypes(chageCheckedType);
+      document.body.scrollIntoView({ behavior: "smooth" });
     });
   };
 
@@ -80,7 +81,7 @@ const SearchType = ({ setTypeSelect }) => {
 };
 
 SearchType.propTypes = {
-  setTypeSelect: PropTypes.array,
+  setTypeSelect: PropTypes.func,
 };
 
 export default SearchType;

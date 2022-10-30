@@ -67,6 +67,7 @@ const SearchRation = ({ setRationSelect }) => {
       },
     }).then((result) => {
       setRations(chageCheckedRation);
+      document.body.scrollIntoView({ behavior: "smooth" });
     });
   };
 
@@ -98,7 +99,7 @@ const SearchRation = ({ setRationSelect }) => {
 };
 
 SearchRation.propTypes = {
-  setRationSelect: PropTypes.array,
+  setRationSelect: PropTypes.func,
 };
 
 export default SearchRation;

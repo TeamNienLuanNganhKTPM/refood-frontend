@@ -37,6 +37,7 @@ const UserPurchase = () => {
         numOnPage: 5,
       })
     );
+    document.body.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
   return (

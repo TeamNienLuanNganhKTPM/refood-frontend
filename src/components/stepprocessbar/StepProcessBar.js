@@ -94,9 +94,7 @@ const StepProcessBarStyled = styled.div`
   }
 `;
 
-const StepProcessBar = () => {
-  const states = 0;
-
+const StepProcessBar = ({ orderState }) => {
   useEffect(() => {
     const select = document.querySelectorAll(".step-wizard-list");
     if (select) {
@@ -104,9 +102,9 @@ const StepProcessBar = () => {
       for (let i = 0; i < steps.length; i++) {
         steps[i].classList.remove("current-item");
       }
-      steps[states].classList.add("current-item");
+      steps[orderState].classList.add("current-item");
     }
-  }, [states]);
+  }, [orderState]);
   return (
     <StepProcessBarStyled>
       <ul className="step-wizard-list">

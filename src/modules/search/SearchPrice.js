@@ -162,7 +162,7 @@ const SearchPrice = ({ setPriceSelect }) => {
 };
 
 SearchPrice.propTypes = {
-  setPriceSelect: PropTypes.array,
+  setPriceSelect: PropTypes.func,
 };
 
 export default SearchPrice;

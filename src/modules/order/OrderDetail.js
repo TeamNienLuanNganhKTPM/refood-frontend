@@ -12,8 +12,11 @@ import ProductPrice from "modules/products/ProductPrice";
 import priceVN from "utils/priceVN";
 import queryString from "query-string";
 import Swal from "sweetalert2";
+import { useState } from "react";
+import selectState from "utils/selectState";
 
 const OrderDetail = () => {
+  const [orderState, setOrderState] = useState(0);
   const param = useParams();
   const id = param.slug;
   const navigate = useNavigate();
@@ -43,6 +46,13 @@ const OrderDetail = () => {
       });
     }
   }, []);
+
+  useEffect(() => {
+    if (orderDetail?.OrderState) {
+      setOrderState(orderDetail?.OrderState);
+    }
+  }, [orderDetail?.OrderState]);
+  if (!param?.slug) return null;
   return (
     <div>
       <div
@@ -77,17 +87,29 @@ const OrderDetail = () => {
             ID Đơn hàng: {orderDetail?.OrderID}
           </span>
           <span>|</span>
-          <span className="text-redPrimary">Đơn hàng đã giao</span>
+          <span className="text-redPrimary">
+            {selectState(orderDetail?.OrderState)}
+          </span>
         </div>
       </div>
       <div className="relative">
-        <StepProcessBar></StepProcessBar>
+        <StepProcessBar orderState={orderState}></StepProcessBar>
       </div>
-      <div className="py-3 mt-10 border-b border-b-line">
+      <div className="mt-10 border-b border-b-line">
         <h3 className="mb-2 text-lg font-medium b-4 text-text">Địa chỉ</h3>
         <div className="flex flex-col gap-1 text-sm ">
           <span className="p-2 text-text1 bg-bgPrimary">
             {orderDetail?.OrderAdress}
+          </span>
+        </div>
+      </div>
+      <div className="mt-10 border-b border-b-line">
+        <h3 className="mb-2 text-lg font-medium b-4 text-text">Ghi chú</h3>
+        <div className="flex flex-col gap-1 text-sm ">
+          <span className="p-2 text-text1 bg-bgPrimary">
+            {orderDetail?.OrderNote
+              ? orderDetail?.OrderNote
+              : "Không có ghi chú"}
           </span>
         </div>
       </div>
