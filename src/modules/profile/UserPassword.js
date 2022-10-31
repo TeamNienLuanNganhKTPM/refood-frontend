@@ -11,6 +11,7 @@ import { Link } from "react-router-dom";
 import { Label } from "components/label";
 import { Input } from "components/input";
 import { Button } from "components/button";
+import InputPasswordToggle from "components/input/InputPasswordToggle";
 
 const UserPasswordStyled = styled.div`
   padding: 0 15px;
@@ -81,6 +82,7 @@ const UserPassword = () => {
           <Input
             type="password"
             name="oldpassword"
+            placeholder="Nhập mật khẩu cũ"
             control={control}
             className="user-input"
           ></Input>
@@ -89,27 +91,29 @@ const UserPassword = () => {
           <Label className="user-name" htmlFor="newpassword">
             Mật khẩu mới
           </Label>
-          <Input
+          <InputPasswordToggle
             type="password"
             name="newpassword"
+            placeholder="Nhập mật khẩu mới"
             control={control}
-            className="user-input"
-          ></Input>
+            className="user-input w-[462px]"
+          ></InputPasswordToggle>
         </div>
         <div className="user-item">
           <Label className="user-name" htmlFor="repassword">
             Nhập lại mật khẩu
           </Label>
-          <Input
+          <InputPasswordToggle
             type="password"
             name="repassword"
+            placeholder="Nhập lại mật khẩu mới"
             control={control}
             className="user-input"
-          ></Input>
+          ></InputPasswordToggle>
         </div>
-        <Link className="flex justify-center text-redPrimary" to={"/#"}>
+        {/* <Link className="flex justify-center text-redPrimary" to={"/#"}>
           Quên mật khẩu?
-        </Link>
+        </Link> */}
         <div className="user-btn">
           <Button
             type="submit"

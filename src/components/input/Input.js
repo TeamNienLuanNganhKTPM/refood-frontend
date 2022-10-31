@@ -12,7 +12,7 @@ const InputStyles = styled.div`
     width: 100%;
     /* padding: ${(props) =>
       props.hasIcon ? "20px 60px 20px 20px" : "20px"}; */
-    padding: 9px;
+    padding: 10px;
     border-radius: 6px;
     font-weight: 500;
     transition: all 0.2s linear;

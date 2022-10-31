@@ -315,7 +315,7 @@ const HeaderTop = ({ className = "" }) => {
                   <UserModal className="user-info"></UserModal>
                 </div>
               ) : (
-                <Link to={"/account"}>
+                <Link to={"/login"}>
                   <button className="user-btn">Đăng nhập</button>
                 </Link>
               )}

@@ -21,7 +21,8 @@ const ProductAll = lazy(() => import("modules/products/ProductAll"));
 const HomePage = lazy(() => import("pages/HomePage"));
 const CartPage = lazy(() => import("pages/CartPage"));
 const OrderPage = lazy(() => import("pages/OrderPage"));
-const AccountPage = lazy(() => import("pages/AccountPage"));
+const LoginPage = lazy(() => import("pages/LoginPage"));
+const RegisterPage = lazy(() => import("pages/RegisterPage"));
 
 const App = () => {
   return (
@@ -29,7 +30,8 @@ const App = () => {
       <Suspense fallback={<></>}>
         <Routes>
           <Route path="/" element={<HomePage></HomePage>}></Route>
-          <Route path="/account" element={<AccountPage></AccountPage>}></Route>
+          <Route path="/login" element={<LoginPage></LoginPage>}></Route>
+          <Route path="/signup" element={<RegisterPage></RegisterPage>}></Route>
 
           <Route element={<ProductPage></ProductPage>}>
             <Route path="/food" element={<ProductAll></ProductAll>}></Route>

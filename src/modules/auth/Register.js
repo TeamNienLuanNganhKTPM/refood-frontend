@@ -13,6 +13,7 @@ import { Field } from "components/field";
 import { ErrorMessage } from "components/error";
 import { Button } from "components/button";
 import { authRegister } from "store/auth/slice";
+import { useNavigate } from "react-router-dom";
 
 const schema = yup.object({
   name: yup.string().required("Vui lòng nhập họ và tên"),
@@ -24,7 +25,7 @@ const schema = yup.object({
   repassword: yup.string().required("Vui lòng nhập lại mật khẩu"),
 });
 
-const Register = ({ show }) => {
+const Register = () => {
   const {
     control,
     handleSubmit,
@@ -42,7 +43,7 @@ const Register = ({ show }) => {
   });
 
   const dispatch = useDispatch();
-  // Check error when submit form register
+  const navigate = useNavigate();
 
   // Submit Form Register
   const handleSubmitRegister = (values) => {
@@ -50,6 +51,7 @@ const Register = ({ show }) => {
     try {
       dispatch(authRegister(values));
       reset({});
+      navigate("/login");
     } catch (error) {
       console.log(error);
     }
@@ -57,55 +59,65 @@ const Register = ({ show }) => {
 
   return (
     <>
-      {show === false && (
-        <form onSubmit={handleSubmit(handleSubmitRegister)} autoComplete="off">
-          <Field>
-            <Label htmlFor="name">Họ và tên</Label>
-            <Input
-              type="text"
-              name="name"
-              placeholder="Nhập họ và tên"
-              control={control}
-            ></Input>
-            <ErrorMessage message={errors.name?.message}></ErrorMessage>
-          </Field>
-          <Field>
-            <Label htmlFor="phonenumber">Số điện thoại</Label>
-            <Input
-              type="text"
-              name="phonenumber"
-              placeholder="Nhập số điện thoại"
-              control={control}
-            ></Input>
-            <ErrorMessage message={errors.phonenumber?.message}></ErrorMessage>
-          </Field>
-          <Field>
-            <Label htmlFor="password">Mật khẩu</Label>
-            <InputPasswordToggle
-              name="password"
-              control={control}
-            ></InputPasswordToggle>
-            <ErrorMessage message={errors.password?.message}></ErrorMessage>
-          </Field>
-          <Field>
-            <Label htmlFor="repassword">Xác nhận lại mật khẩu</Label>
-            <InputPasswordToggle
-              name="repassword"
-              control={control}
-            ></InputPasswordToggle>
-            <ErrorMessage message={errors.repassword?.message}></ErrorMessage>
-          </Field>
-          <Button
-            type="submit"
-            kind="primary"
-            height="44px"
-            className="w-full mt-10 max-w-[180px] mx-auto uppercase"
-            disabled={isSubmitting}
-          >
-            Đăng ký
-          </Button>
-        </form>
-      )}
+      <form onSubmit={handleSubmit(handleSubmitRegister)} autoComplete="off">
+        <Field>
+          <Label htmlFor="name">Họ và tên</Label>
+          <Input
+            type="text"
+            name="name"
+            placeholder="Nhập họ và tên"
+            control={control}
+          ></Input>
+          <ErrorMessage message={errors.name?.message}></ErrorMessage>
+        </Field>
+        <Field>
+          <Label htmlFor="phonenumber">Số điện thoại</Label>
+          <Input
+            type="text"
+            name="phonenumber"
+            placeholder="Nhập số điện thoại"
+            control={control}
+          ></Input>
+          <ErrorMessage message={errors.phonenumber?.message}></ErrorMessage>
+        </Field>
+        <Field>
+          <Label htmlFor="password">Mật khẩu</Label>
+          <InputPasswordToggle
+            name="password"
+            control={control}
+            className="w-full"
+            placeholder="Nhập mật khẩu"
+          ></InputPasswordToggle>
+          <ErrorMessage message={errors.password?.message}></ErrorMessage>
+        </Field>
+        <Field>
+          <Label htmlFor="repassword">Xác nhận lại mật khẩu</Label>
+          <InputPasswordToggle
+            name="repassword"
+            control={control}
+            className="w-full"
+            placeholder="Xác nhận lại mật khẩu"
+          ></InputPasswordToggle>
+          <ErrorMessage message={errors.repassword?.message}></ErrorMessage>
+        </Field>
+        <div className="mb-4 text-sm transition-all cursor-default text-text1">
+          <span>
+            Đã có tài khoản?{" "}
+            <a href="/login" className="cursor-pointer hover:text-primary">
+              Đăng nhập
+            </a>
+          </span>
+        </div>
+        <Button
+          type="submit"
+          kind="primary"
+          height="44px"
+          className="w-full mt-10 max-w-[180px] mx-auto uppercase"
+          disabled={isSubmitting}
+        >
+          Đăng ký
+        </Button>
+      </form>
     </>
   );
 };

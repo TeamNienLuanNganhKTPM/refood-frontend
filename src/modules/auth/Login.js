@@ -7,10 +7,10 @@
 /** @format */
 
 import React from "react";
-import PropTypes from "prop-types";
 import InputPasswordToggle from "components/input/InputPasswordToggle";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useUser } from "contexts/user-context";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useEffect } from "react";
@@ -21,7 +21,6 @@ import { Field } from "components/field";
 import { ErrorMessage } from "components/error";
 import { Button } from "components/button";
 import { authLogin } from "store/auth/slice";
-import { useUser } from "contexts/user-context";
 
 const schema = yup.object({
   phonenumber: yup.string().required("Vui lòng nhập số điện thoại"),
@@ -31,7 +30,7 @@ const schema = yup.object({
     .min(8, "Mật khẩu ít nhất 8 kí tự"),
 });
 
-const Login = ({ show }) => {
+const Login = () => {
   const {
     control,
     handleSubmit,
@@ -71,46 +70,47 @@ const Login = ({ show }) => {
 
   return (
     <>
-      {show === true && (
-        <form onSubmit={handleSubmit(handleSubmitLogin)} autoComplete="off">
-          <Field>
-            <Label htmlFor="phonenumber">Số điện thoại</Label>
-            <Input
-              type="text"
-              name="phonenumber"
-              placeholder="Nhập số điện thoại"
-              control={control}
-            ></Input>
-            <ErrorMessage message={errors.phonenumber?.message}></ErrorMessage>
-          </Field>
-          <Field>
-            <Label htmlFor="password">Mật khẩu</Label>
-            <InputPasswordToggle
-              name="password"
-              control={control}
-            ></InputPasswordToggle>
-            <ErrorMessage message={errors.password?.message}></ErrorMessage>
-          </Field>
-          <div className="have-account">
-            <a href="/#">Quên mật khẩu?</a>
-          </div>
-          <Button
-            type="submit"
-            kind="primary"
-            height="44px"
-            className="w-full max-w-[180px] mx-auto uppercase"
-            disabled={isSubmitting}
-          >
-            Đăng nhập
-          </Button>
-        </form>
-      )}
+      <form onSubmit={handleSubmit(handleSubmitLogin)} autoComplete="off">
+        <Field>
+          <Label htmlFor="phonenumber">Số điện thoại</Label>
+          <Input
+            type="text"
+            name="phonenumber"
+            placeholder="Nhập số điện thoại"
+            control={control}
+          ></Input>
+          <ErrorMessage message={errors.phonenumber?.message}></ErrorMessage>
+        </Field>
+        <Field>
+          <Label htmlFor="password">Mật khẩu</Label>
+          <InputPasswordToggle
+            name="password"
+            control={control}
+            className="w-full"
+            placeholder="Nhập mật khẩu"
+          ></InputPasswordToggle>
+          <ErrorMessage message={errors.password?.message}></ErrorMessage>
+        </Field>
+        <div className="mb-4 text-sm transition-all cursor-default text-text1">
+          <span>
+            Chưa có tài khoản?{" "}
+            <a href="/signup" className="cursor-pointer hover:text-primary">
+              Đăng ký
+            </a>
+          </span>
+        </div>
+        <Button
+          type="submit"
+          kind="primary"
+          height="44px"
+          className="w-full max-w-[180px] mx-auto uppercase"
+          disabled={isSubmitting}
+        >
+          Đăng nhập
+        </Button>
+      </form>
     </>
   );
-};
-
-Login.propTypes = {
-  show: PropTypes.bool,
 };
 
 export default Login;
