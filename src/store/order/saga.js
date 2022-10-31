@@ -3,12 +3,14 @@
 import { takeLatest } from "redux-saga/effects";
 import {
   handleCreateOrderFood,
+  handleDeleteOrderDetail,
   handleGetAllOrderFood,
   handleGetOrderDetail,
   handleVNPayOrder,
 } from "./handlers";
 import {
   createOrderFood,
+  deleteOrderDetail,
   getAllOrderFood,
   getOrderDetail,
   getVNPAYOrder,
@@ -19,4 +21,5 @@ export default function* orderWatcher() {
   yield takeLatest(getVNPAYOrder.type, handleVNPayOrder);
   yield takeLatest(getAllOrderFood.type, handleGetAllOrderFood);
   yield takeLatest(getOrderDetail.type, handleGetOrderDetail);
+  yield takeLatest(deleteOrderDetail.type, handleDeleteOrderDetail);
 }

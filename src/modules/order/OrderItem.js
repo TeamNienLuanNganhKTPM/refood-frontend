@@ -13,6 +13,7 @@ const OrderItem = ({ data }) => {
   };
   return (
     <tr>
+      <td>{data.OrderID}</td>
       <td>{formatToDate(data.OrderDate)}</td>
       <td>{data.OrderPaymentMethod}</td>
       <td>

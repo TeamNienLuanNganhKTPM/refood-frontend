@@ -45,6 +45,10 @@ const orderSlice = createSlice({
       ...state,
       orderDetail: payload.order_detail,
     }),
+    deleteOrderDetail: (state, { payload }) => ({
+      ...state,
+      ...payload,
+    }),
   },
 });
 
@@ -58,6 +62,7 @@ export const {
   updateOrderFood,
   getOrderDetail,
   updateOrderDetail,
+  deleteOrderDetail,
 } = orderSlice.actions;
 
 export default orderSlice.reducer;

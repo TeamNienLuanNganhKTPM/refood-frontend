@@ -31,3 +31,10 @@ export const getOrderDetailApi = async (param) => {
     url: `/order/get-food-order-detail/${param}`,
   });
 };
+
+export const deleteOrderDetailApi = async (param) => {
+  return await instance.request({
+    method: "DELETE",
+    url: `/order/cancel-food-order/${param}`,
+  });
+};

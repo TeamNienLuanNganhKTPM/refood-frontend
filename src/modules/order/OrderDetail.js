@@ -1,22 +1,21 @@
 /** @format */
 
+import Swal from "sweetalert2";
 import StepProcessBar from "components/stepprocessbar/StepProcessBar";
+import selectState from "utils/selectState";
 import React from "react";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { getOrderDetail } from "store/order/slice";
-import OrderDetailItem from "./OrderDetailItem";
-import formatToDate from "../../utils/formatDate";
+import queryString from "query-string";
 import ProductPrice from "modules/products/ProductPrice";
 import priceVN from "utils/priceVN";
-import queryString from "query-string";
-import Swal from "sweetalert2";
-import { useState } from "react";
-import selectState from "utils/selectState";
+import OrderDetailItem from "./OrderDetailItem";
+import formatToDate from "../../utils/formatDate";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteOrderDetail, getOrderDetail } from "store/order/slice";
+import { Button } from "components/button";
 
 const OrderDetail = () => {
-  const [orderState, setOrderState] = useState(0);
   const param = useParams();
   const id = param.slug;
   const navigate = useNavigate();
@@ -47,14 +46,29 @@ const OrderDetail = () => {
     }
   }, []);
 
-  useEffect(() => {
-    if (orderDetail?.OrderState) {
-      setOrderState(orderDetail?.OrderState);
+  const handleDeleteOrderDetail = () => {
+    try {
+      Swal.fire({
+        title: "Bạn muốn hủy đơn hàng?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Xóa",
+        confirmButtonColor: "#1DC071",
+        cancelButtonText: "Hủy",
+        cancelButtonColor: "#EB5757",
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          dispatch(deleteOrderDetail(orderDetail?.OrderID));
+          navigate("/user/order");
+        }
+      });
+    } catch (error) {
+      console.log(error);
     }
-  }, [orderDetail?.OrderState]);
+  };
   if (!param?.slug) return null;
   return (
-    <div>
+    <>
       <div
         className="flex items-center justify-between py-2 mb-10 border-b border-b-line"
         onClick={() => {
@@ -93,7 +107,9 @@ const OrderDetail = () => {
         </div>
       </div>
       <div className="relative">
-        <StepProcessBar orderState={orderState}></StepProcessBar>
+        <StepProcessBar
+          orderState={orderDetail?.OrderState ? orderDetail?.OrderState : 0}
+        ></StepProcessBar>
       </div>
       <div className="mt-10 border-b border-b-line">
         <h3 className="mb-2 text-lg font-medium b-4 text-text">Địa chỉ</h3>
@@ -135,7 +151,19 @@ const OrderDetail = () => {
           </ProductPrice>
         </div>
       </div>
-    </div>
+      {orderDetail?.OrderState === 0 && (
+        <div className="flex justify-end py-4">
+          <Button
+            className="w-[140px]"
+            height="44px"
+            kind="primary"
+            onClick={handleDeleteOrderDetail}
+          >
+            Hủy đơn
+          </Button>
+        </div>
+      )}
+    </>
   );
 };
 

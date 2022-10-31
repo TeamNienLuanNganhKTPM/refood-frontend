@@ -46,6 +46,7 @@ const UserPurchase = () => {
       <table>
         <thead>
           <tr>
+            <th>ID</th>
             <th>Ngày</th>
             <th>Phương thức thanh toán</th>
             <th>Trạng thái</th>
