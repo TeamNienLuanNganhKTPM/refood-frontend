@@ -48,6 +48,27 @@ const UserPageStyled = styled.div`
     display: flex;
     justify-content: center;
   }
+  @media (min-width: 320px) and (max-width: 767px) {
+    .user-right {
+      border: none;
+      border-radius: 0px;
+    }
+    .user-item {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .user-name {
+      text-align: left;
+      font-size: 14px;
+      width: 100%;
+    }
+    .user-input {
+      width: 100%;
+    }
+  }
 `;
 
 const UserPage = () => {

@@ -107,6 +107,10 @@ const UserAddressStyled = styled.div`
     font-size: 14px;
     pointer-events: none;
   }
+  .create-address {
+    width: 500px;
+    overflow-y: hidden;
+  }
 `;
 
 const UserAddress = () => {
@@ -136,7 +140,10 @@ const UserAddress = () => {
           Thêm địa chỉ
         </div>
         <ModalComponent modalIsOpen={modalIsOpen} closeModal={closeModal}>
-          <UserCreateAddress closeModal={closeModal}></UserCreateAddress>
+          <UserCreateAddress
+            closeModal={closeModal}
+            className="create-address"
+          ></UserCreateAddress>
         </ModalComponent>
       </div>
       <UserAddressList addresses={addresses}></UserAddressList>

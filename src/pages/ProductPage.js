@@ -62,28 +62,9 @@ const ProductPage = () => {
             <ProductLeft></ProductLeft>
           </SectionLeft>
           <SectionRight className="section-right">
-            <div>
+            <>
               <div className="pp-heading">
                 <div className="pp-dropdown">
-                  <div className="pp-filter">
-                    <Dropdown>
-                      <Dropdown.Select
-                        placeholder="Tìm món ăn"
-                        className="pp-select"
-                        sizeIcon="w-4 h-4"
-                      ></Dropdown.Select>
-                      <Dropdown.List className="pp-list">
-                        <Dropdown.Option>Sắp xếp theo phổ biến</Dropdown.Option>
-                        <Dropdown.Option>Sắp xếp theo mới nhất</Dropdown.Option>
-                        <Dropdown.Option>
-                          Sắp xếp giá từ cao đến thấp
-                        </Dropdown.Option>
-                        <Dropdown.Option>
-                          Sắp xếp giá từ thấp đến cao
-                        </Dropdown.Option>
-                      </Dropdown.List>
-                    </Dropdown>
-                  </div>
                   <div className="pp-page">
                     <Dropdown>
                       <Dropdown.Select
@@ -102,7 +83,7 @@ const ProductPage = () => {
                 </div>
               </div>
               <Outlet></Outlet>
-            </div>
+            </>
           </SectionRight>
         </div>
       </ProductPageStyled>

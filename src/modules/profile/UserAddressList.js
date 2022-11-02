@@ -86,6 +86,7 @@ const UserAddressList = ({ addresses }) => {
                   >
                     <UserUpdateAddress
                       closeModal={closeModal}
+                      className="lg:w-[500px] lg:overflow-y-hidden"
                     ></UserUpdateAddress>
                   </ModalComponent>
                 </div>
@@ -99,7 +100,7 @@ const UserAddressList = ({ addresses }) => {
                     {address?.AddressWard}, {address?.AddressDistrict}, Cần Thơ
                   </span>
                 </div>
-                <button className="address-set">Thiết lặp mặc định</button>
+                {/* <button className="address-set">Thiết lặp mặc định</button> */}
               </div>
               {address?.isDefaultAddress === addressStatus.DEFAULT && (
                 <div>

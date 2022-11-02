@@ -9,6 +9,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { page } from "utils/constants";
 import { getAllFoodPagination } from "store/food/slice";
+import { Link } from "react-router-dom";
 
 const ProductTreding = styled.div`
   display: flex;
@@ -78,10 +79,14 @@ const ProductTrending = () => {
       <div className="trend-content">
         {foods.length > 0 &&
           foods.map((food, index) => {
-            const { FoodName, FoodPrices, FoodImages } = food;
+            const { FoodName, FoodPrices, FoodImages, FoodSlug } = food;
             return (
-              index < 6 && (
-                <div className="trend-lists" key={FoodName}>
+              index < 8 && (
+                <Link
+                  to={`/${FoodSlug}`}
+                  className="trend-lists"
+                  key={FoodName}
+                >
                   <ProductImage
                     url={FoodImages[0].FoodImageUrl}
                     className="trend-image"
@@ -102,7 +107,7 @@ const ProductTrending = () => {
                       </ProductPrice>
                     )}
                   </div>
-                </div>
+                </Link>
               )
             );
           })}

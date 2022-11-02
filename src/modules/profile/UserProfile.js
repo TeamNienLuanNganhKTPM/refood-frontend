@@ -119,7 +119,7 @@ const UserProfile = () => {
             placeholder="Cập nhật email"
           ></Input>
         </div>
-        <div className="user-btn">
+        <div className="mb-5 user-btn">
           <Button
             type="submit"
             className="w-[200px]"

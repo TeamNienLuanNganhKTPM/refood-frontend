@@ -20,7 +20,7 @@ const OrderDetailItem = ({ data }) => {
             <div className="flex flex-col w-full gap-3">
               <h3>{item.FoodName}</h3>
               <div className="flex items-end gap-2">
-                <div className="text-xs font-medium text-center border rounded-sm lg:py-1 lg:px-2 lg:text-sm text-primary bg-bgPrimary border-primary">
+                <div className="px-2 py-1 text-xs font-medium text-center border rounded-sm lg:text-sm text-primary bg-bgPrimary border-primary">
                   {item.FoodRation} người
                 </div>
                 <span className="text-base font-light text-text1">

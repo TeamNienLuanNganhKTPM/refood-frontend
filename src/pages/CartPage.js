@@ -10,6 +10,16 @@ import { useSelector } from "react-redux";
 const CartPageStyled = styled.div`
   margin-top: 40px;
   margin-bottom: 80px;
+  .cart-list {
+  }
+  .cart-list::-webkit-scrollbar {
+    height: 6px;
+  }
+  @media (min-width: 600px) and (max-width: 767px) {
+    .cart-list {
+      width: 1060px;
+    }
+  }
 `;
 
 const CartPage = () => {
@@ -21,7 +31,7 @@ const CartPage = () => {
         <div className="container">
           {cart?.length > 0 ? (
             <div className="flex justify-between items-start gap-[30px] lg:flex-nowrap flex-wrap">
-              <CartList></CartList>
+              <CartList className="cart-list"></CartList>
               <CartTotal></CartTotal>
             </div>
           ) : (

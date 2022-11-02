@@ -6,9 +6,9 @@ import { Navigation } from "swiper";
 import ProductItem from "./ProductItem";
 import PropTypes from "prop-types";
 
-const ProductList = ({ data }) => {
+const ProductList = ({ data, className = "" }) => {
   return (
-    <div className="product-list">
+    <div className={`product-list ${className}`}>
       <>
         <Swiper
           grabCursor={"true"}
@@ -32,6 +32,7 @@ const ProductList = ({ data }) => {
 };
 ProductList.propTypes = {
   data: PropTypes.array,
+  className: PropTypes.string,
 };
 
 export default ProductList;

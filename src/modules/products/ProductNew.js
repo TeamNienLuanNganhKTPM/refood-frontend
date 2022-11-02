@@ -8,6 +8,7 @@ import { getAllFoodPagination } from "store/food/slice";
 import { page } from "utils/constants";
 import ProductHeading from "./ProductHeading";
 import ProductItem from "./ProductItem";
+import ProductList from "./ProductList";
 
 const ProductNew = () => {
   const dispatch = useDispatch();

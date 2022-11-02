@@ -14,15 +14,15 @@ const UserPassword = lazy(() => import("modules/profile/UserPassword"));
 const UserPage = lazy(() => import("pages/UserPage"));
 const UserAddress = lazy(() => import("modules/profile/UserAddress"));
 const Search = lazy(() => import("modules/search/Search"));
+const RegisterPage = lazy(() => import("pages/RegisterPage"));
 const ProductPage = lazy(() => import("pages/ProductPage"));
 const ProductDetailsPage = lazy(() => import("pages/ProductDetailsPage"));
-const OrderDetailPage = lazy(() => import("pages/OrderDetailPage"));
 const ProductAll = lazy(() => import("modules/products/ProductAll"));
+const OrderPage = lazy(() => import("pages/OrderPage"));
+const OrderDetailPage = lazy(() => import("pages/OrderDetailPage"));
+const LoginPage = lazy(() => import("pages/LoginPage"));
 const HomePage = lazy(() => import("pages/HomePage"));
 const CartPage = lazy(() => import("pages/CartPage"));
-const OrderPage = lazy(() => import("pages/OrderPage"));
-const LoginPage = lazy(() => import("pages/LoginPage"));
-const RegisterPage = lazy(() => import("pages/RegisterPage"));
 
 const App = () => {
   return (

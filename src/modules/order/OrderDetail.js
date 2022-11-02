@@ -70,7 +70,7 @@ const OrderDetail = () => {
   return (
     <>
       <div
-        className="flex items-center justify-between py-2 mb-10 border-b border-b-line"
+        className="flex items-center justify-between py-2 mb-4 border-b lg:mb-10 md:mb-10 border-b-line"
         onClick={() => {
           navigate("/user/order/");
         }}
@@ -92,7 +92,7 @@ const OrderDetail = () => {
             Trở lại
           </span>
         </div>
-        <div className="flex items-center justify-end gap-3 text-base font-normal uppercase">
+        <div className="items-center justify-end hidden gap-3 text-base font-normal uppercase lg:flex md:flex">
           <span className="text-text1">
             Ngày đặt: {formatToDate(orderDetail?.OrderDate)}
           </span>
@@ -106,12 +106,23 @@ const OrderDetail = () => {
           </span>
         </div>
       </div>
-      <div className="relative">
+      <div className="flex items-center justify-start gap-1 text-xs font-normal uppercase lg:hidden md:hidden">
+        <span className="text-text">
+          Ngày đặt: {formatToDate(orderDetail?.OrderDate)}
+        </span>
+        <span>|</span>
+        <span className="text-text">ID Đơn hàng: {orderDetail?.OrderID}</span>
+        <span>|</span>
+        <span className="text-redPrimary">
+          {selectState(orderDetail?.OrderState)}
+        </span>
+      </div>
+      <div className="relative hidden lg:block md:block">
         <StepProcessBar
           orderState={orderDetail?.OrderState ? orderDetail?.OrderState : 0}
         ></StepProcessBar>
       </div>
-      <div className="mt-10 border-b border-b-line">
+      <div className="mt-5 border-b lg:mt-10 md:mt-10 border-b-line">
         <h3 className="mb-2 text-lg font-medium b-4 text-text">Địa chỉ</h3>
         <div className="flex flex-col gap-1 text-sm ">
           <span className="p-2 text-text1 bg-bgPrimary">
@@ -119,7 +130,7 @@ const OrderDetail = () => {
           </span>
         </div>
       </div>
-      <div className="mt-10 border-b border-b-line">
+      <div className="mt-5 border-b lg:mt-10 md:mt-10 border-b-line">
         <h3 className="mb-2 text-lg font-medium b-4 text-text">Ghi chú</h3>
         <div className="flex flex-col gap-1 text-sm ">
           <span className="p-2 text-text1 bg-bgPrimary">
@@ -135,12 +146,12 @@ const OrderDetail = () => {
       <div className="flex flex-col gap-4">
         <OrderDetailItem data={data}></OrderDetailItem>
       </div>
-      <div className="flex items-center justify-between mt-4">
-        <div className="flex items-center justify-end gap-3">
-          <span className="text-lg font-medium text-text">
+      <div className="flex flex-wrap items-center justify-between gap-3 mt-4">
+        <div className="flex items-start justify-end gap-3 lg:items-center md:items-center">
+          <span className="text-base font-medium lg:text-lg md:text-lg text-text">
             Phương thức thanh toán:
           </span>
-          <span className="text-base text-text1">
+          <span className="text-xs lg:text-base md:text-base text-text1">
             {orderDetail?.OrderPaymentMethod}
           </span>
         </div>

@@ -4,8 +4,6 @@ import styled from "styled-components";
 import React from "react";
 import CartTable from "./CartTable";
 import { useSelector } from "react-redux";
-import { useCart } from "contexts/cart-context";
-import { useEffect } from "react";
 
 const CartListStyled = styled.div`
   width: 820px;
@@ -13,11 +11,11 @@ const CartListStyled = styled.div`
   flex-direction: column;
   gap: 12px;
   table {
-    width: 100%;
+    /* width: 100%; */
     margin-bottom: 1rem;
     color: #212529;
     background-color: transparent;
-    max-width: 100%;
+    /* max-width: 100%; */
     th {
       border-bottom: 1px solid ${(props) => props.theme.line};
       font-size: 16px;
@@ -61,14 +59,19 @@ const CartListStyled = styled.div`
   .cl-remove:hover {
     color: ${(props) => props.theme.red};
   }
+  .pur-scroll::-webkit-scrollbar {
+    height: 6px;
+  }
 `;
 
-const CartList = () => {
+const CartList = ({ className = "" }) => {
   const { cart } = useSelector((state) => state.cart);
 
   return (
-    <CartListStyled>
-      <table>
+    <CartListStyled
+      className={`overflow-x-auto cursor-default scroll ${className}`}
+    >
+      <table className="lg:w-full w-[1026px]">
         <thead>
           <tr>
             <th className="cl-thumb">&nbsp;</th>

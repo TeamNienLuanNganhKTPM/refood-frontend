@@ -21,8 +21,6 @@ import { Button } from "components/button";
 import { authAddAddress } from "store/auth/slice";
 
 const UserCreateAddressStyled = styled.div`
-  width: 500px;
-  overflow-y: hidden;
   .ca-top {
     display: flex;
     justify-content: space-between;
@@ -94,6 +92,20 @@ const UserCreateAddressStyled = styled.div`
   .ca-lists::-webkit-scrollbar-thumb {
     background: ${(props) => props.theme.blueBold};
   }
+
+  @media (min-width: 320px) and (max-width: 767px) {
+    .ca-info {
+      display: flex;
+      flex-direction: column;
+    }
+    .ca-drop {
+      display: flex;
+      flex-direction: column;
+    }
+    .ca-form {
+      width: 300px;
+    }
+  }
 `;
 
 const schema = yup.object({
@@ -104,7 +116,7 @@ const schema = yup.object({
   district: yup.string().required("Vui lòng chọn quận huyện"),
 });
 
-const UserCreateAddress = ({ closeModal }) => {
+const UserCreateAddress = ({ closeModal, className = "" }) => {
   const [listDistrict, setListDistrict] = useState([]);
   const [listWard, setListWard] = useState([]);
   const [selectDistrictName, setSelectDistrictName] = useState("");
@@ -192,7 +204,7 @@ const UserCreateAddress = ({ closeModal }) => {
   };
 
   return (
-    <UserCreateAddressStyled>
+    <UserCreateAddressStyled className={className}>
       <div className="ca-top">
         <h3 className="ca-heading">Địa chỉ mới</h3>
         <div className="cursor-pointer text-text" onClick={closeModal}>
@@ -329,6 +341,7 @@ const UserCreateAddress = ({ closeModal }) => {
 
 UserCreateAddress.propTypes = {
   closeModal: PropTypes.func,
+  className: PropTypes.string,
 };
 
 export default UserCreateAddress;
