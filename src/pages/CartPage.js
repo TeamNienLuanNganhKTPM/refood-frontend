@@ -6,6 +6,7 @@ import Layout from "components/layout/Layout";
 import CartTotal from "modules/cart/CartTotal";
 import CartList from "modules/cart/CartList";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 const CartPageStyled = styled.div`
   margin-top: 40px;
@@ -53,7 +54,11 @@ const CartPage = () => {
                 </svg>
               </span>
               <span className="flex justify-center pt-5 text-xl lg:text-2xl text-text">
-                Giỏ hàng đang trống. Mua ngay!!
+                Giỏ hàng đang trống.{" "}
+                <Link to={"/"} className="pl-1 text-primary">
+                  {" "}
+                  Mua ngay!!
+                </Link>
               </span>
             </div>
           )}

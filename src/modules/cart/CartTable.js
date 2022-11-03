@@ -46,7 +46,7 @@ const CartTable = ({ data }) => {
         text: `Bạn muốn xóa món ${data.FoodName}`,
         icon: "warning",
         showCancelButton: true,
-        confirmButtonColor: "#2bbef9",
+        confirmButtonColor: "#1dc071",
         cancelButtonColor: "#ea2b0f",
         confirmButtonText: "Xóa",
       }).then((result) => {

@@ -10,7 +10,13 @@ import ProductPrice from "./ProductPrice";
 import ProductImage from "./ProductImage";
 import ProductCart from "./ProductCart";
 import priceVN from "utils/priceVN";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import useModal from "hooks/useModal";
+import ModalComponent from "components/modal/ModalComponent";
+import AddCartModal from "modules/cart/AddCartModal";
+import { useDispatch, useSelector } from "react-redux";
+import Swal from "sweetalert2";
+import { authLogin } from "store/auth/slice";
 
 const ProductItemStyled = styled.div`
   height: 100%;
@@ -57,10 +63,76 @@ const ProductItemStyled = styled.div`
 const ProductItem = ({ data }) => {
   const { FoodName, FoodSlug, FoodPrices, FoodImages, FoodReviewAvg } = data;
   const slug = slugify(FoodSlug, { lower: true });
+  const token = window.localStorage.getItem("accessToken");
+  const { user } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     document.body.scrollIntoView({ behavior: "smooth", block: "start" });
   }, [slug]);
+
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+    });
+  }, [user]);
+
+  const { modalIsOpen, openModal, closeModal } = useModal();
+
+  const handleLoginModal = async () => {
+    Swal.fire({
+      title: "Chưa đăng nhập tài khoản!",
+      icon: "warning",
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: "Đăng nhập",
+      confirmButtonColor: "#1dc071",
+      denyButtonText: `Đăng ký`,
+      cancelButtonColor: "#ea2b0f",
+      denyButtonColor: "#6F49FD",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        const { value: phonenumber } = await Swal.fire({
+          title: "Đăng nhập",
+          input: "text",
+          inputPlaceholder: "Nhập số điện thoại",
+          inputAttributes: {
+            autocapitalize: "off",
+            autocorrect: "off",
+          },
+          confirmButtonText: "Tiếp tục",
+          confirmButtonColor: "#1dc071",
+          cancelButtonColor: "#ea2b0f",
+          showCancelButton: true,
+        });
+        if (phonenumber) {
+          const { value: password } = await Swal.fire({
+            title: "Mật khẩu",
+            input: "password",
+            inputPlaceholder: "Nhập mật khẩu",
+            inputAttributes: {
+              autocapitalize: "off",
+              autocorrect: "off",
+            },
+            confirmButtonText: "Đăng nhập",
+            confirmButtonColor: "#1dc071",
+            cancelButtonColor: "#ea2b0f",
+            showCancelButton: true,
+          });
+          if (phonenumber && password) {
+            dispatch(
+              authLogin({ phonenumber: phonenumber, password: password })
+            );
+          }
+        }
+      } else if (result.isDenied) {
+        navigate("/signup");
+      }
+    });
+  };
 
   if (!data) return null;
   return (
@@ -92,7 +164,25 @@ const ProductItem = ({ data }) => {
               )}
             </Link>
           </div>
-          <ProductCart className="card-button"></ProductCart>
+          {!token || !user ? (
+            <ProductCart
+              className="card-button"
+              onClick={handleLoginModal}
+            ></ProductCart>
+          ) : (
+            <>
+              <ProductCart
+                className="card-button"
+                onClick={openModal}
+              ></ProductCart>
+              <ModalComponent modalIsOpen={modalIsOpen} closeModal={closeModal}>
+                <AddCartModal
+                  closeModal={closeModal}
+                  data={data}
+                ></AddCartModal>
+              </ModalComponent>
+            </>
+          )}
         </div>
       </div>
     </ProductItemStyled>

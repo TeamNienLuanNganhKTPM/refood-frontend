@@ -3,7 +3,7 @@
 import styled from "styled-components";
 import React from "react";
 import PropTypes from "prop-types";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { Dropdown } from "components/dropdown";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -50,6 +50,7 @@ const HeaderBottomStyled = styled.div`
 const HeaderBottom = ({ className = "" }) => {
   const { typesFood } = useSelector((state) => state.food);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   useEffect(() => {
     function fetchAllTypesFood() {
       dispatch(getAllTypesFood());
@@ -71,6 +72,17 @@ const HeaderBottom = ({ className = "" }) => {
               <Dropdown.List className="dropdown-lists" open={true}>
                 {types.length > 0 &&
                   types.map((item, index) => {
+                    if (item.FoodTypeSlug === "dat-tiec") {
+                      return (
+                        <Dropdown.Option
+                          key={item.FoodTypeId}
+                          className="dropdown-option"
+                          onClick={() => navigate("/party")}
+                        >
+                          {item.FoodTypeName}
+                        </Dropdown.Option>
+                      );
+                    }
                     return (
                       index < 11 && (
                         <Dropdown.Option
@@ -82,9 +94,6 @@ const HeaderBottom = ({ className = "" }) => {
                       )
                     );
                   })}
-                {/* <span className="px-6 pt-3 text-lg cursor-pointer text-primary">
-                  Xem thêm
-                </span> */}
               </Dropdown.List>
             </Dropdown>
           </div>

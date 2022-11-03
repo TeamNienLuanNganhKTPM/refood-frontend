@@ -12,13 +12,15 @@ import ProductImage from "modules/products/ProductImage";
 import priceVN from "utils/priceVN";
 import DetailsThumb from "./DetailsThumb";
 import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Quantity } from "components/quantity";
 import { getFoodDetails } from "store/food/slice";
 import { Button } from "components/button";
 import { addCart } from "store/cart/slice";
+import { authLogin } from "store/auth/slice";
+import Swal from "sweetalert2";
 
 const DetailsContentStyled = styled.div`
   background-color: #fff;
@@ -170,7 +172,10 @@ const DetailsContent = ({ className = "" }) => {
   const [price, setPrice] = useState("");
   const params = useParams();
   const { slug } = params;
+  const token = window.localStorage.getItem("accessToken");
+  const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const { getCount, handleSetGetCount } = useGetCount();
 
@@ -206,13 +211,126 @@ const DetailsContent = ({ className = "" }) => {
   };
   // Add cart
   const handleAddCart = () => {
-    console.log(ration, getCount);
-    dispatch(
-      addCart({
-        mactma: ration,
-        count: getCount,
-      })
-    );
+    if (token || user) {
+      dispatch(
+        addCart({
+          mactma: ration,
+          count: getCount,
+        })
+      );
+    } else {
+      Swal.fire({
+        title: "Chưa đăng nhập tài khoản!",
+        icon: "warning",
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: "Đăng nhập",
+        confirmButtonColor: "#1dc071",
+        denyButtonText: `Đăng ký`,
+        cancelButtonColor: "#ea2b0f",
+        denyButtonColor: "#6F49FD",
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          const { value: phonenumber } = await Swal.fire({
+            title: "Đăng nhập",
+            input: "text",
+            inputPlaceholder: "Nhập số điện thoại",
+            inputAttributes: {
+              autocapitalize: "off",
+              autocorrect: "off",
+            },
+            confirmButtonText: "Tiếp tục",
+            confirmButtonColor: "#1dc071",
+            cancelButtonColor: "#ea2b0f",
+            showCancelButton: true,
+          });
+          if (phonenumber) {
+            const { value: password } = await Swal.fire({
+              title: "Mật khẩu",
+              input: "password",
+              inputPlaceholder: "Nhập mật khẩu",
+              inputAttributes: {
+                autocapitalize: "off",
+                autocorrect: "off",
+              },
+              confirmButtonText: "Đăng nhập",
+              confirmButtonColor: "#1dc071",
+              cancelButtonColor: "#ea2b0f",
+              showCancelButton: true,
+            });
+            if (phonenumber && password) {
+              dispatch(
+                authLogin({ phonenumber: phonenumber, password: password })
+              );
+            }
+          }
+        } else if (result.isDenied) {
+          navigate("/signup");
+        }
+      });
+    }
+  };
+
+  const handleBuyNow = () => {
+    if (token || user) {
+      dispatch(
+        addCart({
+          mactma: ration,
+          count: getCount,
+        })
+      );
+      navigate("/order");
+    } else {
+      Swal.fire({
+        title: "Chưa đăng nhập tài khoản!",
+        icon: "warning",
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: "Đăng nhập",
+        confirmButtonColor: "#1dc071",
+        denyButtonText: `Đăng ký`,
+        cancelButtonColor: "#ea2b0f",
+        denyButtonColor: "#6F49FD",
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          const { value: phonenumber } = await Swal.fire({
+            title: "Đăng nhập",
+            input: "text",
+            inputPlaceholder: "Nhập số điện thoại",
+            inputAttributes: {
+              autocapitalize: "off",
+              autocorrect: "off",
+            },
+            confirmButtonText: "Tiếp tục",
+            confirmButtonColor: "#1dc071",
+            cancelButtonColor: "#ea2b0f",
+            showCancelButton: true,
+          });
+          if (phonenumber) {
+            const { value: password } = await Swal.fire({
+              title: "Mật khẩu",
+              input: "password",
+              inputPlaceholder: "Nhập mật khẩu",
+              inputAttributes: {
+                autocapitalize: "off",
+                autocorrect: "off",
+              },
+              confirmButtonText: "Đăng nhập",
+              confirmButtonColor: "#1dc071",
+              cancelButtonColor: "#ea2b0f",
+              showCancelButton: true,
+            });
+            if (phonenumber && password) {
+              dispatch(
+                authLogin({ phonenumber: phonenumber, password: password })
+              );
+            }
+          }
+        } else if (result.isDenied) {
+          navigate("/signup");
+        }
+      });
+    }
   };
 
   return (
@@ -286,6 +404,7 @@ const DetailsContent = ({ className = "" }) => {
                 className="transition-all bg-transparent hover:opacity-80"
                 height="48px"
                 kind="primary"
+                onClick={handleBuyNow}
               >
                 Mua ngay
               </Button>

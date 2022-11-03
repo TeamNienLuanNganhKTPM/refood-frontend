@@ -14,6 +14,7 @@ import { ErrorMessage } from "components/error";
 import { Button } from "components/button";
 import { authLogin } from "store/auth/slice";
 import { addCommentDetails, getCommentDetails } from "store/food/slice";
+import { useNavigate } from "react-router-dom";
 
 const CommentStyled = styled.div`
   width: 750px;
@@ -52,6 +53,7 @@ const Comment = ({ className = "" }) => {
   const user = window.localStorage.getItem("user");
   const CustomerId = JSON.parse(user)?.CustomerId;
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     setValue("foodid", foodDetails?.FoodId);
@@ -65,36 +67,56 @@ const Comment = ({ className = "" }) => {
       dispatch(getCommentDetails({ foodId: foodDetails?.FoodId, page: 8 }));
       reset({});
     } else {
-      const { value: phonenumber } = await Swal.fire({
-        title: "Số điện thoại",
-        input: "text",
-        inputPlaceholder: "Nhập số điện thoại",
-        inputAttributes: {
-          autocapitalize: "off",
-          autocorrect: "off",
-        },
-        confirmButtonText: "Tiếp tục",
-        confirmButtonColor: "#2bbef9",
+      Swal.fire({
+        title: "Chưa đăng nhập tài khoản!",
+        icon: "warning",
+        showDenyButton: true,
         showCancelButton: true,
-      });
-      if (phonenumber) {
-        const { value: password } = await Swal.fire({
-          title: "Mật khẩu",
-          input: "password",
-          inputPlaceholder: "Nhập mật khẩu",
-          inputAttributes: {
-            autocapitalize: "off",
-            autocorrect: "off",
-          },
-          confirmButtonText: "Đăng nhập",
-          confirmButtonColor: "#2bbef9",
-          showCancelButton: true,
-        });
-        if (phonenumber && password) {
-          dispatch(authLogin({ phonenumber: phonenumber, password: password }));
-          dispatch(getCommentDetails(foodDetails?.FoodId));
+        confirmButtonText: "Đăng nhập",
+        confirmButtonColor: "#1dc071",
+        denyButtonText: `Đăng ký`,
+        cancelButtonColor: "#ea2b0f",
+        denyButtonColor: "#6F49FD",
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          const { value: phonenumber } = await Swal.fire({
+            title: "Đăng nhập",
+            input: "text",
+            inputPlaceholder: "Nhập số điện thoại",
+            inputAttributes: {
+              autocapitalize: "off",
+              autocorrect: "off",
+            },
+            confirmButtonText: "Tiếp tục",
+            confirmButtonColor: "#1dc071",
+            cancelButtonColor: "#ea2b0f",
+            showCancelButton: true,
+          });
+          if (phonenumber) {
+            const { value: password } = await Swal.fire({
+              title: "Mật khẩu",
+              input: "password",
+              inputPlaceholder: "Nhập mật khẩu",
+              inputAttributes: {
+                autocapitalize: "off",
+                autocorrect: "off",
+              },
+              confirmButtonText: "Đăng nhập",
+              confirmButtonColor: "#1dc071",
+              cancelButtonColor: "#ea2b0f",
+              showCancelButton: true,
+            });
+            if (phonenumber && password) {
+              dispatch(
+                authLogin({ phonenumber: phonenumber, password: password })
+              );
+              dispatch(getCommentDetails(foodDetails?.FoodId));
+            }
+          }
+        } else if (result.isDenied) {
+          navigate("/signup");
         }
-      }
+      });
     }
   };
   return (

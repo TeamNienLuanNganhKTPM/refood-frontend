@@ -21,10 +21,11 @@ const ProductCartStyled = styled.div`
   flex-shrink: 0;
 `;
 
-const ProductCart = ({ className = "" }) => {
+const ProductCart = ({ className = "", onClick = () => {} }) => {
   return (
     <ProductCartStyled
       className={`hover:bg-blueBold hover:text-white hover:transition-all ${className}`}
+      onClick={onClick}
     >
       Thêm giỏ hàng
     </ProductCartStyled>
@@ -33,6 +34,7 @@ const ProductCart = ({ className = "" }) => {
 
 ProductCart.propTypes = {
   className: PropTypes.string,
+  onClick: PropTypes.func,
 };
 
 export default ProductCart;
