@@ -7,35 +7,38 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useEffect } from "react";
 import { Checkbox } from "components/checkbox";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllTypesFood } from "store/food/slice";
 
 const SearchType = ({ setTypeSelect }) => {
   const { control } = useForm({
     mode: "onChange",
   });
-  const [types, setTypes] = useState([
-    { id: 1, checked: false, label: "Khai vị" },
-    {
-      id: 2,
-      checked: false,
+  const [types, setTypes] = useState([]);
 
-      label: "Món cơm",
-    },
-    {
-      id: 3,
-      checked: false,
-      label: "Món chiên",
-    },
+  const { typesFood } = useSelector((state) => state.food);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    function fetchAllTypesFood() {
+      dispatch(getAllTypesFood());
+    }
+    fetchAllTypesFood();
+  }, [dispatch]);
 
-    { id: 4, checked: false, label: "Món gỏi" },
-    { id: 5, checked: false, label: "Món xào" },
-    { id: 6, checked: false, label: "Món hấp" },
-    { id: 7, checked: false, label: "Món lẩu" },
-  ]);
+  useEffect(() => {
+    if (typesFood) {
+      const result = typesFood.map((item) => {
+        const objItem = Object.assign({ ...item }, { checked: false });
+        return objItem;
+      });
+      setTypes(result);
+    }
+  }, [typesFood]);
 
   const handleCheckedType = (id) => {
-    const listTypes = types;
+    const listTypes = [...types];
     const chageCheckedType = listTypes.map((item) => {
-      return item.id === id
+      return item.FoodTypeId === id
         ? { ...item, checked: !item.checked }
         : { ...item, checked: false };
     });
@@ -55,11 +58,15 @@ const SearchType = ({ setTypeSelect }) => {
   useEffect(() => {
     function updateType() {
       let result = [];
-      types.filter((t) => t.checked && result.push({ type: t.label }));
-      setTypeSelect(result);
+      if (types.length > 0) {
+        types.filter((t) => {
+          return t.checked && result.push({ type: t.FoodTypeName });
+        });
+        setTypeSelect(result);
+      }
     }
     updateType();
-  }, [types]);
+  }, [setTypeSelect, types]);
   return (
     <>
       <label>Theo loại món ăn</label>
@@ -68,11 +75,11 @@ const SearchType = ({ setTypeSelect }) => {
           <Checkbox
             control={control}
             name="type"
-            key={item.id}
+            key={item.FoodTypeId}
             checked={item.checked}
-            onClick={() => handleCheckedType(item.id)}
+            onClick={() => handleCheckedType(item.FoodTypeId)}
           >
-            {item.label}
+            {item.FoodTypeName}
           </Checkbox>
         );
       })}

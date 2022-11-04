@@ -1,24 +1,21 @@
 /** @format */
 
-import styled from "styled-components";
-import slugify from "slugify";
+import ProductCart from "modules/products/ProductCart";
+import ProductImage from "modules/products/ProductImage";
+import ProductPrice from "modules/products/ProductPrice";
+import ProductStar from "modules/products/ProductStar";
+import ProductTitle from "modules/products/ProductTitle";
 import React, { useEffect } from "react";
-import PropTypes from "prop-types";
-import ProductTitle from "./ProductTitle";
-import ProductStar from "./ProductStar";
-import ProductPrice from "./ProductPrice";
-import ProductImage from "./ProductImage";
-import ProductCart from "./ProductCart";
-import priceVN from "utils/priceVN";
-import { Link, useNavigate } from "react-router-dom";
-import useModal from "hooks/useModal";
-import ModalComponent from "components/modal/ModalComponent";
-import AddCartModal from "modules/cart/AddCartModal";
 import { useDispatch, useSelector } from "react-redux";
-import Swal from "sweetalert2";
+import { Link, useNavigate } from "react-router-dom";
+import slugify from "slugify";
 import { authLogin } from "store/auth/slice";
+import { addCart } from "store/cart/slice";
+import styled from "styled-components";
+import Swal from "sweetalert2";
+import priceVN from "utils/priceVN";
 
-const ProductItemStyled = styled.div`
+const PartyItemStyled = styled.div`
   height: 100%;
   .card-main {
     display: flex;
@@ -60,7 +57,7 @@ const ProductItemStyled = styled.div`
   }
 `;
 
-const ProductItem = ({ data }) => {
+const PartyItem = ({ data }) => {
   const { FoodName, FoodSlug, FoodPrices, FoodImages, FoodReviewAvg } = data;
   const slug = slugify(FoodSlug, { lower: true });
   const token = window.localStorage.getItem("accessToken");
@@ -80,9 +77,7 @@ const ProductItem = ({ data }) => {
     });
   }, [user]);
 
-  const { modalIsOpen, openModal, closeModal } = useModal();
-
-  const handleLoginModal = async () => {
+  const handleLoginPartyModal = async () => {
     Swal.fire({
       title: "Chưa đăng nhập tài khoản!",
       icon: "warning",
@@ -134,9 +129,23 @@ const ProductItem = ({ data }) => {
     });
   };
 
+  const handleAddPartyCart = () => {
+    const array = [...FoodPrices];
+    const ration = array.filter((item) => {
+      return item.FoodRation === 10 ? item : "";
+    });
+    dispatch(
+      addCart({
+        mactma: ration[0].FoodDetailID,
+        count: 1,
+      })
+    );
+  };
+
   if (!data) return null;
+
   return (
-    <ProductItemStyled className="cards">
+    <PartyItemStyled className="cards">
       <div className="card-main">
         <ProductImage
           url={FoodImages[0].FoodImageUrl}
@@ -167,34 +176,18 @@ const ProductItem = ({ data }) => {
           {!token ? (
             <ProductCart
               className="card-button"
-              onClick={handleLoginModal}
+              onClick={handleLoginPartyModal}
             ></ProductCart>
           ) : (
-            <>
-              <ProductCart
-                className="card-button"
-                onClick={openModal}
-              ></ProductCart>
-              <ModalComponent modalIsOpen={modalIsOpen} closeModal={closeModal}>
-                <AddCartModal
-                  closeModal={closeModal}
-                  data={data}
-                ></AddCartModal>
-              </ModalComponent>
-            </>
+            <ProductCart
+              className="card-button"
+              onClick={handleAddPartyCart}
+            ></ProductCart>
           )}
         </div>
       </div>
-    </ProductItemStyled>
+    </PartyItemStyled>
   );
 };
 
-ProductItem.propTypes = {
-  FoodName: PropTypes.string,
-  FoodSlug: PropTypes.string,
-  FoodPrices: PropTypes.array,
-  FoodImages: PropTypes.array,
-  FoodReviewAvg: PropTypes.number,
-};
-
-export default ProductItem;
+export default PartyItem;

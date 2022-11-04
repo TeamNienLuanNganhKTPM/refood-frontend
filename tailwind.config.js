@@ -15,6 +15,7 @@ module.exports = {
         textLight: "#c2c2d3",
         line: "#d9d9e9",
         text1: "#4B5264",
+        grayf3: "#f3f3f3",
       },
     },
   },

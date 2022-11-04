@@ -5,7 +5,7 @@ import React from "react";
 import { useRef } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import { authGetUser } from "store/auth/slice";
 
 const sideBarLink = [
@@ -183,11 +183,21 @@ const UserSideBarStyled = styled.div`
 
 const UserSideBar = () => {
   const subNavRef = useRef(null);
+  const location = useLocation();
   useEffect(() => {
     const snContent = document.querySelectorAll(".sb-content");
-    snContent[0].classList.add("active-content");
+    if (location.pathname === "/user/account/profile") {
+      snContent[0].classList.add("active-content");
+    } else if (location.pathname === "/user/order") {
+      snContent[1].classList.add("active-content");
+    } else if (location.pathname === "/user/rating") {
+      snContent[1].classList.add("active-content");
+    } else {
+      snContent[0].classList.add("active-content");
+    }
     return () => {
       snContent[0].classList.remove("active-content");
+      snContent[1].classList.remove("active-content");
     };
   }, []);
   const handleShowSubNav = (index) => {

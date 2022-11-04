@@ -11,8 +11,6 @@ import { Link } from "react-router-dom";
 const CartPageStyled = styled.div`
   margin-top: 40px;
   margin-bottom: 80px;
-  .cart-list {
-  }
   .cart-list::-webkit-scrollbar {
     height: 6px;
   }

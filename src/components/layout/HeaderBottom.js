@@ -8,6 +8,7 @@ import { Dropdown } from "components/dropdown";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllTypesFood } from "store/food/slice";
+import { findPartyAll } from "store/party/slice";
 
 const HeaderBottomStyled = styled.div`
   padding: 20px 0;
@@ -58,6 +59,11 @@ const HeaderBottom = ({ className = "" }) => {
     fetchAllTypesFood();
   }, [dispatch]);
 
+  const handleClickParty = () => {
+    dispatch(findPartyAll());
+    navigate("/party");
+  };
+
   const types = typesFood ? typesFood : [];
   return (
     <HeaderBottomStyled className={className}>
@@ -77,7 +83,7 @@ const HeaderBottom = ({ className = "" }) => {
                         <Dropdown.Option
                           key={item.FoodTypeId}
                           className="dropdown-option"
-                          onClick={() => navigate("/party")}
+                          onClick={handleClickParty}
                         >
                           {item.FoodTypeName}
                         </Dropdown.Option>

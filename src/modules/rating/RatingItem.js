@@ -1,15 +1,19 @@
 /** @format */
 
+import { Button } from "components/button";
+import ModalComponent from "components/modal/ModalComponent";
+import useModal from "hooks/useModal";
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import formatToDate from "utils/formatDate";
 import priceVN from "utils/priceVN";
 import selectState from "utils/selectState";
+import UserRatingModal from "./UserRatingModal";
+import PropTypes from "prop-types";
 
-const OrderItem = ({ data }) => {
-  const navigate = useNavigate();
+const RatingItem = ({ data }) => {
+  const { modalIsOpen, openModal, closeModal } = useModal();
   const handleClickOrderDetail = (id) => {
-    navigate(`/user/order/${id}`);
+    openModal();
   };
   return (
     <tr>
@@ -27,15 +31,27 @@ const OrderItem = ({ data }) => {
         </span>
       </td>
       <td>
-        <span
-          className="transition-all cursor-pointer hover:text-secondary"
+        <Button
+          kind="primary"
+          className="capitalize rounded"
+          height="44px"
           onClick={() => handleClickOrderDetail(data.OrderID)}
         >
-          Xem chi tiết
-        </span>
+          Đánh giá
+        </Button>
+        <ModalComponent modalIsOpen={modalIsOpen} closeModal={closeModal}>
+          <UserRatingModal
+            closeModal={closeModal}
+            className="create-rating"
+          ></UserRatingModal>
+        </ModalComponent>
       </td>
     </tr>
   );
 };
 
-export default OrderItem;
+RatingItem.propTypes = {
+  data: PropTypes.object,
+};
+
+export default RatingItem;

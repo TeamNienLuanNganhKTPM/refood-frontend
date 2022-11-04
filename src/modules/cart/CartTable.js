@@ -70,9 +70,10 @@ const CartTable = ({ data }) => {
         </td>
         <td className="cl-name">
           <ProductTitle>
-            {data.length > 15
-              ? data.FoodName.slice(0, 15) + "..."
-              : data.FoodName}
+            {/* {data.length > 10
+              ? 
+              : data.FoodName} */}
+            {data.FoodName.slice(0, 15) + "..."}
           </ProductTitle>
         </td>
         <td className="cl-price">
@@ -95,21 +96,23 @@ const CartTable = ({ data }) => {
         <td className="cl-subtotal">
           <ProductPrice>{priceVN(subTotal)}</ProductPrice>
         </td>
-        <td className="cl-remove" onClick={handleDeleteCartItem}>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth="1.5"
-            stroke="currentColor"
-            className="w-6 h-6"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M6 18L18 6M6 6l12 12"
-            />
-          </svg>
+        <td onClick={handleDeleteCartItem}>
+          <span className="flex justify-center pb-1 cursor-pointer hover:text-redPrimary text-text">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth="1.5"
+              stroke="currentColor"
+              className="w-6 h-6"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          </span>
         </td>
       </tr>
     </>

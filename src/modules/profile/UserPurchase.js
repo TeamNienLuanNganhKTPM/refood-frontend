@@ -53,7 +53,7 @@ const UserPurchase = () => {
             <tr>
               <th>ID</th>
               <th>Ngày</th>
-              <th>Phương thức thanh toán</th>
+              <th>Thanh toán</th>
               <th>Trạng thái</th>
               <th>Tổng tiền</th>
               <th>Hành động</th>

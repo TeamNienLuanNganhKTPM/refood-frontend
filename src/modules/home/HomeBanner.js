@@ -83,10 +83,10 @@ const HomeBanner = () => {
             modules={[Autoplay, Pagination, Navigation]}
           >
             <SwiperSlide>
-              <img src="/banner.png" alt="" />
+              <img src="/banner4.jpg" alt="" />
             </SwiperSlide>
             <SwiperSlide>
-              <img src="/banner4.jpg" alt="" />
+              <img src="/banner.png" alt="" />
             </SwiperSlide>
             <SwiperSlide>
               <img src="/banner3.jpg" alt="" />

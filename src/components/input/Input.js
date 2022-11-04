@@ -42,6 +42,14 @@ const InputStyles = styled.div`
   input::-moz-input-placeholder {
     color: #84878b;
   }
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  input[type="number"] {
+    -moz-appearance: textfield;
+  }
   .input-icon {
     position: absolute;
     right: 20px;

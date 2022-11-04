@@ -70,7 +70,11 @@ const Login = () => {
 
   return (
     <>
-      <form onSubmit={handleSubmit(handleSubmitLogin)} autoComplete="off">
+      <form
+        onSubmit={handleSubmit(handleSubmitLogin)}
+        autoComplete="off"
+        className="flex flex-col gap-4"
+      >
         <Field>
           <Label htmlFor="phonenumber">Số điện thoại</Label>
           <Input

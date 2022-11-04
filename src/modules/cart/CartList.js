@@ -10,55 +10,13 @@ const CartListStyled = styled.div`
   display: flex;
   flex-direction: column;
   gap: 12px;
-  table {
-    /* width: 100%; */
-    margin-bottom: 1rem;
-    color: #212529;
-    background-color: transparent;
-    /* max-width: 100%; */
-    th {
-      border-bottom: 1px solid ${(props) => props.theme.line};
-      font-size: 16px;
-      font-weight: 600;
-      color: ${(props) => props.theme.textPrimary};
-      text-transform: uppercase;
-      padding: 12px;
-      text-align: left;
-    }
-    tbody td:first-child {
-      left: 0;
-    }
-    td {
-      border-bottom: 1px solid ${(props) => props.theme.lineGray};
-      padding: 12px;
-      vertical-align: middle;
-      display: table-cell;
-      text-align: left;
-    }
-  }
-  .cl-thumb {
-  }
+
   .cl-image {
     width: 56px;
     height: 56px;
     border-radius: 6px;
   }
-  .cl-name {
-  }
-  .cl-price {
-  }
-  .cl-quantity {
-  }
-  .cl-subtotal {
-  }
-  .cl-remove {
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: 600;
-  }
-  .cl-remove:hover {
-    color: ${(props) => props.theme.red};
-  }
+
   .pur-scroll::-webkit-scrollbar {
     height: 6px;
   }
@@ -71,16 +29,16 @@ const CartList = ({ className = "" }) => {
     <CartListStyled
       className={`overflow-x-auto cursor-default scroll ${className}`}
     >
-      <table className="lg:w-full w-[1026px]">
+      <table className="lg:w-full w-[1026px] table-cart">
         <thead>
           <tr>
-            <th className="cl-thumb">&nbsp;</th>
-            <th className="cl-name">Món ăn</th>
-            <th className="cl-price">Giá</th>
-            <th className="cl-ration">Khẩu phần</th>
-            <th className="cl-quantity">Số lượng</th>
-            <th className="cl-subtotal">Tạm tính</th>
-            <th className="cl-remove">&nbsp;</th>
+            <th>&nbsp;</th>
+            <th>Món ăn</th>
+            <th>Giá</th>
+            <th>Khẩu phần</th>
+            <th>Số lượng</th>
+            <th>Tạm tính</th>
+            <th>&nbsp;</th>
           </tr>
         </thead>
         <tbody>

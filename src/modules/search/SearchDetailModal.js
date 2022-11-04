@@ -7,12 +7,13 @@ import PropTypes from "prop-types";
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { priceStatus, rationStatus, reviewStatus } from "utils/constants";
 import { Input } from "components/input";
 import { filterSearchFood } from "store/search/slice";
 import { Dropdown } from "components/dropdown";
 import { Button } from "components/button";
+import { getAllTypesFood } from "store/food/slice";
 
 const queryString = require("query-string");
 
@@ -103,17 +104,6 @@ const listPrice = [
   },
 ];
 
-const listType = [
-  {
-    id: "1",
-    name: "Khai vị",
-  },
-  {
-    id: "1",
-    name: "Đặt tiệc",
-  },
-];
-
 const listRation = [
   {
     id: "1",
@@ -139,6 +129,31 @@ const listRation = [
     id: "5",
     name: "5 người",
     value: rationStatus.PERSON5,
+  },
+  {
+    id: "6",
+    name: "6 người",
+    value: rationStatus.PERSON6,
+  },
+  {
+    id: "7",
+    name: "7 người",
+    value: rationStatus.PERSON7,
+  },
+  {
+    id: "8",
+    name: "8 người",
+    value: rationStatus.PERSON8,
+  },
+  {
+    id: "9",
+    name: "9 người",
+    value: rationStatus.PERSON9,
+  },
+  {
+    id: "10",
+    name: "10 người",
+    value: rationStatus.PERSON10,
   },
 ];
 
@@ -188,6 +203,17 @@ const SearchDetailModal = ({ closeModal }) => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const { typesFood } = useSelector((state) => state.food);
+  useEffect(() => {
+    function fetchAllTypesFood() {
+      dispatch(getAllTypesFood());
+    }
+    fetchAllTypesFood();
+  }, [dispatch]);
+
+  const types = typesFood ? typesFood : [];
+
   const handleSubmitSearch = (values) => {
     if (!isValid) return null;
     if (values.name === "") {
@@ -282,17 +308,17 @@ const SearchDetailModal = ({ closeModal }) => {
               className="sd-select"
             ></Dropdown.Select>
             <Dropdown.List className="sd-lists">
-              {listType.length > 0 &&
-                listType.map((type) => (
+              {types.length > 0 &&
+                types.map((type) => (
                   <Dropdown.Option
-                    key={type.name}
+                    key={type.FoodTypeId}
                     className="sd-option"
                     onClick={() => {
-                      setSelectType(type.name);
-                      setValue("type", type.name);
+                      setSelectType(type.FoodTypeName);
+                      setValue("type", type.FoodTypeName);
                     }}
                   >
-                    {type.name}
+                    {type.FoodTypeName}
                   </Dropdown.Option>
                 ))}
             </Dropdown.List>

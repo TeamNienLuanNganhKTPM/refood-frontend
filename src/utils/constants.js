@@ -46,6 +46,11 @@ export const rationStatus = {
   PERSON3: 3,
   PERSON4: 4,
   PERSON5: 5,
+  PERSON6: 6,
+  PERSON7: 7,
+  PERSON8: 8,
+  PERSON9: 9,
+  PERSON10: 10,
 };
 
 export const reviewStatus = {

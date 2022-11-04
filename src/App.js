@@ -19,6 +19,8 @@ const ProductPage = lazy(() => import("pages/ProductPage"));
 const ProductDetailsPage = lazy(() => import("pages/ProductDetailsPage"));
 const ProductAll = lazy(() => import("modules/products/ProductAll"));
 const PartyPage = lazy(() => import("pages/PartyPage"));
+const PartyCreate = lazy(() => import("modules/party/PartyCreate"));
+const Party = lazy(() => import("modules/party/Party"));
 const OrderPage = lazy(() => import("pages/OrderPage"));
 const OrderDetailPage = lazy(() => import("pages/OrderDetailPage"));
 const LoginPage = lazy(() => import("pages/LoginPage"));
@@ -33,7 +35,13 @@ const App = () => {
           <Route path="/" element={<HomePage></HomePage>}></Route>
           <Route path="/login" element={<LoginPage></LoginPage>}></Route>
           <Route path="/signup" element={<RegisterPage></RegisterPage>}></Route>
-          <Route path="/party" element={<PartyPage></PartyPage>}></Route>
+          <Route element={<PartyPage></PartyPage>}>
+            <Route path="/party" element={<Party></Party>}></Route>
+          </Route>
+          <Route
+            path="/party/create"
+            element={<PartyCreate></PartyCreate>}
+          ></Route>
 
           <Route element={<ProductPage></ProductPage>}>
             <Route path="/food" element={<ProductAll></ProductAll>}></Route>
