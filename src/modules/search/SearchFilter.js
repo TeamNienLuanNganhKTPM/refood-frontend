@@ -9,7 +9,9 @@ import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { filterSearchFood } from "store/search/slice";
+import { filterSearchFood, findAllSearchFood } from "store/search/slice";
+import { page } from "utils/constants";
+import { getAllFoodPagination } from "store/food/slice";
 const queryString = require("query-string");
 
 const SearchFilterStyled = styled.div`
@@ -36,8 +38,10 @@ const SearchFilter = () => {
   const [rateSelect, setRateSelect] = useState([]);
   const [priceSelect, setPriceSelect] = useState([]);
   const [query, setQuery] = useState("");
+  const [parse, setParse] = useState("");
   const location = useLocation();
   const parsed = queryString.parse(location.search);
+  delete parsed.page;
 
   // Set select price empty array
   useEffect(() => {
@@ -60,20 +64,36 @@ const SearchFilter = () => {
     if (rationSelect[0] === undefined) delete values.ration;
     if (rateSelect[0] === undefined) delete values.review;
 
-    const q = queryString.stringify(values, {
-      skipNull: true,
-    });
-
-    setQuery(q);
+    if (Object.keys(values).length !== 0) {
+      const q = queryString.stringifyUrl({
+        url: `${page.currentPage}/${page.countFood}/`,
+        query: values,
+      });
+      setQuery(q);
+      const newObj = Object.assign({}, values, { page: page.currentPage });
+      const p = queryString.stringify(newObj);
+      setParse(p);
+    } else {
+      setQuery("");
+      setParse("");
+    }
   }, [parsed, priceSelect, typeSelect, rationSelect, rateSelect]);
 
   // Dispatch search
   useEffect(() => {
-    if (query) {
+    if (query && parse) {
       dispatch(filterSearchFood(query));
-      navigate(`/food/find-foods?${query}`);
+      navigate(`/food/find-foods?${parse}`);
+    } else {
+      // dispatch(
+      //   findAllSearchFood({
+      //     currentPage: page.currentPage,
+      //     countFood: page.countFood,
+      //   })
+      // );
+      // navigate(`/food/find-foods`);
     }
-  }, [dispatch, navigate, query]);
+  }, [dispatch, navigate, parse, query]);
   return (
     <SearchFilterStyled>
       <div className="s-filter">

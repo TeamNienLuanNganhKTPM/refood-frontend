@@ -19,6 +19,28 @@ const foodSlice = createSlice({
       ...state,
       foods: [],
     }),
+    getAllPopularFood: (state) => ({
+      ...state,
+      foodPopulars: [],
+    }),
+    updateAllFoodPopular: (state, { payload }) => ({
+      ...state,
+      foodPopulars: payload.foods,
+      countOnPage: payload.countOnPage,
+      pageCurrent: payload.pageCur,
+      pageNumber: payload.pageNum,
+    }),
+    getAllNewFood: (state) => ({
+      ...state,
+      foodNews: [],
+    }),
+    updateAllFoodNew: (state, { payload }) => ({
+      ...state,
+      foodNews: payload.foods,
+      countOnPage: payload.countOnPage,
+      pageCurrent: payload.pageCur,
+      pageNumber: payload.pageNum,
+    }),
     updateAllFoodPagination: (state, { payload }) => ({
       ...state,
       foods: payload.foods,
@@ -72,6 +94,10 @@ export const {
   updateAllFoodPagination,
   getAllTypesFood,
   updateTypesFood,
+  getAllPopularFood,
+  updateAllFoodPopular,
+  getAllNewFood,
+  updateAllFoodNew,
 } = foodSlice.actions;
 
 export default foodSlice.reducer;

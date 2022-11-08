@@ -58,11 +58,11 @@ const Party = () => {
             Đặt tiệc ngay
           </span>
         </div>
-        {partys?.length ? (
+        {partys?.length > 0 ? (
           <div>
             <div className="flex-layout grid-row">
-              {partys?.map((party) => (
-                <PartyItem key={party.FoodName} data={party}></PartyItem>
+              {partys?.map((party, index) => (
+                <PartyItem key={index} data={party}></PartyItem>
               ))}
             </div>
             <div className="flex justify-center mt-10 bg-white rounded">

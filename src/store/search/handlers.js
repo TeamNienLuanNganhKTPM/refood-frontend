@@ -1,6 +1,10 @@
 /** @format */
 
-import { filterFoodApi, findFoodApi } from "api/search";
+import {
+  filterFoodApi,
+  findFoodApi,
+  getFindAllSearchFoodApi,
+} from "api/search";
 import { call, put } from "redux-saga/effects";
 import { updateSearchFood } from "./slice";
 
@@ -8,11 +12,10 @@ function* handleSearchFilter({ payload }) {
   try {
     const response = yield call(filterFoodApi, payload);
     if (response.status === 200) {
-      yield put(updateSearchFood(response.data.foods));
+      yield put(updateSearchFood(response.data));
     }
   } catch (error) {
-    const { message } = error.response.data;
-    console.log(message);
+    console.log(error);
   }
 }
 
@@ -37,4 +40,19 @@ function* handleSearchFoodAdvanced({ payload }) {
   }
 }
 
-export { handleSearchFilter, handleSearchFoodAdvanced };
+function* handleFindAllSearchFood({ payload }) {
+  try {
+    const response = yield call(getFindAllSearchFoodApi, payload);
+    if (response.status === 200) {
+      yield put(updateSearchFood(response.data));
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export {
+  handleSearchFilter,
+  handleSearchFoodAdvanced,
+  handleFindAllSearchFood,
+};

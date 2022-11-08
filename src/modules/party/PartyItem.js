@@ -58,8 +58,9 @@ const PartyItemStyled = styled.div`
 `;
 
 const PartyItem = ({ data }) => {
-  const { FoodName, FoodSlug, FoodPrices, FoodImages, FoodReviewAvg } = data;
-  const slug = slugify(FoodSlug, { lower: true });
+  const { FoodName, FoodPrices, FoodImages, FoodReviewAvg } = data;
+
+  const slug = slugify(data?.FoodSlug, { lower: true });
   const token = window.localStorage.getItem("accessToken");
   const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();

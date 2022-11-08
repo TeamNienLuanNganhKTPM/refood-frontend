@@ -9,12 +9,16 @@ import {
   handleDeleteComment,
   handleGetAllFoodPagination,
   handleGetAllTypesFood,
+  handleGetAllPopularFood,
+  handleGetAllNewFood,
 } from "./handlers";
 import {
   addCommentDetails,
   deleteComment,
   getAllFood,
   getAllFoodPagination,
+  getAllNewFood,
+  getAllPopularFood,
   getAllTypesFood,
   getCommentDetails,
   getFoodDetails,
@@ -28,4 +32,6 @@ export default function* foodWatcher() {
   yield takeLatest(deleteComment.type, handleDeleteComment);
   yield takeLatest(getAllFoodPagination.type, handleGetAllFoodPagination);
   yield takeLatest(getAllTypesFood.type, handleGetAllTypesFood);
+  yield takeLatest(getAllPopularFood.type, handleGetAllPopularFood);
+  yield takeLatest(getAllNewFood.type, handleGetAllNewFood);
 }

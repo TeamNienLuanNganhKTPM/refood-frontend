@@ -8,7 +8,7 @@ import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-import { priceStatus, rationStatus, reviewStatus } from "utils/constants";
+import { page, priceStatus, rationStatus, reviewStatus } from "utils/constants";
 import { Input } from "components/input";
 import { filterSearchFood } from "store/search/slice";
 import { Dropdown } from "components/dropdown";
@@ -219,9 +219,14 @@ const SearchDetailModal = ({ closeModal }) => {
     if (values.name === "") {
       delete values.name;
     }
-    const query = queryString.stringify(values, {
-      skipNull: true,
+    const query = queryString.stringifyUrl({
+      url: `${page.currentPage}/${page.countFood}/`,
+      query: values,
     });
+
+    const newObj = Object.assign({}, values, { page: page.currentPage });
+    const p = queryString.stringify(newObj);
+
     try {
       Swal.fire({
         title: "Chờ giây lát!",
@@ -233,7 +238,7 @@ const SearchDetailModal = ({ closeModal }) => {
         },
       }).then((result) => {
         dispatch(filterSearchFood(query));
-        navigate(`/food/find-foods?${query}`);
+        navigate(`/food/find-foods?${p}`);
       });
       closeModal();
     } catch (error) {

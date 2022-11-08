@@ -14,6 +14,7 @@ import priceVN from "utils/priceVN";
 import { Button } from "components/button";
 import Swal from "sweetalert2";
 import { deleteOrderDetail } from "store/order/slice";
+import formatHourDate from "utils/formatHourDate";
 
 const PartyDetail = () => {
   const location = useLocation();
@@ -31,8 +32,7 @@ const PartyDetail = () => {
   const data = partyDetail?.PartyDetails ? partyDetail?.PartyDetails : [];
 
   const dateParty = new Date(partyDetail?.PartyTimeStart);
-  const hour = dateParty.toLocaleTimeString("vi-VN");
-  const date = dateParty.toLocaleDateString("vi-VN");
+  const hourDate = formatHourDate(dateParty);
 
   const handleDeletePartyDetail = () => {
     try {
@@ -118,7 +118,7 @@ const PartyDetail = () => {
           <span>{partyDetail?.PartyCustomer}</span>
           <span>Địa điểm: {partyDetail?.PartyPlace}</span>
           <span>Loại tiệc: {partyDetail?.PartyType}</span>
-          <span>Thời gian đãi tiệc: {`${hour}, ${date}`}</span>
+          <span>Thời gian đãi tiệc: {`${hourDate}`}</span>
         </div>
       </div>
       <div className="mt-5 border-b lg:mt-5 md:mt-5 border-b-line">

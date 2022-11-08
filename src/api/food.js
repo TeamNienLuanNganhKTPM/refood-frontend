@@ -46,3 +46,18 @@ export const deleteFoodCommentApi = async (comment) => {
 
 export const getAllTypesFoodApi = async () =>
   await instance.request({ method: "GET", url: `/food/get-foodtypes` });
+
+export const getAllPopularFoodApi = async (param) => {
+  console.log("getAllPopularFoodApi ~ param", param);
+  return await instance.request({
+    method: "GET",
+    url: `/food/get-popular-foods/${param}`,
+  });
+};
+
+export const getAllNewFoodApi = async (param) => {
+  return await instance.request({
+    method: "GET",
+    url: `/food/get-new-foods/${param}`,
+  });
+};

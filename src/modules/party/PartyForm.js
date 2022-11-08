@@ -14,6 +14,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { createParty } from "store/party/slice";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import priceVN from "utils/priceVN";
+import { useCart } from "contexts/cart-context";
+import { useState } from "react";
+import formatIsoString from "utils/formatIsoString";
 
 const schema = yup.object({
   place: yup.string().required("Vui lòng nhập địa điểm đặt tiệc"),
@@ -33,11 +37,15 @@ const PartyForm = () => {
   const {
     control,
     handleSubmit,
+    setValue,
     formState: { isValid, errors },
   } = useForm({
     mode: "onChange",
     resolver: yupResolver(schema),
   });
+
+  const [tableNumber, setTableNumber] = useState(0);
+  const [total] = useCart();
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -45,24 +53,31 @@ const PartyForm = () => {
 
   useEffect(() => {
     if (successParty) {
-      navigate("/");
+      navigate("/user/party");
     }
   }, [successParty, navigate]);
+
+  useEffect(() => {
+    if (tableNumber) {
+      setValue("numberoftable", Number(tableNumber));
+    }
+  }, [setValue, tableNumber]);
 
   const handleSubmitParty = (values) => {
     if (!isValid) return null;
     const formData = new FormData();
     formData.append("place", values.place);
     formData.append("type", values.type);
-    formData.append("numberoftable", values.numberoftable);
+    formData.append("numberoftable", Number(tableNumber));
     formData.append("partynote", values.partynote);
-    const isoString = values.timestart.toISOString();
-    const result = isoString.substring(0, isoString.indexOf("T") + 6);
+
+    const result = formatIsoString(values.timestart);
     formData.append("timestart", result);
 
     try {
       Swal.fire({
         timer: 2000,
+        icon: "info",
         title: "Chờ giây lát!",
         timerProgressBar: true,
         didOpen: () => {
@@ -119,8 +134,12 @@ const PartyForm = () => {
               <Label htmlFor="numberoftable">Số bàn</Label>
               <Input
                 type="number"
-                name="numberoftable"
+                name="table"
                 placeholder="Nhập số bàn đặt tiệc"
+                onChange={(e) => {
+                  setTableNumber(e.target.value);
+                }}
+                value={tableNumber > 0 && tableNumber}
                 control={control}
               ></Input>
             </div>
@@ -151,7 +170,13 @@ const PartyForm = () => {
             ></Textarea>
           </div>
         </div>
-        <div className="flex justify-end mt-5">
+        <div className="flex items-center justify-between mt-5">
+          <div>
+            <span className="text-lg font-semibold text-text">Tổng tiền: </span>
+            <span className="text-lg font-medium text-redPrimary">
+              {priceVN(tableNumber > 0 ? total * Number(tableNumber) : total)}
+            </span>
+          </div>
           <Button kind="primary" height="44px" type="submit">
             Đặt tiệc ngay
           </Button>

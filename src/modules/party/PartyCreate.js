@@ -54,11 +54,9 @@ const PartyCreate = () => {
             )}
           </div>
           <div className="flex items-center justify-center gap-5 mt-10">
-            <span className="text-2xl font-semibold text-text">
-              Tổng tiền:{" "}
-            </span>
+            <span className="text-2xl font-semibold text-text">Tạm tính: </span>
             <span className="text-2xl font-medium text-redPrimary">
-              {priceVN(total)}
+              {priceVN(total)} / 1 bàn
             </span>
           </div>
           <div className="flex items-center justify-center mt-5 mb-10">

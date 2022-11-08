@@ -7,26 +7,38 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { page } from "utils/constants";
-import { getAllFoodPagination } from "store/food/slice";
+import { getAllNewFood } from "store/food/slice";
+import { useLocation, useNavigate } from "react-router-dom";
+const queryString = require("query-string");
 
-const ProductAll = () => {
+const ProductNewAll = () => {
   const [nextPage, setNextPage] = useState(1);
   const [pageCount, setPageCount] = useState(0);
-  const { foods, pageNumber } = useSelector((state) => state.food);
+  const [parse, setParse] = useState("");
+  const { foodNews, pageNumber } = useSelector((state) => state.food);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const parsed = queryString.parse(location.search);
 
   useEffect(() => {
-    if (!foods || !foods.length) return;
+    if (parse) {
+      const values = queryString.stringify(parse);
+      navigate(`/food/new?${values}`);
+    }
+  }, [navigate, parse]);
+
+  useEffect(() => {
+    if (!foodNews || !foodNews.length) return;
     setPageCount(pageNumber);
-  }, [foods, nextPage, pageNumber]);
+  }, [foodNews, nextPage, pageNumber]);
 
   const handlePageClick = (event) => {
     setNextPage(event.selected + 1);
+    let obj = { ...parsed, page: event.selected + 1 };
+    setParse(obj);
     dispatch(
-      getAllFoodPagination({
-        currentPage: event.selected + 1,
-        countFood: page.countFood,
-      })
+      getAllNewFood(`${event.selected + 1}/${page.countFood}${location.search}`)
     );
     document.body.scrollIntoView({ behavior: "smooth", block: "start" });
   };
@@ -34,10 +46,10 @@ const ProductAll = () => {
   return (
     <>
       <div>
-        {foods.length ? (
+        {foodNews?.length > 0 ? (
           <div>
             <div className="flex-layout grid-row">
-              {foods.map((food) => (
+              {foodNews.map((food) => (
                 <ProductItem key={food.FoodName} data={food}></ProductItem>
               ))}
             </div>
@@ -62,4 +74,4 @@ const ProductAll = () => {
   );
 };
 
-export default ProductAll;
+export default ProductNewAll;

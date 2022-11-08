@@ -17,7 +17,7 @@ const ProductList = ({ data, className = "" }) => {
           navigation={true}
           modules={[Navigation]}
         >
-          {data.length > 0 &&
+          {data?.length > 0 &&
             data.map((food) => {
               return (
                 <SwiperSlide key={food.FoodSlug}>

@@ -4,22 +4,17 @@ import React from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { getAllFoodPagination } from "store/food/slice";
+import { getAllNewFood } from "store/food/slice";
 import { page } from "utils/constants";
 import ProductHeading from "./ProductHeading";
 import ProductItem from "./ProductItem";
-import ProductList from "./ProductList";
+const queryString = require("query-string");
 
 const ProductNew = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     function fetchData() {
-      dispatch(
-        getAllFoodPagination({
-          currentPage: page.currentPage,
-          countFood: page.countFood,
-        })
-      );
+      dispatch(getAllNewFood(`${page.currentPage}/${page.countFood}/`));
     }
     fetchData();
   }, [dispatch]);
@@ -27,20 +22,19 @@ const ProductNew = () => {
   const navigate = useNavigate();
   const handleAllFoodNew = () => {
     try {
-      dispatch(
-        getAllFoodPagination({
-          currentPage: page.currentPage,
-          countFood: page.countFood,
-        })
-      );
-      navigate("/food");
+      const query = queryString.stringifyUrl({
+        url: `${page.currentPage}/${page.countFood}/`,
+        query: { page: 1 },
+      });
+      dispatch(getAllNewFood(query));
+      navigate("/food/new?page=1");
     } catch (error) {
       console.log(error);
     }
   };
 
-  const { foods } = useSelector((state) => state.food);
-  if (!foods) return null;
+  const { foodNews } = useSelector((state) => state.food);
+  if (!foodNews) return null;
   return (
     <div className="mb-10">
       <ProductHeading
@@ -49,8 +43,8 @@ const ProductNew = () => {
         onClick={handleAllFoodNew}
       ></ProductHeading>
       <div className="flex-layout grid-row">
-        {foods.length > 0 &&
-          foods.map((food) => (
+        {foodNews?.length > 0 &&
+          foodNews?.map((food, index) => (
             <ProductItem key={food.FoodName} data={food}></ProductItem>
           ))}
       </div>

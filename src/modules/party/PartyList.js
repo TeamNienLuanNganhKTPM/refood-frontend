@@ -2,10 +2,10 @@
 
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import formatHourDate from "utils/formatHourDate";
 const PartyList = ({ data }) => {
   const dateParty = new Date(data.PartyTimeStart);
-  const hour = dateParty.toLocaleTimeString("vi-VN");
-  const date = dateParty.toLocaleDateString("vi-VN");
+  const hourDate = formatHourDate(dateParty);
   const navigate = useNavigate();
   const handleClickPartyDetail = (id) => {
     navigate(`/user/party/detail?id=${id}`);
@@ -14,7 +14,7 @@ const PartyList = ({ data }) => {
   return (
     <tr>
       <td>{data.PartyID}</td>
-      <td>{`${hour} - ${date}`}</td>
+      <td>{`${hourDate}`}</td>
       <td>{data.PartyPlace}</td>
       <td>{data.PartySubTotal}</td>
       <td>
