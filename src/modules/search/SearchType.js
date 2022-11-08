@@ -43,6 +43,8 @@ const SearchType = ({ setTypeSelect }) => {
         : { ...item, checked: false };
     });
     Swal.fire({
+      title: "Chờ giây lát!",
+      icon: "info",
       timer: 2000,
       timerProgressBar: true,
       didOpen: () => {
@@ -70,17 +72,19 @@ const SearchType = ({ setTypeSelect }) => {
   return (
     <>
       <label>Theo loại món ăn</label>
-      {types.map((item) => {
+      {types.map((item, index) => {
         return (
-          <Checkbox
-            control={control}
-            name="type"
-            key={item.FoodTypeId}
-            checked={item.checked}
-            onClick={() => handleCheckedType(item.FoodTypeId)}
-          >
-            {item.FoodTypeName}
-          </Checkbox>
+          index < types.length - 1 && (
+            <Checkbox
+              control={control}
+              name="type"
+              key={item.FoodTypeId}
+              checked={item.checked}
+              onClick={() => handleCheckedType(item.FoodTypeId)}
+            >
+              {item.FoodTypeName}
+            </Checkbox>
+          )
         );
       })}
     </>

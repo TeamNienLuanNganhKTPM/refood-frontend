@@ -9,7 +9,7 @@ import selectState from "utils/selectState";
 const OrderItem = ({ data }) => {
   const navigate = useNavigate();
   const handleClickOrderDetail = (id) => {
-    navigate(`/user/order/${id}`);
+    navigate(`/user/order/detail?id=${id}`);
   };
   return (
     <tr>

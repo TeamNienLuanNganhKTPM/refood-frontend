@@ -15,7 +15,6 @@ import { createOrderFood, getVNPAYOrder, initOrder } from "store/order/slice";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { getCartDetail } from "store/cart/slice";
-import axios from "axios";
 
 const OrderTotal = ({ note, addressId, pay }) => {
   const [values, setValues] = useState({});
@@ -33,6 +32,8 @@ const OrderTotal = ({ note, addressId, pay }) => {
     if (pay) {
       try {
         Swal.fire({
+          title: "Chờ giây lát!",
+          icon: "info",
           timer: 2000,
           timerProgressBar: true,
           didOpen: () => {

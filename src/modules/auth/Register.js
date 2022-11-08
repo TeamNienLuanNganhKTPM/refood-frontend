@@ -59,7 +59,11 @@ const Register = () => {
 
   return (
     <>
-      <form onSubmit={handleSubmit(handleSubmitRegister)} autoComplete="off">
+      <form
+        onSubmit={handleSubmit(handleSubmitRegister)}
+        autoComplete="off"
+        className="flex flex-col gap-4"
+      >
         <Field>
           <Label htmlFor="name">Họ và tên</Label>
           <Input

@@ -58,6 +58,8 @@ const SearchRate = ({ setRateSelect }) => {
         : { ...item, checked: false };
     });
     Swal.fire({
+      title: "Chờ giây lát!",
+      icon: "info",
       timer: 2000,
       timerProgressBar: true,
       didOpen: () => {

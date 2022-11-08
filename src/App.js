@@ -6,6 +6,7 @@ import { lazy, Suspense } from "react";
 import "swiper/scss";
 import "swiper/scss/navigation";
 import "swiper/scss/pagination";
+import UserParty from "modules/profile/UserParty";
 
 const UserRating = lazy(() => import("modules/profile/UserRating"));
 const UserPurchase = lazy(() => import("modules/profile/UserPurchase"));
@@ -23,6 +24,7 @@ const PartyCreate = lazy(() => import("modules/party/PartyCreate"));
 const Party = lazy(() => import("modules/party/Party"));
 const OrderPage = lazy(() => import("pages/OrderPage"));
 const OrderDetailPage = lazy(() => import("pages/OrderDetailPage"));
+const PartyDetailPage = lazy(() => import("pages/PartyDetailPage"));
 const LoginPage = lazy(() => import("pages/LoginPage"));
 const HomePage = lazy(() => import("pages/HomePage"));
 const CartPage = lazy(() => import("pages/CartPage"));
@@ -76,6 +78,11 @@ const App = () => {
             <Route
               path="/user/order/:slug"
               element={<OrderDetailPage></OrderDetailPage>}
+            ></Route>
+            <Route path="/user/party" element={<UserParty></UserParty>}></Route>
+            <Route
+              path="/user/party/:slug"
+              element={<PartyDetailPage></PartyDetailPage>}
             ></Route>
             <Route
               path="/user/rating"

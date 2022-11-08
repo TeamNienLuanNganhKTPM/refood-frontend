@@ -29,6 +29,7 @@ const PartyLeftStyled = styled.div`
 const PartyLeft = () => {
   const [typeSelect, setTypeSelect] = useState([]);
   const [query, setQuery] = useState("");
+  // const [values, setValues] = useState("");
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -39,10 +40,7 @@ const PartyLeft = () => {
 
     const values = Object.assign({}, types);
     if (typeSelect[0] === undefined) delete values.type;
-    const q = queryString.stringify(values, {
-      skipNull: true,
-    });
-
+    const q = queryString.stringify(values);
     setQuery(q);
   }, [typeSelect]);
 
@@ -51,7 +49,7 @@ const PartyLeft = () => {
       dispatch(findSearchParty(query));
       navigate(`/party/?${query}`);
     } else {
-      dispatch(findPartyAll());
+      dispatch(findPartyAll({ pageCurrent: 1, countOnPage: 12 }));
       navigate(`/party`);
     }
   }, [dispatch, navigate, query]);

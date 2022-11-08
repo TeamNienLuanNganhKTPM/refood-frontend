@@ -6,7 +6,7 @@ import Layout from "components/layout/Layout";
 import CartTotal from "modules/cart/CartTotal";
 import CartList from "modules/cart/CartList";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const CartPageStyled = styled.div`
   margin-top: 40px;
@@ -23,9 +23,36 @@ const CartPageStyled = styled.div`
 
 const CartPage = () => {
   const { cart } = useSelector((state) => state.cart);
-
+  const location = useLocation();
   return (
     <Layout>
+      <div className="flex items-center justify-start gap-1 px-16 py-6 uppercase bg-grayDark">
+        <Link to="/" className="text-lg font-medium text-text">
+          Trang chủ
+        </Link>
+        <span className="mb-1 font-medium text-text">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth="1.5"
+            stroke="currentColor"
+            className="w-4 h-4"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M8.25 4.5l7.5 7.5-7.5 7.5"
+            />
+          </svg>
+        </span>
+        <Link
+          to={location.pathname}
+          className="text-lg font-medium cursor-default text-textLight"
+        >
+          giỏ hàng
+        </Link>
+      </div>
       <CartPageStyled>
         <div className="container">
           {cart?.length > 0 ? (

@@ -60,7 +60,6 @@ const HeaderBottom = ({ className = "" }) => {
   }, [dispatch]);
 
   const handleClickParty = () => {
-    dispatch(findPartyAll());
     navigate("/party");
   };
 

@@ -5,7 +5,7 @@ import ProductPrice from "modules/products/ProductPrice";
 import React from "react";
 import priceVN from "utils/priceVN";
 
-const OrderDetailItem = ({ data }) => {
+const PartyDetailItem = ({ data, partyNumOfTable }) => {
   return (
     <>
       {data?.length > 0 &&
@@ -21,13 +21,25 @@ const OrderDetailItem = ({ data }) => {
               <h3 className="text-base text-text lg:text-lg">
                 {item.FoodName}
               </h3>
-              <div className="flex items-end gap-2">
-                <div className="px-2 py-1 text-xs font-medium text-center border rounded-sm lg:text-sm text-primary bg-bgPrimary border-primary">
-                  {item.FoodRation} người
+              <div className="flex items-center gap-2">
+                <div className="hidden lg:block md:block">
+                  <ProductPrice sizeText="18px">
+                    {priceVN(item.FoodPrice)}
+                  </ProductPrice>
                 </div>
-                <span className="text-base font-light text-text1">
-                  x{item.FoodQuantity}
+                <div className="block lg:hidden md:hidđen">
+                  <ProductPrice sizeText="16px">
+                    {priceVN(item.FoodPrice)}
+                  </ProductPrice>
+                </div>
+                <span className="text-xs font-light lg:text-base md:text-base text-text1">
+                  x {partyNumOfTable} bàn
                 </span>
+              </div>
+              <div>
+                <div className="inline px-2 py-1 text-xs font-medium text-center border rounded-sm lg:text-sm text-primary bg-bgPrimary border-primary">
+                  {item.FoodType}
+                </div>
               </div>
             </div>
             <div>
@@ -39,4 +51,4 @@ const OrderDetailItem = ({ data }) => {
   );
 };
 
-export default OrderDetailItem;
+export default PartyDetailItem;

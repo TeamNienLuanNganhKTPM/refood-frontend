@@ -12,9 +12,6 @@ import PropTypes from "prop-types";
 
 const RatingItem = ({ data }) => {
   const { modalIsOpen, openModal, closeModal } = useModal();
-  const handleClickOrderDetail = (id) => {
-    openModal();
-  };
   return (
     <tr>
       <td>{data.OrderID}</td>
@@ -35,7 +32,7 @@ const RatingItem = ({ data }) => {
           kind="primary"
           className="capitalize rounded"
           height="44px"
-          onClick={() => handleClickOrderDetail(data.OrderID)}
+          onClick={openModal}
         >
           Đánh giá
         </Button>
@@ -43,6 +40,7 @@ const RatingItem = ({ data }) => {
           <UserRatingModal
             closeModal={closeModal}
             className="create-rating"
+            orderId={data?.OrderID}
           ></UserRatingModal>
         </ModalComponent>
       </td>

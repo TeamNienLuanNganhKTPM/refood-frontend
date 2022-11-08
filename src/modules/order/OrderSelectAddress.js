@@ -122,6 +122,8 @@ const OrderSelectAddress = ({
 
   const handleComfirmSelectAddress = () => {
     Swal.fire({
+      title: "Chờ giây lát!",
+      icon: "info",
       timer: 2000,
       timerProgressBar: true,
       didOpen: () => {

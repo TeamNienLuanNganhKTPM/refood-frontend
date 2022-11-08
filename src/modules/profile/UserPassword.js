@@ -7,7 +7,6 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { updateUserPassApi } from "api/user";
 import { toast } from "react-toastify";
-import { Link } from "react-router-dom";
 import { Label } from "components/label";
 import { Input } from "components/input";
 import { Button } from "components/button";

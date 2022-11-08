@@ -1,48 +1,40 @@
 /** @format */
 
-import Swal from "sweetalert2";
-import StepProcessBar from "components/stepprocessbar/StepProcessBar";
-import selectState from "utils/selectState";
-import React from "react";
+import React, { useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import queryString from "query-string";
+import { useDispatch, useSelector } from "react-redux";
+import { getPartyDetail } from "store/party/slice";
+import formatToDate from "utils/formatDate";
+import selectState from "utils/selectState";
+import StepProcessBar from "components/stepprocessbar/StepProcessBar";
+import PartyDetailItem from "./PartyDetailItem";
 import ProductPrice from "modules/products/ProductPrice";
 import priceVN from "utils/priceVN";
-import OrderDetailItem from "./OrderDetailItem";
-import formatToDate from "../../utils/formatDate";
-import { useLocation, useNavigate } from "react-router-dom";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { deleteOrderDetail, getOrderDetail } from "store/order/slice";
 import { Button } from "components/button";
+import Swal from "sweetalert2";
+import { deleteOrderDetail } from "store/order/slice";
 
-const OrderDetail = () => {
+const PartyDetail = () => {
   const location = useLocation();
   const value = queryString.parse(location.search);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   useEffect(() => {
-    function fetchOrderDetail() {
-      dispatch(getOrderDetail(value.id));
+    function fetchPartyDetail() {
+      dispatch(getPartyDetail(value.id));
     }
-    fetchOrderDetail();
+    fetchPartyDetail();
   }, [dispatch, value.id]);
 
-  const { orderDetail } = useSelector((state) => state.order);
-  const data = orderDetail?.OrderDetails ? orderDetail?.OrderDetails : [];
+  const { partyDetail } = useSelector((state) => state.party);
+  const data = partyDetail?.PartyDetails ? partyDetail?.PartyDetails : [];
 
-  useEffect(() => {
-    if (value.paid === "vnpay") {
-      Swal.fire({
-        position: "center",
-        icon: "success",
-        title: "Đã thanh toán bằng VNPay",
-        showConfirmButton: false,
-        timer: 1500,
-      });
-    }
-  }, []);
+  const dateParty = new Date(partyDetail?.PartyTimeStart);
+  const hour = dateParty.toLocaleTimeString("vi-VN");
+  const date = dateParty.toLocaleDateString("vi-VN");
 
-  const handleDeleteOrderDetail = () => {
+  const handleDeletePartyDetail = () => {
     try {
       Swal.fire({
         title: "Bạn muốn hủy đơn hàng?",
@@ -54,8 +46,8 @@ const OrderDetail = () => {
         cancelButtonColor: "#EB5757",
       }).then(async (result) => {
         if (result.isConfirmed) {
-          dispatch(deleteOrderDetail(orderDetail?.OrderID));
-          navigate("/user/order");
+          dispatch(deleteOrderDetail(partyDetail?.PartyID));
+          navigate("/user/party");
         }
       });
     } catch (error) {
@@ -68,7 +60,7 @@ const OrderDetail = () => {
       <div
         className="flex items-center justify-between py-2 mb-4 border-b lg:mb-10 md:mb-10 border-b-line"
         onClick={() => {
-          navigate("/user/order/");
+          navigate("/user/party/");
         }}
       >
         <div className="flex cursor-pointer text-text1">
@@ -90,48 +82,51 @@ const OrderDetail = () => {
         </div>
         <div className="items-center justify-end hidden gap-3 text-base font-normal uppercase lg:flex md:flex">
           <span className="text-text1">
-            Ngày đặt: {formatToDate(orderDetail?.OrderDate)}
+            Ngày đặt: {formatToDate(partyDetail?.PartyDate)}
           </span>
           <span>|</span>
           <span className="text-text1">
-            ID Đơn hàng: {orderDetail?.OrderID}
+            ID Đơn hàng: {partyDetail?.PartyID}
           </span>
           <span>|</span>
           <span className="text-redPrimary">
-            {selectState(orderDetail?.OrderState)}
+            {selectState(partyDetail?.PartyState)}
           </span>
         </div>
       </div>
       <div className="flex items-center justify-start gap-1 text-xs font-normal uppercase lg:hidden md:hidden">
         <span className="text-text">
-          Ngày đặt: {formatToDate(orderDetail?.OrderDate)}
+          Ngày đặt: {formatToDate(partyDetail?.PartyDate)}
         </span>
         <span>|</span>
-        <span className="text-text">ID Đơn hàng: {orderDetail?.OrderID}</span>
+        <span className="text-text">ID Đơn hàng: {partyDetail?.PartyID}</span>
         <span>|</span>
         <span className="text-redPrimary">
-          {selectState(orderDetail?.OrderState)}
+          {selectState(partyDetail?.PartyState)}
         </span>
       </div>
       <div className="relative hidden lg:block md:block">
         <StepProcessBar
-          orderState={orderDetail?.OrderState ? orderDetail?.OrderState : 0}
+          orderState={partyDetail?.PartyState ? partyDetail?.PartyState : 0}
         ></StepProcessBar>
       </div>
       <div className="mt-5 border-b lg:mt-10 md:mt-10 border-b-line">
-        <h3 className="mb-2 text-lg font-medium b-4 text-text">Địa chỉ</h3>
-        <div className="flex flex-col gap-1 text-sm ">
-          <span className="p-2 text-text1 bg-bgPrimary">
-            {orderDetail?.OrderAdress}
-          </span>
+        <h3 className="mb-2 text-lg font-medium b-4 text-text">
+          Thông tin khách hàng
+        </h3>
+        <div className="flex flex-col gap-1 p-2 text-sm text-text1 bg-bgPrimary">
+          <span>{partyDetail?.PartyCustomer}</span>
+          <span>Địa điểm: {partyDetail?.PartyPlace}</span>
+          <span>Loại tiệc: {partyDetail?.PartyType}</span>
+          <span>Thời gian đãi tiệc: {`${hour}, ${date}`}</span>
         </div>
       </div>
-      <div className="mt-5 border-b lg:mt-10 md:mt-10 border-b-line">
+      <div className="mt-5 border-b lg:mt-5 md:mt-5 border-b-line">
         <h3 className="mb-2 text-lg font-medium b-4 text-text">Ghi chú</h3>
         <div className="flex flex-col gap-1 text-sm ">
           <span className="p-2 text-text1 bg-bgPrimary">
-            {orderDetail?.OrderNote
-              ? orderDetail?.OrderNote
+            {partyDetail?.PartyNote
+              ? partyDetail?.PartyNote
               : "Không có ghi chú"}
           </span>
         </div>
@@ -140,31 +135,26 @@ const OrderDetail = () => {
         Danh sách món ăn
       </h3>
       <div className="flex flex-col gap-4">
-        <OrderDetailItem data={data}></OrderDetailItem>
+        <PartyDetailItem
+          data={data}
+          partyNumOfTable={partyDetail?.PartyNumOfTable}
+        ></PartyDetailItem>
       </div>
-      <div className="flex flex-wrap items-center justify-between gap-3 mt-4">
-        <div className="flex items-start justify-end gap-3 lg:items-center md:items-center">
-          <span className="text-base font-medium lg:text-lg md:text-lg text-text">
-            Phương thức thanh toán:
-          </span>
-          <span className="text-xs lg:text-base md:text-base text-text1">
-            {orderDetail?.OrderPaymentMethod}
-          </span>
-        </div>
-        <div className="flex items-center justify-end gap-3">
-          <span className="text-lg font-medium text-text">Tổng tiền:</span>
-          <ProductPrice sizeText="20px">
-            {priceVN(orderDetail?.OrderSubTotal)}
-          </ProductPrice>
-        </div>
+
+      <div className="flex items-center justify-end gap-3 mt-5">
+        <span className="text-lg font-medium text-text">Tổng tiền:</span>
+        <ProductPrice sizeText="20px">
+          {priceVN(partyDetail?.PartySubTotal)}
+        </ProductPrice>
       </div>
-      {orderDetail?.OrderState === 0 && (
+
+      {partyDetail?.PartyState === 0 && (
         <div className="flex justify-end py-4">
           <Button
             className="w-[140px]"
             height="44px"
             kind="primary"
-            onClick={handleDeleteOrderDetail}
+            onClick={handleDeletePartyDetail}
           >
             Hủy đơn
           </Button>
@@ -174,4 +164,4 @@ const OrderDetail = () => {
   );
 };
 
-export default OrderDetail;
+export default PartyDetail;

@@ -23,20 +23,22 @@ const ProductAll = () => {
 
   const handlePageClick = (event) => {
     setNextPage(event.selected + 1);
-    Swal.fire({
-      timer: 2000,
-      timerProgressBar: true,
-      didOpen: () => {
-        Swal.showLoading();
-      },
-    }).then((result) => {
-      dispatch(
-        getAllFoodPagination({
-          currentPage: event.selected + 1,
-          countFood: page.countFood,
-        })
-      );
-    });
+    dispatch(
+      getAllFoodPagination({
+        currentPage: event.selected + 1,
+        countFood: page.countFood,
+      })
+    );
+    document.body.scrollIntoView({ behavior: "smooth", block: "start" });
+    // Swal.fire({
+    //   timer: 2000,
+    //   timerProgressBar: true,
+    //   didOpen: () => {
+    //     Swal.showLoading();
+    //   },
+    // }).then((result) => {
+
+    // });
   };
 
   return (

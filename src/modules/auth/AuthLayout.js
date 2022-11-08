@@ -30,9 +30,15 @@ const AuthLayout = ({ children }) => {
   return (
     <AuthLayoutStyled>
       <div className="account-main">
-        <Link to="/" className="inline-block mb-5 lg:mb-10">
-          <img srcSet="/refood-logo.png 2x" alt="admin-logo" />
-        </Link>
+        <div className="flex justify-center">
+          <Link to="/" className="inline-block mb-5 lg:mb-10 w-[300px] ">
+            <img
+              srcSet="/refood-logo.png 2x"
+              alt="admin-logo"
+              className="object-cover w-full h-full"
+            />
+          </Link>
+        </div>
         {children}
       </div>
     </AuthLayoutStyled>

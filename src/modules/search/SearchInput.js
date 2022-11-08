@@ -62,6 +62,8 @@ const SearchInput = ({ className = "" }) => {
       skipNull: true,
     });
     Swal.fire({
+      title: "Chờ giây lát!",
+      icon: "info",
       timer: 2000,
       timerProgressBar: true,
       didOpen: () => {
@@ -75,6 +77,7 @@ const SearchInput = ({ className = "" }) => {
 
   const location = useLocation();
   const parsed = queryString.parse(location.search);
+
   useEffect(() => {
     reset(parsed);
   }, []);

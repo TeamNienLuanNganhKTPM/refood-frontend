@@ -66,7 +66,6 @@ function* handleGetOrderDetail({ payload }) {
 }
 
 function* handleDeleteOrderDetail({ payload }) {
-  console.log("function*handleDeleteOrderDetail ~ payload", payload);
   try {
     const response = yield call(deleteOrderDetailApi, payload);
     if (response.status === 200) {

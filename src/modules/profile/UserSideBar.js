@@ -68,6 +68,10 @@ const sideBarLink = [
         url: "/user/order",
       },
       {
+        title: "Cập nhật đặt tiệc",
+        url: "/user/party",
+      },
+      {
         title: "Cập nhật đánh giá",
         url: "/user/rating",
       },
@@ -186,14 +190,28 @@ const UserSideBar = () => {
   const location = useLocation();
   useEffect(() => {
     const snContent = document.querySelectorAll(".sb-content");
-    if (location.pathname === "/user/account/profile") {
-      snContent[0].classList.add("active-content");
-    } else if (location.pathname === "/user/order") {
-      snContent[1].classList.add("active-content");
-    } else if (location.pathname === "/user/rating") {
-      snContent[1].classList.add("active-content");
-    } else {
-      snContent[0].classList.add("active-content");
+    switch (location.pathname) {
+      case "/user/account/profile":
+        snContent[0].classList.add("active-content");
+        break;
+      case "/user/order":
+        snContent[1].classList.add("active-content");
+        break;
+      case "/user/order/detail":
+        snContent[1].classList.add("active-content");
+        break;
+      case "/user/party":
+        snContent[1].classList.add("active-content");
+        break;
+      case "/user/party/detail":
+        snContent[1].classList.add("active-content");
+        break;
+      case "/user/rating":
+        snContent[1].classList.add("active-content");
+        break;
+      default:
+        snContent[0].classList.add("active-content");
+        break;
     }
     return () => {
       snContent[0].classList.remove("active-content");

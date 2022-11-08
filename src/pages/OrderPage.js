@@ -8,6 +8,7 @@ import OrderTotal from "modules/order/OrderTotal";
 import React, { useEffect } from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link, useLocation } from "react-router-dom";
 import { authGetUser } from "store/auth/slice";
 import styled from "styled-components";
 
@@ -25,6 +26,7 @@ const OrderPage = () => {
   const [pay, setPay] = useState("");
   const dispatch = useDispatch();
   const { cart } = useSelector((state) => state.cart);
+  const location = useLocation();
 
   useEffect(() => {
     async function fetchUserData() {
@@ -39,6 +41,33 @@ const OrderPage = () => {
 
   return (
     <Layout>
+      <div className="flex items-center justify-start gap-1 px-16 py-6 uppercase bg-grayDark">
+        <Link to="/" className="text-lg font-medium text-text">
+          Trang chủ
+        </Link>
+        <span className="mb-1 font-medium text-text">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth="1.5"
+            stroke="currentColor"
+            className="w-4 h-4"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M8.25 4.5l7.5 7.5-7.5 7.5"
+            />
+          </svg>
+        </span>
+        <Link
+          to={location.pathname}
+          className="text-lg font-medium cursor-default text-textLight"
+        >
+          đơn hàng
+        </Link>
+      </div>
       <OrderPageStyled>
         <div className="container">
           <div className="order-main">

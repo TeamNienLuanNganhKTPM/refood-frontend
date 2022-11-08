@@ -1,8 +1,6 @@
 /** @format */
 
-import RatingItem from "modules/rating/RatingItem";
-import React, { useEffect, useState } from "react";
-import ReactPaginate from "react-paginate";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllOrderFood } from "store/order/slice";
 import styled from "styled-components";
@@ -19,7 +17,7 @@ const UserRating = () => {
     fetchAllOrder();
   }, [dispatch]);
 
-  const data = orders ? orders : [];
+  // const data = orders ? orders : [];
 
   return (
     <UserRatingStyled>
@@ -37,14 +35,18 @@ const UserRating = () => {
             </tr>
           </thead>
           <tbody>
-            {data?.length > 0 &&
+            {/* {data?.length > 0 &&
               data.map((item) => {
                 if (item.OrderState === 2) {
                   return (
-                    <RatingItem data={item} key={item.OrderID}></RatingItem>
+                    <RatingList
+                      orderId={item.OrderID}
+                      key={item.OrderID}
+                    ></RatingList>
                   );
                 }
-              })}
+                return "";
+              })} */}
           </tbody>
         </table>
       </div>
