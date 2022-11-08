@@ -5,11 +5,10 @@ import instance from "api";
 export const getAllFoodApi = async () =>
   await instance.request({ method: "GET", url: `/food/get-foods` });
 
-export const getAllPaginationFoodApi = async (data) => {
-  const { currentPage, countFood } = data;
+export const getAllPaginationFoodApi = async (param) => {
   return await instance.request({
     method: "GET",
-    url: `/food/get-foods/${currentPage}/${countFood}`,
+    url: `/food/get-foods/${param}`,
   });
 };
 

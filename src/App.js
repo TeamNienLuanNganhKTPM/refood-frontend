@@ -6,13 +6,13 @@ import { lazy, Suspense } from "react";
 import "swiper/scss";
 import "swiper/scss/navigation";
 import "swiper/scss/pagination";
-import UserParty from "modules/profile/UserParty";
 
 const UserPurchase = lazy(() => import("modules/profile/UserPurchase"));
 const UserProfile = lazy(() => import("modules/profile/UserProfile"));
 const UserPassword = lazy(() => import("modules/profile/UserPassword"));
 const UserPage = lazy(() => import("pages/UserPage"));
 const UserAddress = lazy(() => import("modules/profile/UserAddress"));
+const UserParty = lazy(() => import("modules/profile/UserParty"));
 const Search = lazy(() => import("modules/search/Search"));
 const RegisterPage = lazy(() => import("pages/RegisterPage"));
 const ProductPopular = lazy(() => import("modules/products/ProductPopular"));

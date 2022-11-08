@@ -62,12 +62,7 @@ const ProductTrending = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     function fetchData() {
-      dispatch(
-        getAllFoodPagination({
-          currentPage: page.currentPage,
-          countFood: page.countFood,
-        })
-      );
+      dispatch(getAllFoodPagination(`${page.currentPage}/${page.countFood}`));
     }
     fetchData();
   }, [dispatch]);
@@ -81,7 +76,7 @@ const ProductTrending = () => {
           foods.map((food, index) => {
             const { FoodName, FoodPrices, FoodImages, FoodSlug } = food;
             return (
-              index < 8 && (
+              index < 9 && (
                 <Link
                   to={`/${FoodSlug}`}
                   className="trend-lists"

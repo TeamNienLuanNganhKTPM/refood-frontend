@@ -8,11 +8,14 @@ import { Dropdown } from "components/dropdown";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllTypesFood } from "store/food/slice";
-import { findPartyAll } from "store/party/slice";
+import { page } from "utils/constants";
+import { filterSearchFood } from "store/search/slice";
+const queryString = require("query-string");
 
 const HeaderBottomStyled = styled.div`
   padding: 20px 0;
   border-bottom: 1px solid ${(props) => props.theme.lineGray};
+
   .hb-main {
     display: flex;
     justify-content: flex-start;
@@ -63,6 +66,20 @@ const HeaderBottom = ({ className = "" }) => {
     navigate("/party");
   };
 
+  const handleClickTypeFood = (foodName) => {
+    const query = queryString.stringifyUrl({
+      url: `${page.currentPage}/${page.countFood}/`,
+      query: { type: foodName },
+    });
+    const newObj = Object.assign(
+      {},
+      { type: foodName },
+      { page: page.currentPage }
+    );
+    const p = queryString.stringify(newObj);
+    dispatch(filterSearchFood(query));
+    navigate(`/food/find-foods?${p}`);
+  };
   const types = typesFood ? typesFood : [];
   return (
     <HeaderBottomStyled className={className}>
@@ -93,6 +110,7 @@ const HeaderBottom = ({ className = "" }) => {
                         <Dropdown.Option
                           key={item.FoodTypeId}
                           className="dropdown-option"
+                          onClick={() => handleClickTypeFood(item.FoodTypeName)}
                         >
                           {item.FoodTypeName}
                         </Dropdown.Option>
@@ -107,7 +125,7 @@ const HeaderBottom = ({ className = "" }) => {
               <NavLink to="/#">Trang chủ</NavLink>
             </div>
             <div className="menu-item">
-              <NavLink to="/#">Thực đơn</NavLink>
+              <NavLink to="/food?page=1">Thực đơn</NavLink>
             </div>
             <div className="menu-item">
               <NavLink to="/#">Liên hệ</NavLink>

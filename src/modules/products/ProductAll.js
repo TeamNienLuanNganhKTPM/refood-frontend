@@ -8,25 +8,46 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { page } from "utils/constants";
 import { getAllFoodPagination } from "store/food/slice";
+import { useLocation, useNavigate } from "react-router-dom";
+const queryString = require("query-string");
 
 const ProductAll = () => {
   const [nextPage, setNextPage] = useState(1);
   const [pageCount, setPageCount] = useState(0);
+  const [parse, setParse] = useState("");
   const { foods, pageNumber } = useSelector((state) => state.food);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const parsed = queryString.parse(location.search);
+
+  useEffect(() => {
+    function fetchData() {
+      dispatch(getAllFoodPagination(`${page.currentPage}/${page.countFood}`));
+    }
+    fetchData();
+  }, []);
 
   useEffect(() => {
     if (!foods || !foods.length) return;
     setPageCount(pageNumber);
   }, [foods, nextPage, pageNumber]);
 
+  useEffect(() => {
+    if (parse) {
+      const values = queryString.stringify(parse);
+      navigate(`/food?${values}`);
+    }
+  }, [navigate, parse]);
+
   const handlePageClick = (event) => {
     setNextPage(event.selected + 1);
+    let obj = { ...parsed, page: event.selected + 1 };
+    setParse(obj);
     dispatch(
-      getAllFoodPagination({
-        currentPage: event.selected + 1,
-        countFood: page.countFood,
-      })
+      getAllFoodPagination(
+        `${event.selected + 1}/${page.countFood}${location.search}`
+      )
     );
     document.body.scrollIntoView({ behavior: "smooth", block: "start" });
   };

@@ -383,7 +383,7 @@ const DetailsContent = ({ className = "" }) => {
               </div>
               <span className="detail-line"></span>
               <div className="detail-review">
-                <div className="detail-count">{reviews.length}</div>
+                <div className="detail-count">{reviews?.length}</div>
                 <div className="detail-evaluate">Đánh giá</div>
               </div>
             </div>
