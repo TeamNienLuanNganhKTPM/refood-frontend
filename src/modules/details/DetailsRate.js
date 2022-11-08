@@ -5,6 +5,9 @@ import React from "react";
 import ProductStar from "modules/products/ProductStar";
 import DetailsMeta from "./DetailsMeta";
 import DetailsEvaluate from "./DetailsEvaluate";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { getReviewFoodDetail } from "store/food/slice";
 
 const data = [
   {
@@ -56,14 +59,23 @@ const DetailsRateStyled = styled.div`
     display: inline-flex;
     padding: 15px 0;
     border-bottom: 1px solid ${(props) => props.theme.grayBorder};
+    gap: 20px;
   }
   .rate-img {
-    margin-right: 15px;
-    width: 60px;
-    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
     border-radius: 100%;
-    object-fit: cover;
+    border: 1px solid ${(props) => props.theme.lineGray};
+    background-color: ${(props) => props.theme.lightBlue};
+    color: ${(props) => props.theme.text};
     cursor: pointer;
+    span {
+      font-size: 24px;
+      font-weight: 700;
+    }
   }
   .rate-content {
     width: 90%;
@@ -76,20 +88,30 @@ const DetailsRateStyled = styled.div`
 `;
 
 const DetailsRate = () => {
+  const { reviews } = useSelector((state) => state.food);
+
   return (
     <DetailsRateStyled>
-      {data.length > 0 &&
-        data.map((item) => (
-          <div className="rate-main" key={item.id}>
-            <img src={item.url} alt="" className="rate-img" />
-
+      {reviews?.length > 0 ? (
+        reviews?.map((item) => (
+          <div className="rate-main" key={item.RatingID}>
+            <div className="rate-img">
+              <div>
+                <span>{item.RatingCustomer.charAt(0)}</span>
+              </div>
+            </div>
             <div className="rate-content">
-              <ProductStar className="mb-2 cursor-pointer"></ProductStar>
+              <ProductStar
+                className="mb-2 cursor-pointer"
+                starNumber={item.RatingMark}
+              ></ProductStar>
               <DetailsMeta data={item}></DetailsMeta>
-              <DetailsEvaluate desc={item}></DetailsEvaluate>
             </div>
           </div>
-        ))}
+        ))
+      ) : (
+        <span>Chưa có đánh giá</span>
+      )}
     </DetailsRateStyled>
   );
 };

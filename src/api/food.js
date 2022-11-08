@@ -48,7 +48,6 @@ export const getAllTypesFoodApi = async () =>
   await instance.request({ method: "GET", url: `/food/get-foodtypes` });
 
 export const getAllPopularFoodApi = async (param) => {
-  console.log("getAllPopularFoodApi ~ param", param);
   return await instance.request({
     method: "GET",
     url: `/food/get-popular-foods/${param}`,
@@ -59,5 +58,21 @@ export const getAllNewFoodApi = async (param) => {
   return await instance.request({
     method: "GET",
     url: `/food/get-new-foods/${param}`,
+  });
+};
+
+export const addReviewFoodApi = async (data) => {
+  return await instance.request({
+    method: "POST",
+    data: data,
+    headers: { "Content-Type": "multipart/form-data" },
+    url: `/food/add-review`,
+  });
+};
+
+export const getReviewFoodDetailApi = async (param) => {
+  return await instance.request({
+    method: "GET",
+    url: `/food/get-reviews/${param.foodid}`,
   });
 };

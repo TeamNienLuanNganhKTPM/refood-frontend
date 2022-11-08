@@ -71,10 +71,6 @@ const sideBarLink = [
         title: "Cập nhật đặt tiệc",
         url: "/user/party",
       },
-      {
-        title: "Cập nhật đánh giá",
-        url: "/user/rating",
-      },
     ],
   },
 ];
@@ -204,9 +200,6 @@ const UserSideBar = () => {
         snContent[1].classList.add("active-content");
         break;
       case "/user/party/detail":
-        snContent[1].classList.add("active-content");
-        break;
-      case "/user/rating":
         snContent[1].classList.add("active-content");
         break;
       default:

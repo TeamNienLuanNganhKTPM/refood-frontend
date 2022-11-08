@@ -13,6 +13,8 @@ const {
   getAllTypesFoodApi,
   getAllPopularFoodApi,
   getAllNewFoodApi,
+  addReviewFoodApi,
+  getReviewFoodDetailApi,
 } = require("api/food");
 const { call, put } = require("redux-saga/effects");
 const {
@@ -23,6 +25,7 @@ const {
   updateTypesFood,
   updateAllFoodPopular,
   updateAllFoodNew,
+  updateReviewFoodDetail,
 } = require("./slice");
 
 function* handleGetAllFoods() {
@@ -141,6 +144,38 @@ function* handleGetAllTypesFood() {
   }
 }
 
+function* handleAddReviewFood({ payload }) {
+  try {
+    const response = yield call(addReviewFoodApi, payload);
+    if (response.status === 200) {
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        text: response.data.message,
+        showConfirmButton: false,
+        timer: 2000,
+      });
+    }
+  } catch (error) {
+    const { message } = error.response.data;
+    toast.error(message, {
+      position: "bottom-right",
+    });
+  }
+}
+
+function* handleGetReviewFoodDetail({ payload }) {
+  try {
+    const response = yield call(getReviewFoodDetailApi, payload);
+    if (response.status === 200) {
+      yield put(updateReviewFoodDetail(response.data.reviews));
+    }
+  } catch (error) {
+    const { message } = error.response.data;
+    console.log(message);
+  }
+}
+
 export {
   handleGetAllFoods,
   handleGetFoodDetail,
@@ -151,4 +186,6 @@ export {
   handleGetAllTypesFood,
   handleGetAllPopularFood,
   handleGetAllNewFood,
+  handleAddReviewFood,
+  handleGetReviewFoodDetail,
 };

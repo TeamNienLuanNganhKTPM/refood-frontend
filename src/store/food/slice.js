@@ -78,6 +78,17 @@ const foodSlice = createSlice({
       ...state,
       typesFood: payload,
     }),
+    addReviewFood: (state, { payload }) => ({
+      ...state,
+    }),
+    getReviewFoodDetail: (state, { payload }) => ({
+      ...state,
+    }),
+    updateReviewFoodDetail: (state, { payload }) => ({
+      ...state,
+      reviews: payload.reviews,
+      avgReview: payload.TB,
+    }),
   },
 });
 
@@ -98,6 +109,9 @@ export const {
   updateAllFoodPopular,
   getAllNewFood,
   updateAllFoodNew,
+  addReviewFood,
+  getReviewFoodDetail,
+  updateReviewFoodDetail,
 } = foodSlice.actions;
 
 export default foodSlice.reducer;

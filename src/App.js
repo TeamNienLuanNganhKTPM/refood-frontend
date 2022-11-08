@@ -8,7 +8,6 @@ import "swiper/scss/navigation";
 import "swiper/scss/pagination";
 import UserParty from "modules/profile/UserParty";
 
-const UserRating = lazy(() => import("modules/profile/UserRating"));
 const UserPurchase = lazy(() => import("modules/profile/UserPurchase"));
 const UserProfile = lazy(() => import("modules/profile/UserProfile"));
 const UserPassword = lazy(() => import("modules/profile/UserPassword"));
@@ -16,17 +15,17 @@ const UserPage = lazy(() => import("pages/UserPage"));
 const UserAddress = lazy(() => import("modules/profile/UserAddress"));
 const Search = lazy(() => import("modules/search/Search"));
 const RegisterPage = lazy(() => import("pages/RegisterPage"));
+const ProductPopular = lazy(() => import("modules/products/ProductPopular"));
 const ProductPage = lazy(() => import("pages/ProductPage"));
+const ProductNewAll = lazy(() => import("modules/products/ProductNewAll"));
 const ProductDetailsPage = lazy(() => import("pages/ProductDetailsPage"));
 const ProductAll = lazy(() => import("modules/products/ProductAll"));
-const ProductPopular = lazy(() => import("modules/products/ProductPopular"));
-const ProductNewAll = lazy(() => import("modules/products/ProductNewAll"));
 const PartyPage = lazy(() => import("pages/PartyPage"));
+const PartyDetailPage = lazy(() => import("pages/PartyDetailPage"));
 const PartyCreate = lazy(() => import("modules/party/PartyCreate"));
 const Party = lazy(() => import("modules/party/Party"));
 const OrderPage = lazy(() => import("pages/OrderPage"));
 const OrderDetailPage = lazy(() => import("pages/OrderDetailPage"));
-const PartyDetailPage = lazy(() => import("pages/PartyDetailPage"));
 const LoginPage = lazy(() => import("pages/LoginPage"));
 const HomePage = lazy(() => import("pages/HomePage"));
 const CartPage = lazy(() => import("pages/CartPage"));
@@ -93,10 +92,6 @@ const App = () => {
             <Route
               path="/user/party/:slug"
               element={<PartyDetailPage></PartyDetailPage>}
-            ></Route>
-            <Route
-              path="/user/rating"
-              element={<UserRating></UserRating>}
             ></Route>
           </Route>
         </Routes>

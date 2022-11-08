@@ -3,6 +3,7 @@
 import React from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
+import formatToDate from "utils/formatDate";
 
 const DetailsMetaStyled = styled.div`
   margin-bottom: 8px;
@@ -19,12 +20,12 @@ const DetailsMetaStyled = styled.div`
 `;
 
 const DetailsMeta = ({ className = "", data }) => {
-  const { author, date } = data;
+  const { RatingCustomer, RatingTime } = data;
   return (
     <DetailsMetaStyled className={className}>
-      <strong className="meta-author">{author}</strong>
+      <strong className="meta-author">{RatingCustomer}</strong>
       <span>-</span>
-      <span className="meta-date">{date}</span>
+      <span className="meta-date">{formatToDate(RatingTime)}</span>
     </DetailsMetaStyled>
   );
 };

@@ -140,7 +140,10 @@ const OrderDetail = () => {
         Danh sách món ăn
       </h3>
       <div className="flex flex-col gap-4">
-        <OrderDetailItem data={data}></OrderDetailItem>
+        <OrderDetailItem
+          data={data}
+          orderState={orderDetail?.OrderState}
+        ></OrderDetailItem>
       </div>
       <div className="flex flex-wrap items-center justify-between gap-3 mt-4">
         <div className="flex items-start justify-end gap-3 lg:items-center md:items-center">

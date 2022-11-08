@@ -46,7 +46,7 @@ const Search = () => {
   };
   return (
     <>
-      {foods.length ? (
+      {foods.length > 0 ? (
         <div>
           <div className="flex-layout grid-row">
             {foods.map((food) => (

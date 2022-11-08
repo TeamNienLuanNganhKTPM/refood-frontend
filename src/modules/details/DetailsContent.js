@@ -5,7 +5,6 @@ import styled from "styled-components";
 import React from "react";
 import PropTypes from "prop-types";
 import ProductTitle from "modules/products/ProductTitle";
-import ProductStar from "modules/products/ProductStar";
 import ProductRation from "modules/products/ProductRation";
 import ProductPrice from "modules/products/ProductPrice";
 import ProductImage from "modules/products/ProductImage";
@@ -16,7 +15,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Quantity } from "components/quantity";
-import { getFoodDetails } from "store/food/slice";
+import { getFoodDetails, getReviewFoodDetail } from "store/food/slice";
 import { Button } from "components/button";
 import { addCart } from "store/cart/slice";
 import { authLogin } from "store/auth/slice";
@@ -190,8 +189,16 @@ const DetailsContent = ({ className = "" }) => {
     getFoodDetail();
   }, [dispatch, slug]);
 
-  const { foodDetails } = useSelector((state) => state.food);
+  const { foodDetails, avgReview, reviews } = useSelector(
+    (state) => state.food
+  );
   const [image, setImage] = useState("");
+
+  useEffect(() => {
+    if (foodDetails?.FoodId) {
+      dispatch(getReviewFoodDetail({ foodid: foodDetails?.FoodId }));
+    }
+  }, [foodDetails?.FoodId, dispatch]);
 
   const getImage = (url) => {
     setImage(url);
@@ -358,16 +365,25 @@ const DetailsContent = ({ className = "" }) => {
             </div>
             <div className="detail-info">
               <div className="detail-rated">
-                <span className="detail-count">
-                  {foodDetails?.FoodReviewAvg}
+                <span className="detail-count">{avgReview || 0}</span>
+                <span className="text-yellow">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    className="w-6 h-6"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
                 </span>
-                <ProductStar
-                  starNumber={foodDetails?.FoodReviewAvg}
-                ></ProductStar>
               </div>
               <span className="detail-line"></span>
               <div className="detail-review">
-                <div className="detail-count">50</div>
+                <div className="detail-count">{reviews.length}</div>
                 <div className="detail-evaluate">Đánh giá</div>
               </div>
             </div>

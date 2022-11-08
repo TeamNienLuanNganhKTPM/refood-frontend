@@ -1,11 +1,21 @@
 /** @format */
 
+import { Button } from "components/button";
+import ModalComponent from "components/modal/ModalComponent";
+import useModal from "hooks/useModal";
 import ProductImage from "modules/products/ProductImage";
 import ProductPrice from "modules/products/ProductPrice";
-import React from "react";
+import UserRatingModal from "modules/rating/UserRatingModal";
+import React, { useState } from "react";
 import priceVN from "utils/priceVN";
 
-const PartyDetailItem = ({ data, partyNumOfTable }) => {
+const PartyDetailItem = ({ data, partyNumOfTable, partyState }) => {
+  const { modalIsOpen, openModal, closeModal } = useModal();
+  const [foodId, setFoodId] = useState("");
+  const handleClickRating = (id) => {
+    setFoodId(id);
+    openModal();
+  };
   return (
     <>
       {data?.length > 0 &&
@@ -42,8 +52,30 @@ const PartyDetailItem = ({ data, partyNumOfTable }) => {
                 </div>
               </div>
             </div>
-            <div>
+            <div className="flex flex-col gap-4">
               <ProductPrice sizeText="18px">{priceVN(item.Total)}</ProductPrice>
+              {partyState === 2 && (
+                <>
+                  <Button
+                    kind="primary"
+                    height="40px"
+                    className="w-[120px]"
+                    onClick={() => handleClickRating(item?.FoodId)}
+                  >
+                    Đánh giá
+                  </Button>
+                  <ModalComponent
+                    modalIsOpen={modalIsOpen}
+                    closeModal={closeModal}
+                  >
+                    <UserRatingModal
+                      closeModal={closeModal}
+                      className="create-rating"
+                      foodId={foodId}
+                    ></UserRatingModal>
+                  </ModalComponent>
+                </>
+              )}
             </div>
           </div>
         ))}

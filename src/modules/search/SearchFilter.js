@@ -39,6 +39,7 @@ const SearchFilter = () => {
   const [priceSelect, setPriceSelect] = useState([]);
   const [query, setQuery] = useState("");
   const [parse, setParse] = useState("");
+  const [nonValue, setNonValue] = useState(false);
   const location = useLocation();
   const parsed = queryString.parse(location.search);
   delete parsed.page;
@@ -84,16 +85,12 @@ const SearchFilter = () => {
     if (query && parse) {
       dispatch(filterSearchFood(query));
       navigate(`/food/find-foods?${parse}`);
-    } else {
-      // dispatch(
-      //   findAllSearchFood({
-      //     currentPage: page.currentPage,
-      //     countFood: page.countFood,
-      //   })
-      // );
-      // navigate(`/food/find-foods`);
     }
-  }, [dispatch, navigate, parse, query]);
+    if (nonValue) {
+      findAllSearchFood(`${page.currentPage}/${page.countFood}`);
+      navigate(`/food/find-foods?page=1`);
+    }
+  }, [dispatch, navigate, parse, query, nonValue]);
   return (
     <SearchFilterStyled>
       <div className="s-filter">

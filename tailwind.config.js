@@ -17,6 +17,7 @@ module.exports = {
         text1: "#4B5264",
         grayf3: "#f3f3f3",
         grayDark: "#f7f8fd",
+        yellow: "#ffcd00",
       },
     },
   },

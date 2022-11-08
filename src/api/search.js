@@ -15,10 +15,9 @@ export const filterFoodApi = async (param) => {
   });
 };
 
-export const getFindAllSearchFoodApi = async (data) => {
-  const { currentPage, countFood } = data;
+export const getFindAllSearchFoodApi = async (param) => {
   return await instance.request({
     method: "GET",
-    url: `/food/get-foods/${currentPage}/${countFood}`,
+    url: `/food/get-foods/${param}`,
   });
 };

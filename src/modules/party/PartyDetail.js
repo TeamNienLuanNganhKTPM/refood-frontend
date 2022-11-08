@@ -138,6 +138,7 @@ const PartyDetail = () => {
         <PartyDetailItem
           data={data}
           partyNumOfTable={partyDetail?.PartyNumOfTable}
+          partyState={partyDetail?.PartyState}
         ></PartyDetailItem>
       </div>
 

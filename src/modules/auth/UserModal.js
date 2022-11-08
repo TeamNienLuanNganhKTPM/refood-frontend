@@ -64,7 +64,7 @@ const UserModal = ({ className = "" }) => {
           <Link to={"/user/order"}>Đơn hàng của tôi</Link>
         </li>
         <li className="um-item">
-          <Link to={"/user/order"}>Đánh giá sản phẩm</Link>
+          <Link to={"/user/party"}>Đơn đặt tiệc</Link>
         </li>
       </ul>
       <ul>

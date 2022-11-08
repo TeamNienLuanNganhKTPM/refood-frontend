@@ -5,6 +5,7 @@ import React from "react";
 import Rating from "react-rating";
 import PropTypes from "prop-types";
 import { useState } from "react";
+import { useEffect } from "react";
 
 const RatingStarStyled = styled.div`
   display: flex;
@@ -18,7 +19,7 @@ const iconStarSolid = (
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 24 24"
     fill="currentColor"
-    className="w-6 h-6"
+    className="w-10 h-10"
   >
     <path
       fillRule="evenodd"
@@ -34,7 +35,7 @@ const iconStarOutline = (
     viewBox="0 0 24 24"
     strokeWidth="1.5"
     stroke="currentColor"
-    className="w-6 h-6"
+    className="w-10 h-10"
   >
     <path
       strokeLinecap="round"
@@ -44,8 +45,14 @@ const iconStarOutline = (
   </svg>
 );
 
-const RatingStar = ({ className = "" }) => {
+const RatingStar = ({ className = "", setSelectRating }) => {
   const [rating, setRating] = useState(0);
+
+  useEffect(() => {
+    if (rating) {
+      setSelectRating(rating);
+    }
+  }, [rating, setSelectRating]);
   return (
     <RatingStarStyled className={className}>
       <Rating
