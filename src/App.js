@@ -10,9 +10,9 @@ import "swiper/scss/pagination";
 const UserPurchase = lazy(() => import("modules/profile/UserPurchase"));
 const UserProfile = lazy(() => import("modules/profile/UserProfile"));
 const UserPassword = lazy(() => import("modules/profile/UserPassword"));
+const UserParty = lazy(() => import("modules/profile/UserParty"));
 const UserPage = lazy(() => import("pages/UserPage"));
 const UserAddress = lazy(() => import("modules/profile/UserAddress"));
-const UserParty = lazy(() => import("modules/profile/UserParty"));
 const Search = lazy(() => import("modules/search/Search"));
 const RegisterPage = lazy(() => import("pages/RegisterPage"));
 const ProductPopular = lazy(() => import("modules/products/ProductPopular"));
@@ -28,6 +28,7 @@ const OrderPage = lazy(() => import("pages/OrderPage"));
 const OrderDetailPage = lazy(() => import("pages/OrderDetailPage"));
 const LoginPage = lazy(() => import("pages/LoginPage"));
 const HomePage = lazy(() => import("pages/HomePage"));
+const ContactPage = lazy(() => import("pages/ContactPage"));
 const CartPage = lazy(() => import("pages/CartPage"));
 
 const App = () => {
@@ -36,6 +37,7 @@ const App = () => {
       <Suspense fallback={<></>}>
         <Routes>
           <Route path="/" element={<HomePage></HomePage>}></Route>
+          <Route path="/contact" element={<ContactPage></ContactPage>}></Route>
           <Route path="/login" element={<LoginPage></LoginPage>}></Route>
           <Route path="/signup" element={<RegisterPage></RegisterPage>}></Route>
           <Route element={<PartyPage></PartyPage>}>

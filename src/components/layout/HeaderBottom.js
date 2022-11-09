@@ -122,13 +122,13 @@ const HeaderBottom = ({ className = "" }) => {
           </div>
           <div className="menu">
             <div className="menu-item">
-              <NavLink to="/#">Trang chủ</NavLink>
+              <NavLink to="/">Trang chủ</NavLink>
             </div>
             <div className="menu-item">
               <NavLink to="/food?page=1">Thực đơn</NavLink>
             </div>
             <div className="menu-item">
-              <NavLink to="/#">Liên hệ</NavLink>
+              <NavLink to="/contact">Liên hệ</NavLink>
             </div>
           </div>
         </div>

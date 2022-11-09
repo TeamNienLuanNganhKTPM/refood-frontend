@@ -10,6 +10,9 @@ import { useEffect } from "react";
 import { React, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useCart } from "contexts/cart-context";
+import ModalMenu from "components/modal/ModalMenu";
+import MenuSideBar from "./MenuSideBar";
+import useModal from "hooks/useModal";
 
 const HeaderStyled = styled.div`
   padding-top: 30px;
@@ -185,6 +188,7 @@ const HeaderStyled = styled.div`
 
 const HeaderTop = ({ className = "" }) => {
   const [showCart, setShowCart] = useState(false);
+  const { modalIsOpen, openModal, closeModal } = useModal();
   const location = useLocation();
   const handleShowCart = () => {
     setShowCart((showCart) => !showCart);
@@ -215,12 +219,16 @@ const HeaderTop = ({ className = "" }) => {
       cart.style.display = "none";
     }
   }, [location.pathname]);
+
+  const handleOpenMenu = () => {
+    openModal();
+  };
   return (
     <>
       <HeaderStyled className={className}>
         <div className="container">
           <div className="ht-main">
-            <span className="menu">
+            <span className="menu" onClick={handleOpenMenu}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -236,6 +244,9 @@ const HeaderTop = ({ className = "" }) => {
                 />
               </svg>
             </span>
+            <ModalMenu modalIsOpen={modalIsOpen} closeModal={closeModal}>
+              <MenuSideBar closeModal={closeModal} className=""></MenuSideBar>
+            </ModalMenu>
             <div className="ht-logo">
               <Link to={"/"}>
                 <img src="/refood-logo.png" alt="" />
