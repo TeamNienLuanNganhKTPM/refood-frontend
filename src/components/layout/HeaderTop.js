@@ -7,8 +7,8 @@ import PropTypes from "prop-types";
 import CartModal from "modules/cart/CartModal";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
-import { React, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { React } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useCart } from "contexts/cart-context";
 import ModalMenu from "components/modal/ModalMenu";
 import MenuSideBar from "./MenuSideBar";
@@ -87,8 +87,8 @@ const HeaderStyled = styled.div`
     transition: all 0.5s ease-out;
   }
   .ht-cart:hover .cart-info {
-    transform: translateX(0);
-    transition: all 0.3s linear;
+    display: block;
+    transition: ease-in-out 0.3s linear;
     pointer-events: auto;
   }
   .count {
@@ -123,12 +123,6 @@ const HeaderStyled = styled.div`
   }
   .user-btn:hover {
     opacity: 0.8;
-  }
-
-  .show-cart {
-    transform: translateX(0);
-    transition: all 0.3s linear;
-    pointer-events: none;
   }
 
   /* Desktop and Ipad pro*/
@@ -181,17 +175,21 @@ const HeaderStyled = styled.div`
       display: none;
     }
     .ht-cart:hover .cart-info {
+      display: none;
       pointer-events: none;
+    }
+    .cart-info {
+      display: none;
     }
   }
 `;
 
 const HeaderTop = ({ className = "" }) => {
-  const [showCart, setShowCart] = useState(false);
   const { modalIsOpen, openModal, closeModal } = useModal();
   const location = useLocation();
+  const navigate = useNavigate();
   const handleShowCart = () => {
-    setShowCart((showCart) => !showCart);
+    navigate("/cart");
   };
   const token = window.localStorage.getItem("accessToken");
   const { user } = useSelector((state) => state.auth);
@@ -276,14 +274,10 @@ const HeaderTop = ({ className = "" }) => {
                     </span>
                     <span className="count">{cart?.length}</span>
                   </div>
-                  {showCart ? (
-                    <CartModal className="cart-info show-cart"></CartModal>
-                  ) : (
-                    <CartModal className="cart-info"></CartModal>
-                  )}
+                  <CartModal className="cart-info"></CartModal>
                 </div>
               ) : (
-                <div className="ht-cart" onClick={handleShowCart}>
+                <div className="ht-cart">
                   <div className="cart">
                     <span className="cart-icon">
                       <svg

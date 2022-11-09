@@ -16,14 +16,14 @@ import { useCart } from "contexts/cart-context";
 const CartStyled = styled.div`
   position: absolute;
   right: 0;
-  top: 55px;
+  top: 50px;
   z-index: 999;
   padding: 20px;
   background-color: #fff;
   border: 1px solid ${(props) => props.theme.line};
   border-radius: 6px;
-  transform: translateX(300%);
-  transition: all 0.3s linear;
+  display: none;
+  transition: ease-in-out 0.3s linear;
   .cart-lists {
     position: inherit;
     width: 300px;
