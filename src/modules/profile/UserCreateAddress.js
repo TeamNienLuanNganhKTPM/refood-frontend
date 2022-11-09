@@ -197,7 +197,6 @@ const UserCreateAddress = ({ closeModal, className = "" }) => {
       }).then((result) => {
         dispatch(authAddAddress(values));
         closeModal();
-        window.location.reload();
       });
     } catch (error) {
       const { message } = error.response.data;

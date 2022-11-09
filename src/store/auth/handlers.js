@@ -113,7 +113,10 @@ function* handleAddAddress({ payload }) {
         showConfirmButton: false,
         timer: 2000,
       });
-      yield put(authUpdateAddress(response.data.address));
+
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000);
     }
   } catch (error) {
     const { message } = error.response.data;
@@ -124,6 +127,7 @@ function* handleAddAddress({ payload }) {
 function* handleUpdateAddress({ payload }) {
   try {
     const response = yield call(updateAddressApi, payload);
+    console.log("function*handleUpdateAddress ~ response", response);
     if (response.status === 200) {
       Swal.fire({
         position: "center",
@@ -132,6 +136,9 @@ function* handleUpdateAddress({ payload }) {
         showConfirmButton: false,
         timer: 2000,
       });
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000);
     }
   } catch (error) {
     const { message } = error.response.data;

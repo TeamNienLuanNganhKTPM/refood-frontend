@@ -13,6 +13,7 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Input } from "components/input";
 import { filterSearchFood } from "store/search/slice";
+import { page } from "utils/constants";
 const queryString = require("query-string");
 
 const SearchInputStyled = styled.div`
@@ -61,6 +62,7 @@ const SearchInput = ({ className = "" }) => {
     const query = queryString.stringify(getValues(), {
       skipNull: true,
     });
+    console.log("query ~ query", query);
     Swal.fire({
       title: "Chờ giây lát!",
       icon: "info",
@@ -70,7 +72,9 @@ const SearchInput = ({ className = "" }) => {
         Swal.showLoading();
       },
     }).then((result) => {
-      dispatch(filterSearchFood(query));
+      dispatch(
+        filterSearchFood(`${page.currentPage}/${page.countFood}${query}`)
+      );
       navigate(`/food/find-foods?${query}`);
     });
   };

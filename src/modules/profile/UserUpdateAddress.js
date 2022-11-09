@@ -126,7 +126,7 @@ const UserUpdateAddress = ({ closeModal, className = "" }) => {
     reset,
     handleSubmit,
     setValue,
-    formState: { isValid, errors },
+    formState: { errors },
   } = useForm({
     mode: "onChange",
     resolver: yupResolver(schema),
@@ -205,7 +205,6 @@ const UserUpdateAddress = ({ closeModal, className = "" }) => {
 
   // Submit create address
   const handleSubmitUpdateAddress = async (values) => {
-    if (!isValid) return null;
     try {
       Swal.fire({
         title: "Chờ giây lát!",
@@ -217,9 +216,8 @@ const UserUpdateAddress = ({ closeModal, className = "" }) => {
         },
       }).then((result) => {
         dispatch(updateAddress(values));
-        dispatch(authGetAllAddress());
+        // dispatch(authGetAllAddress());
         closeModal();
-        window.location.reload();
       });
     } catch (error) {
       const { message } = error.response.data;

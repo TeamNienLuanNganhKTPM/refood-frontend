@@ -31,7 +31,7 @@ const UserAddressList = ({ addresses }) => {
         icon: "warning",
         showCancelButton: true,
         confirmButtonText: "Xóa",
-        confirmButtonColor: "#2bbef9",
+        confirmButtonColor: "#1dc071",
         cancelButtonText: "Hủy",
         cancelButtonColor: "#ea2b0f",
       }).then(async (result) => {
@@ -67,19 +67,24 @@ const UserAddressList = ({ addresses }) => {
                 </div>
                 <div className="address-update">
                   {address?.isDefaultAddress === addressStatus.NOT_DEFAULT && (
-                    <span
-                      className="hover:text-redPrimary"
-                      onClick={() => handleDeleteAddress(address?.AddressId)}
-                    >
-                      Xóa
-                    </span>
+                    <>
+                      <span
+                        className="hover:text-redPrimary"
+                        onClick={() => handleDeleteAddress(address?.AddressId)}
+                      >
+                        Xóa
+                      </span>
+
+                      <span
+                        className="hover:text-redPrimary"
+                        onClick={() =>
+                          handleGetAddressDetail(address?.AddressId)
+                        }
+                      >
+                        Cập nhật
+                      </span>
+                    </>
                   )}
-                  <span
-                    className="hover:text-redPrimary"
-                    onClick={() => handleGetAddressDetail(address?.AddressId)}
-                  >
-                    Cập nhật
-                  </span>
                   <ModalComponent
                     modalIsOpen={modalIsOpen}
                     closeModal={closeModal}

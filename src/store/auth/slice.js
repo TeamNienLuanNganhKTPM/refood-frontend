@@ -7,6 +7,7 @@ const authSlice = createSlice({
   initialState: {
     user: undefined,
     accessToken: null,
+    addresses: [],
   },
   reducers: {
     authLogin: (state, { payload }) => ({
@@ -41,20 +42,14 @@ const authSlice = createSlice({
         addressInfo: payload,
       };
     },
-    authUpdateAddress: (state, { payload }) => {
-      let result = [];
-      if (payload.length > 0) {
-        payload.map((item) => {
-          return result.push(item);
-        });
-      }
-      return {
-        ...state,
-        addresses: result,
-      };
-    },
+    authUpdateAddress: (state, { payload }) => ({
+      ...state,
+      addresses: payload,
+    }),
     updateAddress: (state) => ({
       ...state,
+      addresses: [],
+      addressInfo: {},
     }),
   },
 });
