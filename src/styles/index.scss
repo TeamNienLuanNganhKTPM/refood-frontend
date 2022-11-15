@@ -26,7 +26,7 @@ table {
   }
   td,
   th {
-    @apply align-middle p-3 text-left text-sm whitespace-nowrap;
+    @apply align-middle lg:p-3 md:p-3 p-1 text-left lg:text-sm md:text-sm text-xs whitespace-nowrap;
   }
   th {
     @apply font-medium;

@@ -49,6 +49,20 @@ const orderSlice = createSlice({
       ...state,
       ...payload,
     }),
+    getInvoiceId: (state) => ({
+      ...state,
+    }),
+    updateInvoiceId: (state, { payload }) => ({
+      ...state,
+      invoiceid: payload,
+    }),
+    getInvoiceDetail: (state) => ({
+      ...state,
+    }),
+    updateInvoiceDetail: (state, { payload }) => ({
+      ...state,
+      invoiceDetail: payload,
+    }),
   },
 });
 
@@ -63,6 +77,10 @@ export const {
   getOrderDetail,
   updateOrderDetail,
   deleteOrderDetail,
+  getInvoiceId,
+  updateInvoiceId,
+  getInvoiceDetail,
+  updateInvoiceDetail,
 } = orderSlice.actions;
 
 export default orderSlice.reducer;

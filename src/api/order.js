@@ -38,3 +38,17 @@ export const deleteOrderDetailApi = async (param) => {
     url: `/order/cancel-food-order/${param}`,
   });
 };
+
+export const getInvoiceIdApi = async (param) => {
+  return await instance.request({
+    method: "GET",
+    url: `/invoice/get-invoice-of-order/${param}`,
+  });
+};
+
+export const getInvoiceDetailApi = async (param) => {
+  return await instance.request({
+    method: "GET",
+    url: `/invoice/get-invoice-detail/${param}`,
+  });
+};

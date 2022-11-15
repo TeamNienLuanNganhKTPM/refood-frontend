@@ -4,7 +4,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const LinkPage = ({ link }) => {
-  console.log("LinkPage ~ link", link);
   switch (link) {
     case "/user/account/profile":
       return (

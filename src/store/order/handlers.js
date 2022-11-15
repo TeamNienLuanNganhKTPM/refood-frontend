@@ -8,6 +8,8 @@ const {
   getAllOrderApi,
   getOrderDetailApi,
   deleteOrderDetailApi,
+  getInvoiceIdApi,
+  getInvoiceDetailApi,
 } = require("api/order");
 const { call, put } = require("redux-saga/effects");
 const {
@@ -15,6 +17,8 @@ const {
   getUrlPay,
   updateOrderFood,
   updateOrderDetail,
+  updateInvoiceId,
+  updateInvoiceDetail,
 } = require("./slice");
 
 function* handleCreateOrderFood({ payload }) {
@@ -86,10 +90,36 @@ function* handleDeleteOrderDetail({ payload }) {
   }
 }
 
+function* handleGetInvoiceId({ payload }) {
+  try {
+    const response = yield call(getInvoiceIdApi, payload);
+    if (response.status === 200) {
+      yield put(updateInvoiceId(response.data.invoiceid));
+    }
+  } catch (error) {
+    const { message } = error.response.data;
+    console.log(message);
+  }
+}
+
+function* handleGetInvoiceDetail({ payload }) {
+  try {
+    const response = yield call(getInvoiceDetailApi, payload);
+    if (response.status === 200) {
+      yield put(updateInvoiceDetail(response.data.invoice_detail));
+    }
+  } catch (error) {
+    const { message } = error.response.data;
+    console.log(message);
+  }
+}
+
 export {
   handleCreateOrderFood,
   handleVNPayOrder,
   handleGetAllOrderFood,
   handleGetOrderDetail,
   handleDeleteOrderDetail,
+  handleGetInvoiceId,
+  handleGetInvoiceDetail,
 };

@@ -12,11 +12,19 @@ import formatToDate from "../../utils/formatDate";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteOrderDetail, getOrderDetail } from "store/order/slice";
+import {
+  deleteOrderDetail,
+  getInvoiceId,
+  getOrderDetail,
+} from "store/order/slice";
 import { Button } from "components/button";
+import ModalComponent from "components/modal/ModalComponent";
+import useModal from "hooks/useModal";
+import OrderInvoiceDetail from "./OrderInvoiceDetail";
 
 const OrderDetail = () => {
   const location = useLocation();
+  console.log("OrderDetail ~ location", location.search);
   const value = queryString.parse(location.search);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -27,8 +35,18 @@ const OrderDetail = () => {
     fetchOrderDetail();
   }, [dispatch, value.id]);
 
-  const { orderDetail } = useSelector((state) => state.order);
+  const { orderDetail, invoiceid } = useSelector((state) => state.order);
   const data = orderDetail?.OrderDetails ? orderDetail?.OrderDetails : [];
+  const { modalIsOpen, openModal, closeModal } = useModal();
+
+  useEffect(() => {
+    function fetchInvoiceId() {
+      if (orderDetail) {
+        dispatch(getInvoiceId(orderDetail?.OrderID));
+      }
+    }
+    fetchInvoiceId();
+  }, [dispatch, orderDetail]);
 
   useEffect(() => {
     if (value.paid === "vnpay") {
@@ -173,6 +191,12 @@ const OrderDetail = () => {
           </Button>
         </div>
       )}
+      <ModalComponent modalIsOpen={modalIsOpen} closeModal={closeModal}>
+        <OrderInvoiceDetail
+          closeModal={closeModal}
+          invoiceid={invoiceid}
+        ></OrderInvoiceDetail>
+      </ModalComponent>
     </>
   );
 };
