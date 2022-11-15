@@ -57,8 +57,9 @@ const OrderDetail = () => {
         showConfirmButton: false,
         timer: 1500,
       });
+      openModal();
     }
-  }, []);
+  }, [value.paid]);
 
   const handleDeleteOrderDetail = () => {
     try {

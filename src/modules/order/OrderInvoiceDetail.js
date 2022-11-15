@@ -32,6 +32,7 @@ const OrderInvoiceDetail = ({ closeModal, invoiceid }) => {
       pdf.addImage(imgData, "PNG", 0, 0);
       pdf.save(`${invoiceDetail?.InvoiceID}.pdf`);
     });
+    closeModal();
   };
 
   return (
