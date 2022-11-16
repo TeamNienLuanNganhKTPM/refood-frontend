@@ -24,7 +24,6 @@ import OrderInvoiceDetail from "./OrderInvoiceDetail";
 
 const OrderDetail = () => {
   const location = useLocation();
-  console.log("OrderDetail ~ location", location.search);
   const value = queryString.parse(location.search);
   const navigate = useNavigate();
   const dispatch = useDispatch();

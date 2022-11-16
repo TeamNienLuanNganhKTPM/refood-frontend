@@ -51,6 +51,9 @@ const OrderInvoiceDetail = ({ closeModal, invoiceid }) => {
           <h3 className="py-2 text-2xl font-bold text-center uppercase text-text">
             Hóa đơn
           </h3>
+          <div className="text-sm text-text">
+            <span>KH: {invoiceDetail?.InvoicePlace}</span>
+          </div>
           <div className="flex items-center justify-between text-sm text-text">
             <span>Ngày: {formatToDate(invoiceDetail?.InvoicePaidTime)}</span>
             <span>Mã đơn hàng: {invoiceDetail?.InvoiceOrderID}</span>
